@@ -1,11 +1,12 @@
 import { Outlet } from "react-router-dom";
-import Quickmenu from "../page/common/Quickmenu";
+import Header from "@/page/common/Header";
+import Quickmenu from "@/page/common/Quickmenu";
 
 
 const RecommendLayout = ()=>{
     return (
         <>
-            <div className="recommend_top">추천</div>
+            <Header title={"추천"} /> {/* 헤더 */}
             <Outlet />
             <Quickmenu /> {/* 퀵메뉴 */}
         </>

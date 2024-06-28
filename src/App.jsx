@@ -1,7 +1,11 @@
 import { useEffect } from 'react'
 import { BrowserRouter } from 'react-router-dom'
-import Router from './router'
+import Router from './router/Index'
 import "./assets/css/app.css"
+
+// lottie 
+import Lottie from "lottie-react";
+import LottieLogo from "./assets/json/logo.json"
 
 function App() {
     // 모바일에서 100vh 사파리 오류 수정
@@ -15,11 +19,18 @@ function App() {
         window.addEventListener("click", setOneVh);
     }, []);
 
+    useEffect(()=>{
+        setTimeout(function(){
+            document.getElementById('lottie').classList.add('off')
+        },1500)
+    },[])
+
   return (
         <BrowserRouter>
+            <div id="lottie"><Lottie className='lottie_logo' animationData={LottieLogo} /></div>
             <Router />
         </BrowserRouter>
-  )
+    )
 }
 
 export default App

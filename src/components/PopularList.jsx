@@ -12,7 +12,7 @@ const PopularList = ({title,data})=>{
                     <SwiperSlide key={index}>
                         <Link>
                             <div className="img_box">
-                                <img src={item.src} alt="" />
+                                <img src={item.src} alt={item.name+" 이미지"} />
                             </div>
                             <div className="txt_box">
                                 <div className="name">{item.name}</div>

@@ -8,12 +8,21 @@
 ------------------------------------------------------------ */
 
 body {position:relative; color:#000; background-color: #FAFAFA;}
-body:before {content:''; z-index:100; position:absolute; left:0; top:0; width:1px; height:100%; background-color:rgba(138, 138, 138, 0.1); }
-body:after {content:''; z-index:100; position:absolute; right:0; top:0; width:1px; height:100%; background-color:rgba(138, 138, 138, 0.1); }
+body:before {content:''; z-index:300; position:absolute; left:0; top:0; width:1px; height:100%; background-color:rgba(138, 138, 138, 0.1); }
+body:after {content:''; z-index:300; position:absolute; right:0; top:0; width:1px; height:100%; background-color:rgba(138, 138, 138, 0.1); }
 
 @media all and (max-width:600px){
     body {border-right:0 none; border-left:0 none; }
 }
+
+
+/* ------------------------------------------------------------
+        lottie
+------------------------------------------------------------ */
+#lottie {z-index:200; position:fixed; left:0; top:0; visibility:visible; opacity:1; display:flex; align-items:center; justify-content:center; width:100%; height:100%; background-color:#fff; transition:all 0.3s; }
+#lottie.off {z-index:-1000; visibility:hidden; opacity:0; }
+#lottie .lottie_logo {width:150px; }
+
 
 /* ------------------------------------------------------------
         헤더
@@ -21,7 +30,12 @@ body:after {content:''; z-index:100; position:absolute; right:0; top:0; width:1p
 header {z-index:100; position:sticky; top:0; overflow:hidden; width:100%; background-color:#fff; transition:top 0.5s; }
 header.header_mini {top:-64px; }
 header .top_area {display:flex; align-items:center; justify-content:center; width:100%; height:64px; }
+header .top_area.border_type {border-bottom:1px solid rgba(138, 138, 138, 0.1); }
+header .top_area .title {font-size:16px; font-weight:500; }
+header .top_area .page_prev {position:absolute; left:16px; top:calc(50% - 24px); }
+/* header .top_area .page_prev img {width:48px; height:48px; } */
 header .gnb {position:relative; height:40px; }
+header .gnb.hidden {display:none; }
 header .gnb .underline {position:absolute; left:0; bottom:0; width:100px; height:2px; background-color:var(--primary-color); transition:all 0.5s; }
 header .gnb * {height:100%; }
 header .gnb .swiper-slide {width:auto; color:#313131; }
@@ -108,6 +122,51 @@ header .gnb .swiper-slide.active a {color:var(--primary-color); }
 
 
 /* ------------------------------------------------------------
-        추천
+        추천페이지
 ------------------------------------------------------------ */
-.recommend_top {display:flex; align-items:center; justify-content:center; width:100%; padding:22px 0; font-size:16px; font-weight:500; background-color:#fff; }
+.recommend {padding-bottom:70px; background-color: #fff;}
+.recommend section {padding:0; }
+
+/* 포스트 */
+.post_frame {}
+.post_frame .img_list {}
+.post_frame .img_list .swiper-slide {position:relative; width:100%; padding-bottom:120%; }
+.post_frame .img_list .swiper-slide img {position:absolute; left:0; top:0; width:100%; height:100%; object-fit:cover; }
+.post_frame .img_list .swiper-pagination {width:100%; }
+.post_frame .img_list .swiper-pagination-bullet {opacity:.4}
+.post_frame .img_list .swiper-pagination-bullet:first-of-type,
+.post_frame .img_list .swiper-pagination-bullet:last-of-type {transform:scale(0.66); }
+.post_frame .img_list .swiper-pagination-bullet-active:first-of-type,
+.post_frame .img_list .swiper-pagination-bullet-active:last-of-type {transform:scale(1); }
+.post_frame .img_list .swiper-pagination-bullet-active {background:var(--primary-color); opacity:1; }
+
+.post_frame .img_list .tag_list {margin:10px 0 4px; padding:0 18px; text-align:right; } 
+.post_frame .img_list .tag_list span {display:none; font-size:12px; font-weight:400; color:#aaa; }
+.post_frame .img_list .tag_list span.active {display:block; }
+
+.post_frame .txt_box {padding:5px 16px 12px; line-height:1.5; }
+.post_frame .txt_box .top_btn {display:flex; align-items:center; justify-content:space-between; }
+.post_frame .txt_box .top_btn > div {display:flex; align-items:center; gap:20px; }
+.post_frame .txt_box .like_box {display:flex; align-items:center; justify-content:space-between; margin-top:12px; }
+.post_frame .txt_box .like_box p {font-size:15px; font-weight:600; }
+.post_frame .txt_box .like_box button {font-size:13px; color:#aaa;}
+
+.post_frame .txt_box .tag_box {display:flex; flex-wrap:wrap; align-items:center; gap:10px; margin-top:8px; }
+.post_frame .txt_box .tag_box button {font-size:14px; color:var(--primary-color); font-weight:600; }
+
+.post_frame .txt_box .desc_box {padding:13px 0; cursor:pointer; }
+.post_frame .txt_box .desc {overflow:hidden; max-height:42px; font-size:14px; color:#000; }
+.post_frame .txt_box .desc p {min-height:21px; }
+.post_frame .txt_box .desc.open {max-height:100%; }
+.post_frame .txt_box .desc.open button {display:none; }
+.post_frame .txt_box .desc button {color:#6B6B6B;}
+
+.post_frame .txt_box .category_box {display:flex; align-items:center; justify-content:space-between; }
+.post_frame .txt_box .category_box button {display:flex; align-items:center; font-size:13px; color:#6b6b6b; }
+.post_frame .txt_box .category_box p {font-size:12px; color:#aaa; }
+
+.post_frame .txt_box .comment_box {display:flex; align-items:center; gap:12px; padding:20px 0; cursor:pointer; }
+.post_frame .txt_box .comment_box i {overflow:hidden; width:36px; height:36px; border-radius:50%; }
+.post_frame .txt_box .comment_box i img {width:100%; height:100%; object-fit:cover; }
+.post_frame .txt_box .comment_box .comment {flex-grow:1; height:35px; padding:7px 12px; border-radius:4px; font-size:14px; color:#aaa; background-color:#FAFAFA; }
+.post_frame .txt_box .comment_box button {padding:4px; font-size:13px; font-weight:600; color:var(--primary-color); }

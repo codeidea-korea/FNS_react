@@ -6,7 +6,7 @@ const TopicThumbnail = ({img,title,desc})=>{
         <section>
             <div className="topic_thumbnail">
                 <Link>
-                    <img src={img} alt="" />
+                    <img src={img} alt={title+" 이미지"} />
                     <div className="txt_box">
                         <h5 dangerouslySetInnerHTML={{__html:title}}></h5>
                         <p>{desc}</p>

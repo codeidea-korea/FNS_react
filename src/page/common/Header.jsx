@@ -5,16 +5,19 @@ import { Swiper, SwiperSlide } from 'swiper/react';
 import 'swiper/css';
 import { Link, useLocation } from 'react-router-dom';
 
-const Header = ()=>{
+const Header = ({title, gnbHide})=>{
     const url = useLocation().pathname;
     const [lineWidth, setLineWidth] = useState(0);
     const [lineLeft, setLineLeft] = useState(16);
     
-    const [lastScroll, setLastScroll] = useState(0)
+    const [lastScroll, setLastScroll] = useState(0);
 
     useEffect(()=>{
         setLineLeft(document.querySelector('.gnb_swiper .active').offsetLeft + 16)
         setLineWidth(document.querySelector('.gnb_swiper .active').clientWidth - 32)
+    },[])
+
+    useEffect(()=>{
         window.addEventListener('resize',()=>{
             categoryPosition(document.querySelector('.gnb_swiper .active'))
         });
@@ -85,7 +88,7 @@ const Header = ()=>{
     useEffect(()=>{
         window.addEventListener("scroll",headerScroll)
         return ()=>{
-            window.addEventListener("scroll",headerScroll)
+            window.removeEventListener("scroll",headerScroll)
         }
     },[lastScroll])
 
@@ -95,12 +98,19 @@ const Header = ()=>{
     return (
         <>
             <header>
-                <div className="top_area">
-                    <h1 className="logo"><Link to={'/'}><img src="./img/logo.svg" alt="" /></Link></h1>
+                <div className={title || gnbHide ? "top_area border_type":"top_area"}>
+                    {title ? 
+                        <>
+                            {title === "포스트" ? <Link className="page_prev"><img src="./img/arrow.svg" alt="" /></Link> : ""}
+                            <div className="title">{title}</div>
+                        </>
+                        :
+                        <h1 className="logo"><Link to={'/'}><img src="./img/logo.svg" alt="" /></Link></h1>
+                    }
                 </div>
-                <div className="gnb">
+                <div className={title || gnbHide ? "gnb hidden" : "gnb"}>
                     <Swiper slidesPerView={'auto'} spaceBetween={0} className="gnb_swiper">
-                        <SwiperSlide className={url === "/" || url === "/mypage" ? "active" : ""} onClick={cateClick}><Link to={'/'}><span>메인</span><i className="underline" style={{width:`${lineWidth}px`, left:`${lineLeft}px`}}></i></Link></SwiperSlide>
+                        <SwiperSlide className={url === "/" || url === "/mypage" || url === "/recommend" || url === "/post" ? "active" : ""} onClick={cateClick}><Link to={'/'}><span>메인</span><i className="underline" style={{width:`${lineWidth}px`, left:`${lineLeft}px`}}></i></Link></SwiperSlide>
                         <SwiperSlide className={url === "/everyday" ? "active" : ""} onClick={cateClick}><Link to={'/everyday'}><span>일상룩</span></Link></SwiperSlide>
                         <SwiperSlide className={url === "/cate2" ? "active" : ""} onClick={cateClick}><Link to={'/cate2'}><span>셀럽룩</span></Link></SwiperSlide>
                         <SwiperSlide className={url === "/cate3" ? "active" : ""} onClick={cateClick}><Link to={'/cate3'}><span>크리스탈</span></Link></SwiperSlide>

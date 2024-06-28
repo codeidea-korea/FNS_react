@@ -1,6 +1,6 @@
-import PopularList from "../../components/PopularList";
-import PostThumbnail from "../../components/PostThumbnail";
-import TopicThumbnail from "../../components/TopicThumbnail"
+import PopularList from "@/components/PopularList";
+import PostThumbnail from "@/components/PostThumbnail";
+import TopicThumbnail from "@/components/TopicThumbnail"
 
 const Main = ()=>{
     const bestData = [

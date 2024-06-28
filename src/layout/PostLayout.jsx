@@ -1,16 +1,17 @@
 import { Outlet } from "react-router-dom";
-import Quickmenu from "@/page/common/Quickmenu";
-import { Link } from "react-router-dom";
 import Header from "@/page/common/Header";
+import Quickmenu from "@/page/common/Quickmenu";
 
-const MypageLayout = ()=>{
+
+const PostLayout = ()=>{
     return (
         <>
-            <Header gnbHide={true} /> {/* 헤더 */}
+            <Header title={"포스트"} /> {/* 헤더 */}
             <Outlet />
             <Quickmenu /> {/* 퀵메뉴 */}
         </>
     )
+
 }
 
-export default MypageLayout;
+export default PostLayout;

@@ -1,11 +1,13 @@
 import { useRoutes } from "react-router-dom"
-import BaseLayout from "../layout/BaseLayout"
-import MypageLayout from "../layout/MypageLayout"
-import Main from "../page/main/Main"
-import Everyday from "../page/main/Everyday"
-import Mypage from "../page/mypage/Mypage"
-import Recommend from "../page/recommend/Recommend"
-import RecommendLayout from "../layout/RecommendLayout"
+import BaseLayout from "@/layout/BaseLayout"
+import MypageLayout from "@/layout/MypageLayout"
+import Main from "@/page/main/Main"
+import Everyday from "@/page/main/Everyday"
+import Mypage from "@/page/mypage/Mypage"
+import Recommend from "@/page/recommend/Recommend"
+import RecommendLayout from "@/layout/RecommendLayout"
+import PostLayout from "@/layout/PostLayout"
+import Post from "@/page/recommend/Post"
 
 
 function Router(){
@@ -55,6 +57,16 @@ function Router(){
                 {
                     path: "/recommend",
                     element: <Recommend />
+                }
+            ]
+        },
+        {
+            path:"/",
+            element: <PostLayout />,
+            children:[
+                {
+                    path: "/post",
+                    element: <Post />
                 }
             ]
         },

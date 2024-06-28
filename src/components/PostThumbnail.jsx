@@ -9,7 +9,7 @@ const PostThumbnail = ({rank, title, data})=>{
                     <li key={index}>
                         <Link>
                             <div className="img_box">
-                                <img src={item.src} alt="" />
+                                <img src={item.src} alt={item.title+" 이미지"} />
                             </div>
                             <div className="txt_box">
                                 {rank && <div className="rank">{index+1}</div>}
