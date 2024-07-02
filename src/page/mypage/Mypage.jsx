@@ -8,11 +8,11 @@ const Mypage = ()=>{
                 <div className="txt_box">
                     트렌디한 <br/>
                     디지털 패션 미디어<br/>
-                    <img src="./img/full_logo.svg" alt="Fashion&Style" />
+                    <img src="/img/full_logo.svg" alt="Fashion&Style" />
                 </div>
 
                 <div className="mock_img">
-                    <img src="./img/main01_img01.png" alt="" />
+                    <img src="/img/main01_img01.png" alt="" />
                     <a href="https://fashionandstyle.page.link/home" target="_blank" className="down_btn">App Download</a>
                 </div>
                 

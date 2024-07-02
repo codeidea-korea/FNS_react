@@ -8,7 +8,7 @@ import 'swiper/css/pagination';
 // import required modules
 import { Pagination } from 'swiper/modules';
 
-const PostFrame = ({data})=>{
+const PostFrame = ({data,descOpen})=>{
     const desc = data.desc.split('<br/>');
     const [swiperActive, setSwiperActive] = useState(0)
     const navigate = useNavigate();
@@ -18,14 +18,14 @@ const PostFrame = ({data})=>{
         if(desc.length>2){ // 더보기 버튼 있을때
             if(descBox.classList.contains('open')){
                 // desc 모든텍스트 다 보일때
-                navigate('/post')
+                navigate('/posts')
             }else{
                 // desc 텍스트 일부 가려져있을때
                 document.querySelector('.desc').classList.add('open')
             }
         }else{
             // 더보기 버튼 없을때
-            navigate('/post')
+            navigate('/posts')
         }
     }
 
@@ -55,11 +55,11 @@ const PostFrame = ({data})=>{
             <div className="txt_box">
                 <div className="top_btn">
                     <div>
-                        <button><img src="./img/zzim.svg" alt="좋아요" /></button>
-                        <button><img src="./img/chat.svg" alt="댓글" /></button>
-                        <button><img src="./img/share.svg" alt="공유하기" /></button>
+                        <button><img src="/img/zzim.svg" alt="좋아요" /></button>
+                        <button><img src="/img/chat.svg" alt="댓글" /></button>
+                        <button><img src="/img/share.svg" alt="공유하기" /></button>
                     </div>
-                    <button><img src="./img/bookmark.svg" alt="북마크" /></button>
+                    <button><img src="/img/bookmark.svg" alt="북마크" /></button>
                 </div>
                 <div className="like_box">
                     <p>좋아요 {data.like}개</p>
@@ -69,18 +69,23 @@ const PostFrame = ({data})=>{
                     {data.tag.map((item,index)=>(<button key={index}>{item}</button>))}
                 </div>
                 <div className="desc_box" onClick={descHandle}>
-                    <div className="desc">
+                    <div className={descOpen ? "desc open" : "desc"}>
                         {desc.map((item,index)=>(
                             <p key={index}>{item}{(desc.length > 2 && index ==1 )&& <button>...더 보기</button>}</p>
                         ))}
                     </div>
                 </div>
                 <div className="category_box">
-                    <button>{data.category}<img src="./img/arrow.svg" alt="" /></button>
+                    <button>{data.category}<img src="/img/arrow.svg" alt="" /></button>
                     <p>1일 전</p>
                 </div>
+                <div className="comment_list">
+                    <p>댓글 16개 모두 보기</p>
+                    <div className='comment_item'><b>yoongarden</b><span>우정하자 🔥</span></div>
+                    <div className='comment_item'><b>userab</b><span>크리스탈 언니 여름 일상룩 아이템~</span></div>
+                </div>
                 <div className="comment_box">
-                    <i><img src="./img/profile_img.jpg" alt="" /></i>
+                    <i><img src="/img/profile_img.jpg" alt="" /></i>
                     <div className="comment">댓글 달기</div>
                     <button>게시</button>
                 </div>

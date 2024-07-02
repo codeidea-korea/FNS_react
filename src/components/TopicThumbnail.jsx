@@ -1,9 +1,10 @@
 import { Link } from "react-router-dom";
 
-const TopicThumbnail = ({img,title,desc})=>{
+const TopicThumbnail = ({img,title,desc,h4})=>{
 
     return (
         <section>
+            {h4 && <h4>{h4}</h4>}
             <div className="topic_thumbnail">
                 <Link>
                     <img src={img} alt={title+" 이미지"} />

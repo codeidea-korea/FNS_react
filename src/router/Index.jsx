@@ -8,6 +8,7 @@ import Recommend from "@/page/recommend/Recommend"
 import RecommendLayout from "@/layout/RecommendLayout"
 import PostLayout from "@/layout/PostLayout"
 import Post from "@/page/recommend/Post"
+import Sample from "@/page/mypage/Sample"
 
 
 function Router(){
@@ -17,36 +18,36 @@ function Router(){
             element: <BaseLayout />,
             children:[
                 {
-                    path: "",
+                    path: "/home/main",
                     element: <Main />,
                 },
                 {
-                    path: "/everyday",
+                    path: "/home/realwaylook",
                     element: <Everyday />,
                 },
                 {
-                    path: "/cate2",
+                    path: "/home/celebritylook",
                     element: <Main />,
                 },
                 {
-                    path: "/cate3",
+                    path: "/home/10004",
+                    element: <Everyday />,
+                },
+                {
+                    path: "/home/10005",
                     element: <Main />,
                 },
                 {
-                    path: "/cate4",
+                    path: "/home/10006",
+                    element: <Everyday />,
+                },
+                {
+                    path: "/home/10007",
                     element: <Main />,
                 },
                 {
-                    path: "/cate5",
-                    element: <Main />,
-                },
-                {
-                    path: "/cate6",
-                    element: <Main />,
-                },
-                {
-                    path: "/cate7",
-                    element: <Main />,
+                    path: "/home/10008",
+                    element: <Everyday />,
                 },
             ]
         },
@@ -55,7 +56,7 @@ function Router(){
             element: <RecommendLayout />,
             children:[
                 {
-                    path: "/recommend",
+                    path: "/foryou",
                     element: <Recommend />
                 }
             ]
@@ -65,7 +66,7 @@ function Router(){
             element: <PostLayout />,
             children:[
                 {
-                    path: "/post",
+                    path: "/posts",
                     element: <Post />
                 }
             ]
@@ -77,9 +78,13 @@ function Router(){
                 {
                     path: "/mypage",
                     element: <Mypage />
+                },
+                {
+                    path: "/sample",
+                    element: <Sample />
                 }
             ]
-        }
+        },
     ]
 
     return useRoutes(routes)

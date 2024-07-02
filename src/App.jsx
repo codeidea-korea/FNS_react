@@ -1,11 +1,13 @@
 import { useEffect } from 'react'
-import { BrowserRouter } from 'react-router-dom'
+import { BrowserRouter, useLocation } from 'react-router-dom'
 import Router from './router/Index'
 import "./assets/css/app.css"
 
 // lottie 
 import Lottie from "lottie-react";
 import LottieLogo from "./assets/json/logo.json"
+import ScrollToTop from '@/components/ScrollTop';
+import MainNavigate from '@/components/MainNavigate';
 
 function App() {
     // 모바일에서 100vh 사파리 오류 수정
@@ -27,7 +29,9 @@ function App() {
 
   return (
         <BrowserRouter>
+            <MainNavigate />
             <div id="lottie"><Lottie className='lottie_logo' animationData={LottieLogo} /></div>
+            <ScrollToTop />
             <Router />
         </BrowserRouter>
     )

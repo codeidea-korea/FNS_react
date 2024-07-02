@@ -13,8 +13,10 @@ const Header = ({title, gnbHide})=>{
     const [lastScroll, setLastScroll] = useState(0);
 
     useEffect(()=>{
-        setLineLeft(document.querySelector('.gnb_swiper .active').offsetLeft + 16)
-        setLineWidth(document.querySelector('.gnb_swiper .active').clientWidth - 32)
+        if(document.querySelector('.gnb_swiper .active')){
+            setLineLeft(document.querySelector('.gnb_swiper .active').offsetLeft + 16)
+            setLineWidth(document.querySelector('.gnb_swiper .active').clientWidth - 32)
+        }
     },[])
 
     useEffect(()=>{
@@ -101,23 +103,23 @@ const Header = ({title, gnbHide})=>{
                 <div className={title || gnbHide ? "top_area border_type":"top_area"}>
                     {title ? 
                         <>
-                            {title === "포스트" ? <Link className="page_prev"><img src="./img/arrow.svg" alt="" /></Link> : ""}
+                            {/* {title === "포스트" ? <Link to={"/recommend"} className="page_prev"><img src="/img/prev_arrow.svg" alt="" /></Link> : ""} */}
                             <div className="title">{title}</div>
                         </>
                         :
-                        <h1 className="logo"><Link to={'/'}><img src="./img/logo.svg" alt="" /></Link></h1>
+                        <h1 className="logo"><Link to={'/home/main'}><img src="/img/logo.svg" alt="" /></Link></h1>
                     }
                 </div>
                 <div className={title || gnbHide ? "gnb hidden" : "gnb"}>
                     <Swiper slidesPerView={'auto'} spaceBetween={0} className="gnb_swiper">
-                        <SwiperSlide className={url === "/" || url === "/mypage" || url === "/recommend" || url === "/post" ? "active" : ""} onClick={cateClick}><Link to={'/'}><span>메인</span><i className="underline" style={{width:`${lineWidth}px`, left:`${lineLeft}px`}}></i></Link></SwiperSlide>
-                        <SwiperSlide className={url === "/everyday" ? "active" : ""} onClick={cateClick}><Link to={'/everyday'}><span>일상룩</span></Link></SwiperSlide>
-                        <SwiperSlide className={url === "/cate2" ? "active" : ""} onClick={cateClick}><Link to={'/cate2'}><span>셀럽룩</span></Link></SwiperSlide>
-                        <SwiperSlide className={url === "/cate3" ? "active" : ""} onClick={cateClick}><Link to={'/cate3'}><span>크리스탈</span></Link></SwiperSlide>
-                        <SwiperSlide className={url === "/cate4" ? "active" : ""} onClick={cateClick}><Link to={'/cate4'}><span>남친룩</span></Link></SwiperSlide>
-                        <SwiperSlide className={url === "/cate5" ? "active" : ""} onClick={cateClick}><Link to={'/cate5'}><span>네일트렌드</span></Link></SwiperSlide>
-                        <SwiperSlide className={url === "/cate6" ? "active" : ""} onClick={cateClick}><Link to={'/cate6'}><span>티셔츠</span></Link></SwiperSlide>
-                        <SwiperSlide className={url === "/cate7" ? "active" : ""} onClick={cateClick}><Link to={'/cate7'}><span>선글라스</span></Link></SwiperSlide>
+                        <SwiperSlide className={url === "/home/main" || url === "/mypage" || url === "/foryou" || url === "/posts" ? "active" : ""} onClick={cateClick}><Link to={'/home/main'}><span>메인</span><i className="underline" style={{width:`${lineWidth}px`, left:`${lineLeft}px`}}></i></Link></SwiperSlide>
+                        <SwiperSlide className={url === "/home/realwaylook" ? "active" : ""} onClick={cateClick}><Link to={'/home/realwaylook'}><span>일상룩</span></Link></SwiperSlide>
+                        <SwiperSlide className={url === "/home/celebritylook" ? "active" : ""} onClick={cateClick}><Link to={'/home/celebritylook'}><span>셀럽룩</span></Link></SwiperSlide>
+                        <SwiperSlide className={url === "/home/10004" ? "active" : ""} onClick={cateClick}><Link to={'/home/10004'}><span>크리스탈</span></Link></SwiperSlide>
+                        <SwiperSlide className={url === "/home/10005" ? "active" : ""} onClick={cateClick}><Link to={'/home/10005'}><span>남친룩</span></Link></SwiperSlide>
+                        <SwiperSlide className={url === "/home/10006" ? "active" : ""} onClick={cateClick}><Link to={'/home/10006'}><span>네일트렌드</span></Link></SwiperSlide>
+                        <SwiperSlide className={url === "/home/10007" ? "active" : ""} onClick={cateClick}><Link to={'/home/10007'}><span>티셔츠</span></Link></SwiperSlide>
+                        <SwiperSlide className={url === "/home/10008" ? "active" : ""} onClick={cateClick}><Link to={'/home/10008'}><span>선글라스</span></Link></SwiperSlide>
                     </Swiper>
                 </div>
             </header>
