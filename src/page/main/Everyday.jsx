@@ -1,4 +1,4 @@
-import PopularList from "@/components/PopularList";
+import TagList from "@/components/TagList";
 import PostThumbnail from "@/components/PostThumbnail";
 import TopicThumbnail from "@/components/TopicThumbnail"
 
@@ -37,11 +37,11 @@ const Everyday = ()=>{
 
                 <TopicThumbnail img={"/img/thumbnail/topic_1.png"} title={"여름의 매력을<br/>뽐내는 비키니"} desc={"입으려면 운동 밖에🏋🏻‍♀️"} />
 
-                <PopularList title={"인기 브랜드"} data={popularTag} />
+                <TagList title={"인기 브랜드"} data={popularTag} />
 
                 <TopicThumbnail img={"/img/thumbnail/topic_5.png"} title={"블랙 컬러로<br/>다양한 스타일링"} desc={"심플&시크룩엔 필수템 블랙룩🩶"} />
 
-                <PopularList title={"실시간 인기태그"} data={popularTag} />
+                <TagList title={"실시간 인기태그"} data={popularTag} />
 
                 <PostThumbnail rank={false} title={"작년의 HOT 트렌드"} data={bestData} />
                 

@@ -59,17 +59,19 @@ header .gnb .swiper-slide.active a {color:var(--primary-color); }
 /* ------------------------------------------------------------
         메인
 ------------------------------------------------------------ */
-.main {padding-bottom:100px; }
-.main section {padding:16px 16px 20px; }
-
-
+.main {padding-bottom:70px ; }
+section {padding:16px 16px 20px;}
+.gray_type {background-color:#FAFAFA; }
+.main_tit {padding-bottom:12px; font-size:28px; font-weight:700; letter-spacing:-0.28px; line-height:1.3; }
 
 
 /* ------------------------------------------------------------
         컴포넌트
 ------------------------------------------------------------ */
 /* topic_thumbnail */
-.topic_thumbnail {overflow:hidden; position:relative;  box-shadow:0 0 16px 0 rgba(0,0,0,0.06); border-radius:12px; }
+.visual_type {padding:0; }
+.visual_type .topic_thumbnail{border-radius:0;}
+.topic_thumbnail {overflow:hidden; position:relative; box-shadow:0 0 16px 0 rgba(0,0,0,0.06); border-radius:12px; }
 .topic_thumbnail a {position:relative; display:block; width:100%; padding-bottom:125%;  }
 .topic_thumbnail a:before {content:''; z-index:2; position:absolute; left:0; bottom:0; width:100%; height:100%; background: linear-gradient(0deg, rgba(0, 0, 0, 0.40) 17.8%, rgba(0, 0, 0, 0.00) 51.6%);}
 .topic_thumbnail img {z-index:1; position:absolute; left:0; top:0; display:block; width:100%; height:100%; object-fit:cover; }
@@ -79,7 +81,7 @@ header .gnb .swiper-slide.active a {color:var(--primary-color); }
 
 
 /* topic_list */
-.topic_list h3 {margin-bottom:15px; font-size:28px; font-weight:700; letter-spacing:-0.28px; line-height:1.3; }
+.topic_list + .post_frame {margin-top:5px; }
 .topic_list .title {margin-bottom:15px; }
 .topic_list .title a {display:flex; align-items:center; gap:16px; }
 .topic_list .title a i {overflow:hidden; display:block; width:42px; height:42px; border-radius:50%; }
@@ -113,7 +115,6 @@ header .gnb .swiper-slide.active a {color:var(--primary-color); }
 .topic_list.type02 ul li .txt_box .cate {display:none; }
 
 /* popular_list */
-.popular_list h3 {font-size:28px; font-weight:700; }
 .popular_list .popular_list_slide {margin-top:12px; }
 .popular_list .popular_list_slide .swiper-slide {width:158px; }
 .popular_list .popular_list_slide .swiper-slide .img_box {overflow:hidden; width:158px; height:158px; border:1px solid #e7e7e7; border-radius:50%; }
@@ -123,7 +124,6 @@ header .gnb .swiper-slide.active a {color:var(--primary-color); }
 
 /* issue_list */
 .issue_slide {overflow:hidden; }
-.issue_slide h3 {margin-bottom:15px; font-size:28px; font-weight:700; letter-spacing:-0.28px; line-height:1.3; }
 .issue_slide .issue_list {overflow:visible; }
 .issue_slide .issue_list .swiper-slide {width:160px; }
 .issue_slide .issue_list .swiper-slide .img_box {overflow:hidden; position:relative; width:100%; padding-bottom:175%; border-radius:4px; }
@@ -154,15 +154,21 @@ header .gnb .swiper-slide.active a {color:var(--primary-color); }
         추천페이지
 ------------------------------------------------------------ */
 .recommend {padding-bottom:70px; background-color: #fff;}
-.recommend section {padding:0; }
-.recommend .gray_type {background-color:#FAFAFA; }
-.recommend .gray_type section {padding:20px 16px; }
-.recommend .gray_type h4 {margin-bottom:15px; font-size:28px; font-weight:700; letter-spacing:-0.28px; line-height:1.3; }
-.recommend .topic_list {padding:20px 16px 40px; }
 
 /* 포스트 */
-.post_frame .img_list .swiper-slide {position:relative; width:100%; padding-bottom:120%; }
-.post_frame .img_list .swiper-slide img {position:absolute; left:0; top:0; width:100%; height:100%; object-fit:cover; }
+.post_frame {padding:0; }
+.post_frame .img_list .swiper-slide {position:relative; width:100%; padding-bottom:125%; }
+.post_frame .img_list .swiper-slide > img,
+.post_frame .img_list .swiper-slide > video {position:absolute; left:0; top:0; width:100%; height:100%; object-fit:cover; }
+
+.post_frame .img_list.video_only .swiper-slide {padding-bottom:156.667%; }
+.post_frame .img_list.video_only .tag_list {z-index:10; position:absolute; right:0; bottom:8px; }
+.post_frame .img_list.video_only {margin-bottom:10px; }
+
+.post_frame .img_list .swiper-slide.video_item .video_control {z-index:10; position:absolute; left:0; bottom:0; width:100%; height:4px; background-color:#888; }
+.post_frame .img_list .swiper-slide.video_item .video_control span {display:block; width:0%; height:100%; background-color:var(--primary-color); }
+.post_frame .img_list .swiper-slide.video_item .video_volume {z-index:10; position:absolute; right:14px; bottom:54px; }
+
 .post_frame .img_list .swiper-pagination {width:100%; }
 .post_frame .img_list .swiper-pagination-bullet {opacity:.4}
 .post_frame .img_list .swiper-pagination-bullet:first-of-type,
@@ -170,6 +176,10 @@ header .gnb .swiper-slide.active a {color:var(--primary-color); }
 .post_frame .img_list .swiper-pagination-bullet-active:first-of-type,
 .post_frame .img_list .swiper-pagination-bullet-active:last-of-type {transform:scale(1); }
 .post_frame .img_list .swiper-pagination-bullet-active {background:var(--primary-color); opacity:1; }
+
+.post_frame .img_list .pager {z-index:10; opacity:0; position:absolute; top:16px; right:16px; padding:2px 8px; font-size:14px; color:#e7e7e7; font-weight:500; letter-spacing:0.56px; background:rgba(0,0,0,0.5); border-radius:40px; transition:opacity 0.4s; }
+.post_frame .img_list:hover .pager {opacity:1; }
+
 
 .post_frame .img_list .tag_list {margin:10px 0 4px; padding:0 18px; text-align:right; } 
 .post_frame .img_list .tag_list span {display:none; font-size:12px; font-weight:400; color:#aaa; }

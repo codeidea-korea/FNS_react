@@ -16,10 +16,10 @@ const PostThumbnail = ({rank, title, data, associated, profileName, profileUrl, 
         // 기본 클래스 : topic_list
         // 리스트 크기 동일한 타입 : same_type
         // 이미지랑 텍스트 겹쳐지는 타입 : type02
-        <section className={`topic_list ${same_type && "same_type"} ${overlapping && "type02"}`}>
+        <section className={`topic_list ${same_type ? "same_type":""} ${overlapping ? "type02":""}`}>
             {associated ? <div className="title">
                 <Link><i><img src={profileUrl} alt="" /></i> <span>{profileName}</span> <img src="/img/more_arrow.svg" alt="" /></Link>
-            </div> : <h3 dangerouslySetInnerHTML={{__html:title}}></h3>}
+            </div> : <h3 className="main_tit" dangerouslySetInnerHTML={{__html:title}}></h3>}
             <ul>
                 {data.map((item,index)=>(
                     <li key={index}>

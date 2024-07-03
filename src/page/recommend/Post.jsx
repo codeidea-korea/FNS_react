@@ -1,16 +1,7 @@
-import React, { useState } from 'react';
-import { Link, useNavigate } from "react-router-dom";
-import { Swiper, SwiperSlide } from 'swiper/react';
-// Import Swiper styles
-import 'swiper/css';
-import 'swiper/css/pagination';
-
-// import required modules
-import { Pagination } from 'swiper/modules';
-
+import React from 'react';
 import PostThumbnail from "@/components/PostThumbnail";
 import TopicThumbnail from "@/components/TopicThumbnail"
-import IssueSlide from '@/components/IssueSlide';
+import PostThumbnailSlide from '@/components/PostThumbnailSlide';
 import PostFrame from '@/components/PostFrame';
 
 const Post = ()=>{
@@ -38,9 +29,6 @@ const Post = ()=>{
         { src:"/img/thumbnail/asso_4.jpg", title:"뉴진스 x 무라카미 다카시🌼 🪻 팬아트 출시되나요??", category:"뉴진스" },
     ];
 
-    const desc = data.desc.split('<br/>');
-    const [swiperActive, setSwiperActive] = useState(0)
-
     return (
         <div className="recommend">
             <PostFrame data={data} descOpen={true} />
@@ -49,9 +37,9 @@ const Post = ()=>{
                 <PostThumbnail rank={false} associated={true} same_type={true} data={newjeansData} profileName={"뉴진스"} profileUrl={"/img/thumbnail/asso_1.jpg"} />
                 <PostThumbnail rank={false} associated={true} same_type={true} data={newjeansData} profileName={"콜라보"} profileUrl={"/img/thumbnail/asso_4.jpg"} />
 
-                <IssueSlide title={"미니멀한 셀럽 이슈"} data={newjeansData} />
+                <PostThumbnailSlide title={"미니멀한 셀럽 이슈"} data={newjeansData} />
 
-                <TopicThumbnail img={"/img/thumbnail/topic_1.png"} title={"라이프스타일트렌..."} desc={"하니, 뉴진스, 2NE1 로..."} h4={"연관 토픽"} />
+                <TopicThumbnail img={"/img/thumbnail/topic_1.png"} title={"라이프스타일트렌..."} desc={"하니, 뉴진스, 2NE1 로..."} bigTitle={"연관 토픽"} />
 
                 <PostThumbnail rank={false} title={"연관 포스트"} data={bestData} />
             </div>

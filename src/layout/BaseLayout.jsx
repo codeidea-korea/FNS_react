@@ -3,10 +3,10 @@ import Header from "@/page/common/Header";
 import Quickmenu from "@/page/common/Quickmenu";
 
 
-const BaseLayout = ()=>{
+const BaseLayout = ({title, gnbHide})=>{
     return (
         <>
-            <Header /> {/* 헤더 */}
+            <Header title={title} gnbHide={gnbHide} /> {/* 헤더 */}
             <Outlet />
             <Quickmenu /> {/* 퀵메뉴 */}
         </>

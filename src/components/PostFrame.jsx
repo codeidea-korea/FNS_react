@@ -9,6 +9,9 @@ import 'swiper/css/pagination';
 import { Pagination } from 'swiper/modules';
 
 const PostFrame = ({data,descOpen})=>{
+    // data : 데이터
+    // descOpen : 설명글 오픈  T|F  (상세에서는 오픈)
+
     const desc = data.desc.split('<br/>');
     const [swiperActive, setSwiperActive] = useState(0)
     const navigate = useNavigate();
@@ -21,7 +24,7 @@ const PostFrame = ({data,descOpen})=>{
                 navigate('/posts')
             }else{
                 // desc 텍스트 일부 가려져있을때
-                document.querySelector('.desc').classList.add('open')
+                e.currentTarget.querySelector('.desc').classList.add('open')
             }
         }else{
             // 더보기 버튼 없을때
@@ -36,9 +39,19 @@ const PostFrame = ({data,descOpen})=>{
                 spaceBetween={0}
                 pagination={{dynamicBullets: true, }}
                 modules={[Pagination]}
-                className="img_list"
+                className={`img_list ${(data.video && data.img.length==0) && "video_only"}`}
                 onSlideChange={(swiper)=> setSwiperActive(swiper.activeIndex)}
             >
+                {data.video && (
+                    <SwiperSlide key="video" className='video_item'>
+                        {/* poster 임시. 영상없어서 이미지로 대체 */}
+                        <video poster="/img/thumbnail/video_1.png" autoPlay muted loop playsInline> 
+                            <source src="" type="video/mp4" />
+                        </video>
+                        <div className="video_control"><span style={{width:`50%`}}></span></div>
+                        <div className="video_volume"><button><img src="/img/volume.svg" alt="" /></button></div> 
+                    </SwiperSlide>
+                )}
                 {data.img.map((item,index)=>(
                     <SwiperSlide key={index}>
                         <img src={item} alt={data.img_id.length == 1 ? data.img_id+" 이미지" : data.img_id[index]+" 이미지"} />
@@ -51,6 +64,7 @@ const PostFrame = ({data,descOpen})=>{
                         {data.img_id.map((item,index)=>(<span key={index} className={swiperActive == index ? "active":""}>instagram @{item}</span>))}
                     </div>
                 }
+                <div className="pager">{swiperActive+1} / {data.img.length + (data.video ? data.video.length : 0)}</div>
             </Swiper>
             <div className="txt_box">
                 <div className="top_btn">

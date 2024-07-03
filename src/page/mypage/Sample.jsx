@@ -1,13 +1,31 @@
 import PostFrame from "@/components/PostFrame";
 import TopicThumbnail from "@/components/TopicThumbnail";
 import PostThumbnail from "@/components/PostThumbnail";
-import IssueSlide from "@/components/IssueSlide";
-import PopularList from "@/components/PopularList";
+import PostThumbnailSlide from "@/components/PostThumbnailSlide";
+import TagList from "@/components/TagList";
 
 
 const Sample = ()=>{
     const postPreview = [
         {
+            img:["/img/recommend/feed03_1.jpg","/img/recommend/feed03_2.jpg","/img/recommend/feed03_3.jpg","/img/recommend/feed03_4.jpg"],
+            img_id:["calvinklein"],
+            tag:["뉴진스","콜라보","캘빈클라인"],
+            like:0,
+            category:"셀럽 이슈",
+            desc:"청량한 뉴진스 캠빈 데님룩💙<br/><br/>뉴진스가 지난 26일과 27일에 열린 뉴진스 팬미팅 'Bunnies Camp 2024 Tokyo Demo'에서 캠빈클라인의 특별한 의상을 선보였습니다. 캘빈클라인은 각 멤버들을 위해 '데님'을 주요 컨셉으로 5개의 의상을 제작했는데요. 캘빈클라인 모노그램 로고가 전체적으로 패턴화되어 있으며, 크리스탈 장식과 함께 캘빈클라인과 뉴진스의 특별 만남을 상징하는 로고 또한 각인되었습니다."
+        },
+        {
+            video:["/img/thumbnail/video_1.png"],
+            img:[],
+            img_id:["calvinklein"],
+            tag:["뉴진스","콜라보","캘빈클라인"],
+            like:0,
+            category:"셀럽 이슈",
+            desc:"청량한 뉴진스 캠빈 데님룩💙<br/><br/>뉴진스가 지난 26일과 27일에 열린 뉴진스 팬미팅 'Bunnies Camp 2024 Tokyo Demo'에서 캠빈클라인의 특별한 의상을 선보였습니다. 캘빈클라인은 각 멤버들을 위해 '데님'을 주요 컨셉으로 5개의 의상을 제작했는데요. 캘빈클라인 모노그램 로고가 전체적으로 패턴화되어 있으며, 크리스탈 장식과 함께 캘빈클라인과 뉴진스의 특별 만남을 상징하는 로고 또한 각인되었습니다."
+        },
+        {
+            video:["/img/thumbnail/video_1.png"],
             img:["/img/recommend/feed03_1.jpg","/img/recommend/feed03_2.jpg","/img/recommend/feed03_3.jpg","/img/recommend/feed03_4.jpg"],
             img_id:["calvinklein"],
             tag:["뉴진스","콜라보","캘빈클라인"],
@@ -53,40 +71,52 @@ const Sample = ()=>{
     return (
         <div style={{paddingBottom:"80px"}}>
             <h1 style={{fontSize:"30px", fontWeight:"500", textAlign:"center"}}>컴포넌트</h1>
-            <h2 style={{paddingTop:"10px", fontSize:"26px", fontWeight:"400", textAlign:"center", backgroundColor:"#f0f0f0"}}>포스트 프리뷰</h2>
+
+
+            <h2 style={{paddingTop:"10px", fontSize:"26px", fontWeight:"400", textAlign:"center", backgroundColor:"#f0f0f0"}}>포스트 프리뷰<br/>(이미지, 이미지&영상, 영상)</h2>
             <p style={{paddingBottom:"10px",textAlign:"center", backgroundColor:"#f0f0f0", cursor:"pointer"}} onClick={PreveiwHandle}>{`<PostFrame data={postPreview[0]} />`}  </p>
             <div style={{display:"none"}}>
                 <PostFrame data={postPreview[0]} />
+                <PostFrame data={postPreview[1]} />
+                <PostFrame data={postPreview[2]} />
             </div>
 
             <div style={{margin:"20px 0"}}></div>
 
             <h2 style={{paddingTop:"10px", fontSize:"26px", fontWeight:"400", textAlign:"center", backgroundColor:"#f0f0f0"}}>토픽 썸네일</h2>
-            <p style={{paddingBottom:"10px",textAlign:"center", backgroundColor:"#f0f0f0", cursor:"pointer"}} onClick={PreveiwHandle}>{`<TopicThumbnail img={"/img/thumbnail/topic_1.png"} title={"7월 헤어는 여름<br/>단발 열풍"} desc={"더위에 시원한 헤어 준비🍧"} />`}  </p>
+            <p style={{paddingBottom:"10px",textAlign:"center", backgroundColor:"#f0f0f0", cursor:"pointer"}} onClick={PreveiwHandle}><span style={{background:'gold'}}>{`<TopicThumbnail`}</span>{` img={"/img/thumbnail/topic_1.png"} title={"7월 헤어는 여름<br/>단발 열풍"} desc={"더위에 시원한 헤어 준비🍧"} />`}  </p>
             <div style={{display:"none"}}>
                 <TopicThumbnail img={"/img/thumbnail/topic_1.png"} title={"7월 헤어는 여름<br/>단발 열풍"} desc={"더위에 시원한 헤어 준비🍧"} />
             </div>
 
             <div style={{margin:"20px 0"}}></div>
 
-            <h2 style={{paddingTop:"10px", fontSize:"26px", fontWeight:"400", textAlign:"center", backgroundColor:"#f0f0f0"}}>포스트 썸네일 넷플릭스 구조</h2>
-            <p style={{paddingBottom:"10px",textAlign:"center", backgroundColor:"#f0f0f0", cursor:"pointer"}} onClick={PreveiwHandle}>{`<IssueSlide title={"미니멀한 셀럽 이슈"} data={slideData} />`}  </p>
+            <h2 style={{paddingTop:"10px", fontSize:"26px", fontWeight:"400", textAlign:"center", backgroundColor:"#f0f0f0"}}>토픽 썸네일 - 공간X</h2>
+            <p style={{paddingBottom:"10px",textAlign:"center", backgroundColor:"#f0f0f0", cursor:"pointer"}} onClick={PreveiwHandle}><span style={{background:'gold'}}>{`<TopicThumbnail`}</span>{` img={"/img/thumbnail/topic_1.png"} title={"7월 헤어는 여름<br/>단발 열풍"} desc={"더위에 시원한 헤어 준비🍧"} visualType={true} />`}  </p>
             <div style={{display:"none"}}>
-                <IssueSlide title={"미니멀한 셀럽 이슈"} data={slideData} />
+                <TopicThumbnail img={"/img/thumbnail/topic_1.png"} title={"7월 헤어는 여름<br/>단발 열풍"} desc={"더위에 시원한 헤어 준비🍧"} visualType={true} />
+            </div>
+
+            <div style={{margin:"20px 0"}}></div>
+
+            <h2 style={{paddingTop:"10px", fontSize:"26px", fontWeight:"400", textAlign:"center", backgroundColor:"#f0f0f0"}}>포스트 썸네일 넷플릭스 구조</h2>
+            <p style={{paddingBottom:"10px",textAlign:"center", backgroundColor:"#f0f0f0", cursor:"pointer"}} onClick={PreveiwHandle}><span style={{background:'aquamarine'}}>{`<PostThumbnailSlide`}</span>{` title={"미니멀한 셀럽 이슈"} data={slideData} />`}  </p>
+            <div style={{display:"none"}}>
+                <PostThumbnailSlide title={"미니멀한 셀럽 이슈"} data={slideData} />
             </div>
 
             <div style={{margin:"20px 0"}}></div>
 
             <h2 style={{paddingTop:"10px", fontSize:"26px", fontWeight:"400", textAlign:"center", backgroundColor:"#f0f0f0"}}>태그 - 연관태그</h2>
-            <p style={{paddingBottom:"10px",textAlign:"center", backgroundColor:"#f0f0f0", cursor:"pointer"}} onClick={PreveiwHandle}>{`<PopularList title={"실시간 인기태그"} data={popularTag} />`}  </p>
+            <p style={{paddingBottom:"10px",textAlign:"center", backgroundColor:"#f0f0f0", cursor:"pointer"}} onClick={PreveiwHandle}><span style={{background:'lightcoral'}}>{`<TagList`}</span>{` title={"실시간 인기태그"} data={popularTag} />`}  </p>
             <div style={{display:"none"}}>
-                <PopularList title={"실시간 인기태그"} data={popularTag} />
+                <TagList title={"실시간 인기태그"} data={popularTag} />
             </div>
 
             <div style={{margin:"20px 0"}}></div>
 
             <h2 style={{paddingTop:"10px", fontSize:"26px", fontWeight:"400", textAlign:"center", backgroundColor:"#f0f0f0"}}>포스트 썸네일 랭킹 구조</h2>
-            <p style={{paddingBottom:"10px",textAlign:"center", backgroundColor:"#f0f0f0", cursor:"pointer"}} onClick={PreveiwHandle}>{`<PostThumbnail rank={true} title={"지금 가장 핫한 패션 이슈<br/>BEST 5"} data={bestData} />`}  </p>
+            <p style={{paddingBottom:"10px",textAlign:"center", backgroundColor:"#f0f0f0", cursor:"pointer"}} onClick={PreveiwHandle}><span style={{background:'lightsteelblue'}}>{`<PostThumbnail`}</span>{` rank={true} title={"지금 가장 핫한 패션 이슈<br/>BEST 5"} data={bestData} />`}  </p>
             <div style={{display:"none"}}>
                 <PostThumbnail rank={true} title={"지금 가장 핫한 패션 이슈<br/>BEST 5"} data={bestData} />
             </div>
@@ -94,7 +124,7 @@ const Sample = ()=>{
             <div style={{margin:"20px 0"}}></div>
 
             <h2 style={{paddingTop:"10px", fontSize:"26px", fontWeight:"400", textAlign:"center", backgroundColor:"#f0f0f0"}}>포스트 썸네일 일반 구조</h2>
-            <p style={{paddingBottom:"10px",textAlign:"center", backgroundColor:"#f0f0f0", cursor:"pointer"}} onClick={PreveiwHandle}>{`<PostThumbnail rank={false} title={"지금 가장 핫한 패션 이슈<br/>BEST 5"} data={bestData} />`}  </p>
+            <p style={{paddingBottom:"10px",textAlign:"center", backgroundColor:"#f0f0f0", cursor:"pointer"}} onClick={PreveiwHandle}><span style={{background:'lightsteelblue'}}>{`<PostThumbnail`}</span>{` rank={false} title={"지금 가장 핫한 패션 이슈<br/>BEST 5"} data={bestData} />`}  </p>
             <div style={{display:"none"}}>
                 <PostThumbnail rank={false} title={"지금 가장 핫한 패션 이슈<br/>BEST 5"} data={bestData} />
             </div>
@@ -102,7 +132,7 @@ const Sample = ()=>{
             <div style={{margin:"20px 0"}}></div>
 
             <h2 style={{paddingTop:"10px", fontSize:"26px", fontWeight:"400", textAlign:"center", backgroundColor:"#f0f0f0"}}>태그 x 포스트 썸네일 일반 구조</h2>
-            <p style={{paddingBottom:"10px",textAlign:"center", backgroundColor:"#f0f0f0", cursor:"pointer"}} onClick={PreveiwHandle}>{`<PostThumbnail rank={false} associated={true} data={bestData} profileName={"뉴진스"} profileUrl={"/img/thumbnail/asso_1.jpg"} />`}  </p>
+            <p style={{paddingBottom:"10px",textAlign:"center", backgroundColor:"#f0f0f0", cursor:"pointer"}} onClick={PreveiwHandle}><span style={{background:'lightsteelblue'}}>{`<PostThumbnail`}</span>{` rank={false} associated={true} data={bestData} profileName={"뉴진스"} profileUrl={"/img/thumbnail/asso_1.jpg"} />`}  </p>
             <div style={{display:"none"}}>
                 <PostThumbnail rank={false} associated={true} data={bestData} profileName={"뉴진스"} profileUrl={"/img/thumbnail/asso_1.jpg"} />
             </div>
@@ -110,7 +140,7 @@ const Sample = ()=>{
             <div style={{margin:"20px 0"}}></div>
 
             <h2 style={{paddingTop:"10px", fontSize:"26px", fontWeight:"400", textAlign:"center", backgroundColor:"#f0f0f0"}}>태그 x 포스트 썸네일 2*2 구조</h2>
-            <p style={{paddingBottom:"10px",textAlign:"center", backgroundColor:"#f0f0f0", cursor:"pointer"}} onClick={PreveiwHandle}>{`<PostThumbnail rank={false} associated={true} same_type={true} data={bestData} profileName={"뉴진스"} profileUrl={"/img/thumbnail/asso_1.jpg"} />`}  </p>
+            <p style={{paddingBottom:"10px",textAlign:"center", backgroundColor:"#f0f0f0", cursor:"pointer"}} onClick={PreveiwHandle}><span style={{background:'lightsteelblue'}}>{`<PostThumbnail`}</span>{` rank={false} associated={true} same_type={true} data={bestData} profileName={"뉴진스"} profileUrl={"/img/thumbnail/asso_1.jpg"} />`}  </p>
             <div style={{display:"none"}}>
                 <PostThumbnail rank={false} associated={true} same_type={true} data={bestData} profileName={"뉴진스"} profileUrl={"/img/thumbnail/asso_1.jpg"} />
             </div>
@@ -118,7 +148,7 @@ const Sample = ()=>{
             <div style={{margin:"20px 0"}}></div>
 
             <h2 style={{paddingTop:"10px", fontSize:"26px", fontWeight:"400", textAlign:"center", backgroundColor:"#f0f0f0"}}>포스트 썸네일 2*2 구조</h2>
-            <p style={{paddingBottom:"10px",textAlign:"center", backgroundColor:"#f0f0f0", cursor:"pointer"}} onClick={PreveiwHandle}>{`<PostThumbnail rank={false} same_type={true} data={bestData} title={"0월의 이슈코디"} />`}  </p>
+            <p style={{paddingBottom:"10px",textAlign:"center", backgroundColor:"#f0f0f0", cursor:"pointer"}} onClick={PreveiwHandle}><span style={{background:'lightsteelblue'}}>{`<PostThumbnail`}</span>{` rank={false} same_type={true} data={bestData} title={"0월의 이슈코디"} />`}  </p>
             <div style={{display:"none"}}>
                 <PostThumbnail rank={false} same_type={true} data={bestData} title={"0월의 이슈코디"} />
             </div>
@@ -126,9 +156,21 @@ const Sample = ()=>{
             <div style={{margin:"20px 0"}}></div>
 
             <h2 style={{paddingTop:"10px", fontSize:"26px", fontWeight:"400", textAlign:"center", backgroundColor:"#f0f0f0"}}>포스트 썸네일 텍스트 겹쳐져있는 구조</h2>
-            <p style={{paddingBottom:"10px",textAlign:"center", backgroundColor:"#f0f0f0", cursor:"pointer"}} onClick={PreveiwHandle}>{`<PostThumbnail rank={false} same_type={true} data={bestData} title={"0월의 이슈코디"} />`}  </p>
+            <p style={{paddingBottom:"10px",textAlign:"center", backgroundColor:"#f0f0f0", cursor:"pointer"}} onClick={PreveiwHandle}><span style={{background:'lightsteelblue'}}>{`<PostThumbnail`}</span>{` rank={false} same_type={true} overlapping={true} data={bestData} title={"추천 토픽"} />`}  </p>
             <div style={{display:"none"}}>
                 <PostThumbnail rank={false} same_type={true} overlapping={true} data={bestData} title={"추천 토픽"} />
+            </div>
+
+            <div style={{margin:"20px 0"}}></div>
+            <div style={{margin:"20px 0"}}></div>
+            <div style={{margin:"20px 0"}}></div>
+
+            <h2 style={{paddingTop:"10px", fontSize:"26px", fontWeight:"400", textAlign:"center", backgroundColor:"#f0f0f0"}}>일반타이틀</h2>
+            <p style={{paddingBottom:"10px",textAlign:"center", backgroundColor:"#f0f0f0", cursor:"pointer"}} onClick={PreveiwHandle} >{`<div className="main_tit">미니멀한 셀럽룩</div>`}  </p>
+            <div style={{display:"none"}}>
+                <section>
+                    <div className="main_tit">미니멀한 셀럽룩</div>
+                </section>
             </div>
 
 

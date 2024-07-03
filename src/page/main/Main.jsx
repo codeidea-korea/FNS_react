@@ -1,4 +1,4 @@
-import PopularList from "@/components/PopularList";
+import TagList from "@/components/TagList";
 import PostThumbnail from "@/components/PostThumbnail";
 import TopicThumbnail from "@/components/TopicThumbnail"
 
@@ -28,7 +28,7 @@ const Main = ()=>{
 
     return (
         <>
-            <div className="main">
+            <div className="main section_box">
                 <TopicThumbnail img={"/img/thumbnail/topic_1.png"} title={"7월 헤어는 여름<br/>단발 열풍"} desc={"더위에 시원한 헤어 준비🍧"} />
 
                 <PostThumbnail rank={true} title={"지금 가장 핫한 패션 이슈<br/>BEST 5"} data={bestData} />
@@ -36,7 +36,7 @@ const Main = ()=>{
                 <TopicThumbnail img={"/img/thumbnail/topic_2.png"} title={"셀럽의 액세서리<br/>패션"} desc={"액세서리 완성하는 셀럽 스타일..."} />
                 <TopicThumbnail img={"/img/thumbnail/topic_3.png"} title={"셀럽들의 눈에<br/>띄는 셋업룩"} desc={"다양한 셋업 스타일링 소개🤲🏻"} />
 
-                <PopularList title={"실시간 인기태그"} data={popularTag} />
+                <TagList title={"실시간 인기태그"} data={popularTag} />
 
                 <TopicThumbnail img={"/img/thumbnail/topic_4.png"} title={"미미의 모든 것"} desc={"민소매, 모자, 반팔티, 양말..."} />
                 <TopicThumbnail img={"/img/thumbnail/topic_5.png"} title={"블랙 패션<br/>스타일링"} desc={"다양한 룩 아이디어와 팁💡"} />

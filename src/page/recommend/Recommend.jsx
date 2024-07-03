@@ -28,6 +28,24 @@ const Recommend = ()=>{
             category:"셀럽 이슈",
             desc:"청량한 뉴진스 캠빈 데님룩💙<br/><br/>뉴진스가 지난 26일과 27일에 열린 뉴진스 팬미팅 'Bunnies Camp 2024 Tokyo Demo'에서 캠빈클라인의 특별한 의상을 선보였습니다. 캘빈클라인은 각 멤버들을 위해 '데님'을 주요 컨셉으로 5개의 의상을 제작했는데요. 캘빈클라인 모노그램 로고가 전체적으로 패턴화되어 있으며, 크리스탈 장식과 함께 캘빈클라인과 뉴진스의 특별 만남을 상징하는 로고 또한 각인되었습니다."
         },
+        {
+            video:["/img/thumbnail/video_1.png"],
+            img:["/img/recommend/feed03_1.jpg","/img/recommend/feed03_2.jpg","/img/recommend/feed03_3.jpg","/img/recommend/feed03_4.jpg"],
+            img_id:["calvinklein"],
+            tag:["뉴진스","콜라보","캘빈클라인"],
+            like:0,
+            category:"셀럽 이슈",
+            desc:"청량한 뉴진스 캠빈 데님룩💙<br/><br/>뉴진스가 지난 26일과 27일에 열린 뉴진스 팬미팅 'Bunnies Camp 2024 Tokyo Demo'에서 캠빈클라인의 특별한 의상을 선보였습니다. 캘빈클라인은 각 멤버들을 위해 '데님'을 주요 컨셉으로 5개의 의상을 제작했는데요. 캘빈클라인 모노그램 로고가 전체적으로 패턴화되어 있으며, 크리스탈 장식과 함께 캘빈클라인과 뉴진스의 특별 만남을 상징하는 로고 또한 각인되었습니다."
+        },
+        {
+            video:["/img/thumbnail/video_1.png"],
+            img:[],
+            img_id:["calvinklein"],
+            tag:["뉴진스","콜라보","캘빈클라인"],
+            like:0,
+            category:"셀럽 이슈",
+            desc:"청량한 뉴진스 캠빈 데님룩💙<br/><br/>뉴진스가 지난 26일과 27일에 열린 뉴진스 팬미팅 'Bunnies Camp 2024 Tokyo Demo'에서 캠빈클라인의 특별한 의상을 선보였습니다. 캘빈클라인은 각 멤버들을 위해 '데님'을 주요 컨셉으로 5개의 의상을 제작했는데요. 캘빈클라인 모노그램 로고가 전체적으로 패턴화되어 있으며, 크리스탈 장식과 함께 캘빈클라인과 뉴진스의 특별 만남을 상징하는 로고 또한 각인되었습니다."
+        },
     ];
 
     const topic = [
@@ -40,12 +58,14 @@ const Recommend = ()=>{
 
     return (
         <div className="recommend">
-            <PostFrame data={feedData[2]} />
-            <PostFrame data={feedData[0]} />
+            <PostFrame data={feedData[4]} /> {/* 비디오만 있을때 */}
+            <PostFrame data={feedData[3]} /> {/* 비디오랑 이미지 같이 있을떄 */}
+            <PostFrame data={feedData[2]} /> {/* 이미지만 있을때 */}
 
             {/* 추천토픽 */}
-            <PostThumbnail rank={false} topic={true} title={"추천 토픽"} data={topic} />
+            <PostThumbnail rank={false} same_type={true} overlapping={true} title={"추천 토픽"} data={topic} />
 
+            <PostFrame data={feedData[0]} />
             <PostFrame data={feedData[1]} />
         </div>
     )
