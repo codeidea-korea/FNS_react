@@ -1,6 +1,7 @@
 import TagList from "@/components/TagList";
 import PostThumbnail from "@/components/PostThumbnail";
 import TopicThumbnail from "@/components/TopicThumbnail"
+import Metatag from "@/components/Metatag";
 
 const Main = ()=>{
     const bestData = [
@@ -28,6 +29,8 @@ const Main = ()=>{
 
     return (
         <>
+            <Metatag desc="패션 & 스타일이 제공하는 최신 트렌드 패션 아이템과 다양한 셀럽들의 스타일을 만나보세요." image="/img/thumbnail/topic_1.png" />
+
             <div className="main section_box">
                 <TopicThumbnail img={"/img/thumbnail/topic_1.png"} title={"7월 헤어는 여름<br/>단발 열풍"} desc={"더위에 시원한 헤어 준비🍧"} />
 

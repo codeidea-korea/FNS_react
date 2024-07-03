@@ -1,6 +1,7 @@
 
 import PostFrame from "@/components/PostFrame";
 import PostThumbnail from "@/components/PostThumbnail";
+import Metatag from "@/components/Metatag";
 
 const Recommend = ()=>{
     const feedData = [
@@ -57,17 +58,21 @@ const Recommend = ()=>{
 
 
     return (
-        <div className="recommend">
-            <PostFrame data={feedData[4]} /> {/* 비디오만 있을때 */}
-            <PostFrame data={feedData[3]} /> {/* 비디오랑 이미지 같이 있을떄 */}
-            <PostFrame data={feedData[2]} /> {/* 이미지만 있을때 */}
+        <>
+            <Metatag desc="감각적인 에디터와 개발자들이 트렌디한 패션 뉴스와 빅데이터, AI 기술을 활용해 유익한 패션 정보를 제공합니다." image="/img/full_logo.svg" />
 
-            {/* 추천토픽 */}
-            <PostThumbnail rank={false} same_type={true} overlapping={true} title={"추천 토픽"} data={topic} />
+            <div className="recommend">
+                <PostFrame data={feedData[4]} /> {/* 비디오만 있을때 */}
+                <PostFrame data={feedData[3]} /> {/* 비디오랑 이미지 같이 있을떄 */}
+                <PostFrame data={feedData[2]} /> {/* 이미지만 있을때 */}
 
-            <PostFrame data={feedData[0]} />
-            <PostFrame data={feedData[1]} />
-        </div>
+                {/* 추천토픽 */}
+                <PostThumbnail rank={false} same_type={true} overlapping={true} title={"추천 토픽"} data={topic} />
+
+                <PostFrame data={feedData[0]} />
+                <PostFrame data={feedData[1]} />
+            </div>
+        </>
     )
 }
 

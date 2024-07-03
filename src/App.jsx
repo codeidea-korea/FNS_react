@@ -1,3 +1,5 @@
+import { HelmetProvider } from "react-helmet-async";
+
 import { useEffect } from 'react'
 import { BrowserRouter, useLocation } from 'react-router-dom'
 import Router from './router/Index'
@@ -32,7 +34,9 @@ function App() {
             <MainNavigate />
             <div id="lottie"><Lottie className='lottie_logo' animationData={LottieLogo} /></div>
             <ScrollToTop />
-            <Router />
+            <HelmetProvider>
+                <Router />
+            </HelmetProvider>
         </BrowserRouter>
     )
 }

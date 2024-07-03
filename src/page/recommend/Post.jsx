@@ -3,6 +3,7 @@ import PostThumbnail from "@/components/PostThumbnail";
 import TopicThumbnail from "@/components/TopicThumbnail"
 import PostThumbnailSlide from '@/components/PostThumbnailSlide';
 import PostFrame from '@/components/PostFrame';
+import Metatag from "@/components/Metatag";
 
 const Post = ()=>{
     const data = {
@@ -30,21 +31,24 @@ const Post = ()=>{
     ];
 
     return (
-        <div className="recommend">
-            <PostFrame data={data} descOpen={true} />
+        <>
+            <Metatag title="청량한 뉴진스 캠빈 데님룩" desc="청량한 뉴진스 캠빈 데님룩 여름이니까 크로셰모자" image="/img/recommend/feed03_1.jpg" />
+            <div className="recommend">
+                <PostFrame data={data} descOpen={true} />
 
-            <div className="gray_type">
-                <PostThumbnail rank={false} associated={true} same_type={true} data={newjeansData} profileName={"뉴진스"} profileUrl={"/img/thumbnail/asso_1.jpg"} />
-                <PostThumbnail rank={false} associated={true} same_type={true} data={newjeansData} profileName={"콜라보"} profileUrl={"/img/thumbnail/asso_4.jpg"} />
+                <div className="gray_type">
+                    <PostThumbnail rank={false} associated={true} same_type={true} data={newjeansData} profileName={"뉴진스"} profileUrl={"/img/thumbnail/asso_1.jpg"} />
+                    <PostThumbnail rank={false} associated={true} same_type={true} data={newjeansData} profileName={"콜라보"} profileUrl={"/img/thumbnail/asso_4.jpg"} />
 
-                <PostThumbnailSlide title={"미니멀한 셀럽 이슈"} data={newjeansData} />
+                    <PostThumbnailSlide title={"미니멀한 셀럽 이슈"} data={newjeansData} />
 
-                <TopicThumbnail img={"/img/thumbnail/topic_1.png"} title={"라이프스타일트렌..."} desc={"하니, 뉴진스, 2NE1 로..."} bigTitle={"연관 토픽"} />
+                    <TopicThumbnail img={"/img/thumbnail/topic_1.png"} title={"라이프스타일트렌..."} desc={"하니, 뉴진스, 2NE1 로..."} bigTitle={"연관 토픽"} />
 
-                <PostThumbnail rank={false} title={"연관 포스트"} data={bestData} />
+                    <PostThumbnail rank={false} title={"연관 포스트"} data={bestData} />
+                </div>
+
             </div>
-
-        </div>
+        </>
     )
 }
 export default Post;
