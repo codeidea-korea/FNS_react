@@ -181,8 +181,8 @@ section {padding:16px 16px 20px;}
 .post_frame .img_list:hover .pager {opacity:1; }
 
 
-.post_frame .img_list .tag_list {margin:10px 0 4px; padding:0 18px; text-align:right; } 
-.post_frame .img_list .tag_list span {display:none; font-size:12px; font-weight:400; color:#aaa; }
+.post_frame .img_list .tag_list {max-width:calc(50% - 40px); margin:10px 0 4px auto; padding:0 18px; text-align:right; } 
+.post_frame .img_list .tag_list span {overflow:hidden; display:none; font-size:12px; font-weight:400; color:#aaa; white-space:nowrap; text-overflow:ellipsis; cursor:pointer; }
 .post_frame .img_list .tag_list span.active {display:block; }
 
 .post_frame .txt_box {padding:5px 16px 12px; line-height:1.5; }
@@ -216,4 +216,31 @@ section {padding:16px 16px 20px;}
 .post_frame .txt_box .comment_list > p {margin-bottom:12px; font-size:14px; color:#6b6b6b; }
 .post_frame .txt_box .comment_list .comment_item {display:flex; align-items:center; gap:8px; }
 .post_frame .txt_box .comment_list .comment_item b {font-weight:600; font-size:14px; color:#313131; }
+
+
+/* ------------------------------------------------------------
+        모달
+------------------------------------------------------------ */
+.modal_wrap {z-index:1000; position:fixed; left:0; top:0; visibility:hidden; width:100%; height:100%; }
+.modal_wrap .modal_bg {opacity:0; position:absolute; left:0; top:0; width:100%; height:100%; background:rgba(0, 0, 0, 0.75); transition:opacity 0.5s; cursor:pointer; }
+.modal_wrap .modal_box {position:absolute; left:50%; bottom:-100%; width:100%; max-width:600px; background-color:#fff; border-radius:16px 16px 0 0; transform:translateX(-50%); transition:all 0.9s; }
+.modal_wrap.open {visibility: visible;}
+.modal_wrap.open .modal_bg {opacity:1; }
+.modal_wrap.open .modal_box {bottom:0; transition:all 0.5s; }
+
+.modal_wrap .modal_box .modal_header {display:flex; align-items:center; justify-content:center; height:65px; border-bottom:1px solid #E7E7E7; }
+.modal_wrap .modal_box .modal_header h3 {font-size:16px; font-weight:600; }
+.modal_wrap .modal_box .modal_content {padding:10px 0; }
+
+/*  */
+.insta_item {display:flex; flex-direction:column; gap:10px; width:100%; }
+.insta_item > a {display:flex; align-items:center; justify-content:center; gap:18px; padding:6px 16px; }
+.insta_item > a i {overflow:hidden; display:block; width:40px; height:40px; border-radius:50%; }
+.insta_item > a i.insta_icon {border-radius:0; opacity:.5; }
+.insta_item > a i img {width:100%; height:100%; object-fit:cover; }
+.insta_item > a > div {flex-grow:1; }
+.insta_item > a b {display:block; font-size:16px; font-weight:600; letter-spacing:-0.16px; }
+.insta_item > a span {display:block; font-size:14px; color:#6b6b6b; }
+.insta_item > a p {color:#313131; font-weight:400; }
+
 

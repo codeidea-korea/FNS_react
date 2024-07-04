@@ -32,8 +32,20 @@ const PostFrame = ({data,descOpen})=>{
         }
     }
 
+    // 모달 제어
+    const modalOpen = (e)=>{
+        let parent = e.currentTarget.closest('.post_frame')
+        parent.querySelector('.modal_wrap').classList.add('open')
+    }
+
+    const modalClose = (e)=>{
+        let modal = e.currentTarget.closest('.modal_wrap')
+        modal.classList.remove('open')
+    }
+
     return (
         <section className="post_frame">
+            {/* 이미지 영역 */}
             <Swiper  
                 slidesPerView={'auto'}
                 spaceBetween={0}
@@ -58,14 +70,16 @@ const PostFrame = ({data,descOpen})=>{
                     </SwiperSlide>
                 ))}
                 {data.img_id.length == 1 ? 
-                    <div className="tag_list"><span className="active">instagram @{data.img_id}</span></div>
+                    <div className="tag_list"><span className="active" onClick={modalOpen}>instagram @{data.img_id}</span></div>
                     :
                     <div className="tag_list">
-                        {data.img_id.map((item,index)=>(<span key={index} className={swiperActive == index ? "active":""}>instagram @{item}</span>))}
+                        {data.img_id.map((item,index)=>(<span key={index} className={swiperActive == index ? "active":""} onClick={modalOpen}>instagram @{item}</span>))}
                     </div>
                 }
                 <div className="pager">{swiperActive+1} / {data.img.length + (data.video ? data.video.length : 0)}</div>
             </Swiper>
+
+            {/* 텍스트 영역 */}
             <div className="txt_box">
                 <div className="top_btn">
                     <div>
@@ -104,6 +118,42 @@ const PostFrame = ({data,descOpen})=>{
                     <button>게시</button>
                 </div>
             </div>
+
+            {/* 인스타그램 출처 */}
+            <div className="modal_wrap" id='source-modal'>
+                <div className="modal_bg" onClick={modalClose}></div>
+                <div className="modal_box">
+                    <div className="modal_header"><h3>출처 목록</h3></div>
+                    <div className="modal_content">
+                        <div className="insta_item">
+                            <Link>
+                                <i><img src="/img/insta_jennie.jpg" alt="" /></i>
+                                <div>
+                                    <b>제니</b>
+                                    <span>instagram @jennierubyjane</span>
+                                </div>
+                                <img src="/img/more_arrow.svg" alt="" />
+                            </Link>
+                            <Link>
+                                <i><img src="/img/insta_jennie.jpg" alt="" /></i>
+                                <div>
+                                    <b>제니</b>
+                                    <span>instagram @jennierubyjane</span>
+                                </div>
+                                <img src="/img/more_arrow.svg" alt="" />
+                            </Link>
+                            <Link>
+                                <i className="insta_icon"><img src="/img/insta_icon.svg" alt="" /></i>
+                                <div>
+                                    <p>instagram @jemmg_</p>
+                                </div>
+                            </Link>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
         </section>
     )
 }
