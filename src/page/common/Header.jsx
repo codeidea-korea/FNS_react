@@ -1,70 +1,72 @@
 import React, {useEffect, useState} from 'react';
 import {Swiper, SwiperSlide} from 'swiper/react'; // Import Swiper React components
 import 'swiper/css'; // Import Swiper styles
-import {Link, useLocation} from 'react-router-dom';
-import AxiosInstance from "@/util/AxiosInstance";
+import {useLocation, useNavigate} from 'react-router-dom';
+import {useGlobalContext} from '../../layout/GlobalContext';
 
 const Header = ({title, gnbHide}) => {
+    const { gnb, setPk } = useGlobalContext();
     const url = useLocation().pathname;
+    const navigate = useNavigate();
     const [lineWidth, setLineWidth] = useState(0);
-    const [lineLeft, setLineLeft] = useState(16);
+    const [lineLeft] = useState(16);
     const [lastScroll, setLastScroll] = useState(0);
 
-    const [postPreview, setPostPreview] = useState(null);
-    const [error, setError] = useState(null);
-
     useEffect(() => {
-        const getPostPreview = async () => {
-            try {
-                const result = await AxiosInstance.get('/post/preview/301');
-                setPostPreview(result.data);
-
-            } catch (error) {
-                setError(error.message);
+        setTimeout(() => {
+            if (document.querySelector('.gnb_swiper .active')) {
+                setLineWidth(document.querySelector('.gnb_swiper .active')?.clientWidth - 32)
             }
-        };
-
-        getPostPreview();
-    }, []);
-
-    useEffect(() => {
-        if (postPreview) {
-            // 여기서부터 데이터 바인딩 하면서 화면 그려내기
-            console.log(postPreview);
-        }
-    }, [postPreview]);
-
-    useEffect(() => {
-        if (error) {
-            // 에러 처리
-            console.log(error);
-        }
-    }, [error]);
-
-    useEffect(() => {
-        if (document.querySelector('.gnb_swiper .active')) {
-            setLineLeft(document.querySelector('.gnb_swiper .active').offsetLeft + 16)
-            setLineWidth(document.querySelector('.gnb_swiper .active').clientWidth - 32)
-        }
+        }, 500);
 
         window.addEventListener('resize', () => {
             categoryPosition(document.querySelector('.gnb_swiper .active'))
         });
+    }, []);
 
-        return () => {
-            window.addEventListener('resize', () => {
+    // gnb 메뉴 클릭 이벤트
+    const clickGnb = (gnbVwTypeCd, gnbVwId, gnbParamValue) => {
+        setPk(gnbVwTypeCd === 'VW002001' ? gnbVwId : gnbParamValue);
+        navigate(getMenuLink(gnbVwId));
+    }
 
-            })
+    // 메뉴에 적용시킬 active class
+    const getMenuClassName = (gnbVwId) => {
+        const linkUrl = getMenuLink(gnbVwId);
+
+        if (linkUrl === url) {
+            return 'active';
+
+        } else {
+            return '';
         }
-    }, [])
+    };
+
+    // 메뉴에 적용시킬 underline i tag
+    const getUnderLine = (gnbVwId) => {
+        const linkUrl = getMenuLink(gnbVwId);
+
+        if (linkUrl === url) {
+            return <i className="underline" style={{width: `${lineWidth}px`, left: `${lineLeft}px`}}></i>;
+
+        } else {
+            return '';
+        }
+    };
+
+    // 메뉴에 적용시킬 link url
+    const getMenuLink = (gnbVwId) => {
+        return `/home/${gnbVwId}`;
+    };
 
     const cateClick = (e) => {
         const target = e.currentTarget;
+
         // 타겟 이동시키기
         categoryPosition(target);
+
         // underline 값 수정
         setLineWidth(e.currentTarget.clientWidth - 32);
-        setLineLeft(e.currentTarget.offsetLeft + 16);
     }
 
     // gnb 클릭시 위치 이동 
@@ -126,28 +128,24 @@ const Header = ({title, gnbHide}) => {
         <>
             <header>
                 <div className={title || gnbHide ? "top_area border_type" : "top_area"}>
-                    {title ?
-                        <>
-                            {/* {title === "포스트" ? <Link to={"/recommend"} className="page_prev"><img src="/img/prev_arrow.svg" alt="" /></Link> : ""} */}
-                            <div className="title">{title}</div>
-                        </>
-                        :
-                        <h1 className="logo"><Link to={'/home/main'}><img src="/img/logo.svg" alt=""/></Link></h1>
+                    {/*<Link to={"/recommend"} className="page_prev"><img src="/img/prev_arrow.svg" alt="" /></Link>*/}
+                    {
+                        title ? <div className="title">{title}</div>
+                            : <h1 className="logo"><a href={'/home/10001'}><img src="/img/logo.svg" alt=""/></a></h1>
                     }
                 </div>
                 <div className={title || gnbHide ? "gnb hidden" : "gnb"}>
                     <Swiper slidesPerView={'auto'} spaceBetween={0} className="gnb_swiper">
-                        <SwiperSlide className={url === "/home/main" || url === "/mypage" || url === "/foryou" || url === "/posts" ? "active" : ""} onClick={cateClick}><Link to={'/home/main'}><span>메인</span><i className="underline" style={{
-                            width: `${lineWidth}px`,
-                            left: `${lineLeft}px`
-                        }}></i></Link></SwiperSlide>
-                        <SwiperSlide className={url === "/home/realwaylook" ? "active" : ""} onClick={cateClick}><Link to={'/home/realwaylook'}><span>일상룩</span></Link></SwiperSlide>
-                        <SwiperSlide className={url === "/home/celebritylook" ? "active" : ""} onClick={cateClick}><Link to={'/home/celebritylook'}><span>셀럽룩</span></Link></SwiperSlide>
-                        <SwiperSlide className={url === "/home/10004" ? "active" : ""} onClick={cateClick}><Link to={'/home/10004'}><span>크리스탈</span></Link></SwiperSlide>
-                        <SwiperSlide className={url === "/home/10005" ? "active" : ""} onClick={cateClick}><Link to={'/home/10005'}><span>남친룩</span></Link></SwiperSlide>
-                        <SwiperSlide className={url === "/home/10006" ? "active" : ""} onClick={cateClick}><Link to={'/home/10006'}><span>네일트렌드</span></Link></SwiperSlide>
-                        <SwiperSlide className={url === "/home/10007" ? "active" : ""} onClick={cateClick}><Link to={'/home/10007'}><span>티셔츠</span></Link></SwiperSlide>
-                        <SwiperSlide className={url === "/home/10008" ? "active" : ""} onClick={cateClick}><Link to={'/home/10008'}><span>선글라스</span></Link></SwiperSlide>
+                        {gnb.length > 0 && gnb.map((item) => {
+                            return (
+                                <SwiperSlide key={item.gnb_vw_id} className={getMenuClassName(item.gnb_vw_id)} data- onClick={cateClick}>
+                                    <a style={{cursor: "pointer"}} onClick={() => clickGnb(item.gnb_vw_type_cd, item.gnb_vw_id, item.gnb_param_value)}>
+                                        <span>{item.gnb_name}</span>
+                                        {getUnderLine(item.gnb_vw_id)}
+                                    </a>
+                                </SwiperSlide>
+                            )
+                        })}
                     </Swiper>
                 </div>
             </header>

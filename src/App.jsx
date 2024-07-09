@@ -1,7 +1,7 @@
-import { HelmetProvider } from "react-helmet-async";
+import {HelmetProvider} from "react-helmet-async";
 
-import { useEffect } from 'react'
-import { BrowserRouter, useLocation } from 'react-router-dom'
+import {useEffect} from 'react'
+import {BrowserRouter, useLocation} from 'react-router-dom'
 import Router from './router/Index'
 import "./assets/css/app.css"
 
@@ -10,6 +10,7 @@ import Lottie from "lottie-react";
 import LottieLogo from "./assets/json/logo.json"
 import ScrollToTop from '@/components/ScrollTop';
 import MainNavigate from '@/components/MainNavigate';
+import { GlobalProvider } from './layout/GlobalContext';
 
 function App() {
     // 모바일에서 100vh 사파리 오류 수정
@@ -23,19 +24,21 @@ function App() {
         window.addEventListener("click", setOneVh);
     }, []);
 
-    useEffect(()=>{
-        setTimeout(function(){
+    useEffect(() => {
+        setTimeout(function () {
             document.getElementById('lottie').classList.add('off')
-        },1500)
-    },[])
+        }, 1500)
+    }, [])
 
-  return (
+    return (
         <BrowserRouter>
-            <MainNavigate />
-            <div id="lottie"><Lottie className='lottie_logo' animationData={LottieLogo} /></div>
-            <ScrollToTop />
+            <MainNavigate/>
+            <div id="lottie"><Lottie className='lottie_logo' animationData={LottieLogo}/></div>
+            <ScrollToTop/>
             <HelmetProvider>
-                <Router />
+                <GlobalProvider>
+                    <Router/>
+                </GlobalProvider>
             </HelmetProvider>
         </BrowserRouter>
     )

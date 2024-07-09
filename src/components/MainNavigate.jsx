@@ -7,7 +7,7 @@ export default function MainNavigate(){
 
     useEffect(() => {
         if(pathname === '/' || pathname === "/home" || pathname === "/home/"){
-            window.location.pathname = "/home/main"
+            window.location.pathname = "/home/10001"
         }
     }, [pathname, navigate]);
 
