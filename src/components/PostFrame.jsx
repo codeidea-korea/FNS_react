@@ -11,6 +11,7 @@ import { Pagination } from 'swiper/modules';
 
 // 모달 Open/Close 이벤트
 import Modal from "@/page/common/Modal";
+import DownloadModal from "@/page/common/DownloadModal.jsx";
 
 const PostFrame = ({data,descOpen})=>{
     // data : 데이터
@@ -20,7 +21,7 @@ const PostFrame = ({data,descOpen})=>{
     const [swiperActive, setSwiperActive] = useState(0)
     const navigate = useNavigate();
     // 모달 Open/Close 이벤트
-    const { modalId, openModal, closeModal, clickModalEvent, renderAppDownloadModal } = Modal();
+    const { modalId, openModal, closeModal, clickModalEvent } = Modal();
 
     const descHandle = (e)=>{
         let descBox = e.currentTarget.querySelector('.desc');
@@ -159,7 +160,7 @@ const PostFrame = ({data,descOpen})=>{
                 </div>
             )}
 
-            {renderAppDownloadModal()}
+            <DownloadModal isOpen={modalId === 'appDownload'} closeModal={closeModal} />
         </section>
     )
 }
