@@ -1,3 +1,4 @@
+import {useState} from 'react';
 import PostFrame from "@/components/PostFrame";
 import TopicThumbnail from "@/components/TopicThumbnail";
 import PostThumbnail from "@/components/PostThumbnail";
@@ -64,12 +65,11 @@ const Sample = ()=>{
         }
     }
 
-    
-
+    const [Appdown,setAppdown] = useState(false);
 
 
     return (
-        <div style={{paddingBottom:"80px"}}>
+        <div style={{paddingBottom:"120px"}}>
             <h1 style={{fontSize:"30px", fontWeight:"500", textAlign:"center"}}>컴포넌트</h1>
 
 
@@ -162,8 +162,6 @@ const Sample = ()=>{
             </div>
 
             <div style={{margin:"20px 0"}}></div>
-            <div style={{margin:"20px 0"}}></div>
-            <div style={{margin:"20px 0"}}></div>
 
             <h2 style={{paddingTop:"10px", fontSize:"26px", fontWeight:"400", textAlign:"center", backgroundColor:"#f0f0f0"}}>일반타이틀</h2>
             <p style={{paddingBottom:"10px",textAlign:"center", backgroundColor:"#f0f0f0", cursor:"pointer"}} onClick={PreveiwHandle} >{`<div className="main_tit">미니멀한 셀럽룩</div>`}  </p>
@@ -173,10 +171,30 @@ const Sample = ()=>{
                 </section>
             </div>
 
+            <div style={{margin:"20px 0"}}></div>
+
+            <h2 style={{paddingTop:"10px", fontSize:"26px", fontWeight:"400", textAlign:"center", backgroundColor:"#f0f0f0"}}>어플 다운 유도 모달</h2>
+            <div style={{textAlign:"center",margin:"10px 0"}}>
+                <button onClick={()=>setAppdown(!Appdown)} style={{padding:"5px 10px", backgroundColor:"#000", color:"#fff", borderRadius:"20px"}}>모달 열림 버튼</button>
+            </div>
+            {/* 앱다운 모달 */}
+            <div className={"modal_wrap " + (Appdown ? "open" : "")}>
+                <div className="modal_bg" onClick={()=>setAppdown(false)}></div>
+                <div className="modal_box">
+                    <div className="modal_content appdown_cont">
+                        <img src="/img/logo.svg" alt="패션&스타일 로고" />
+                        <h6>패션&스타일 앱에서 제공되는 혜택을<br/>놓치고 계신 건 아닌가요?</h6>
+                        <p>패션&스타일 앱은 다양한 혜택 및 코디 탭을 제공 중!</p>
+                        <button className='down_btn'>앱 이용하기</button>
+                        <button className='close_btn' onClick={()=>setAppdown(!Appdown)}>괜찮아요, 모바일웹으로 볼게요.</button>
+                    </div>
+                </div>
+            </div>
 
 
 
         </div>
     )
 }
+
 export default Sample;

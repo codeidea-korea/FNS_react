@@ -131,7 +131,7 @@ const Header = ({title, gnbHide}) => {
                     {/*<Link to={"/recommend"} className="page_prev"><img src="/img/prev_arrow.svg" alt="" /></Link>*/}
                     {
                         title ? <div className="title">{title}</div>
-                            : <h1 className="logo"><a href={'/home/10001'}><img src="/img/logo.svg" alt=""/></a></h1>
+                            : <div className='appdown_box'><h1 className="logo"><a href={'/home/10001'}><img src="/img/logo.svg" alt=""/></a><span>패션 & 스타일 앱에서 더 편리하게</span></h1> <button>앱으로 이동</button></div>
                     }
                 </div>
                 <div className={title || gnbHide ? "gnb hidden" : "gnb"}>
