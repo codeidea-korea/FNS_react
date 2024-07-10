@@ -1,6 +1,7 @@
 import Metatag from "@/components/Metatag";
+import { handleDownloadClick } from '@/common/downloadUtils';
 
-const Mypage = ()=>{
+const Mypage = () => {
     return (
         <>
             <Metatag desc="패션 & 스타일이 제공하는 최신 트렌드 패션 아이템과 다양한 셀럽들의 스타일을 만나보세요" image="/img/full_logo.svg" />
@@ -16,7 +17,7 @@ const Mypage = ()=>{
 
                     <div className="mock_img">
                         <img src="/img/main01_img01.png" alt="" />
-                        <a href="https://fashionandstyle.page.link/home" target="_blank" className="down_btn">App Download</a>
+                        <a onClick={handleDownloadClick} target="_blank" className="down_btn">App Download</a>
                     </div>
                     
                     <div className="bottom_txt">
@@ -30,4 +31,5 @@ const Mypage = ()=>{
         </>
     )
 }
+
 export default Mypage;
