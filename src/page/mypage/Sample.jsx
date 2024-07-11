@@ -1,10 +1,13 @@
-import {useState} from 'react';
+import {useEffect, useState} from 'react';
 import PostFrame from "@/components/PostFrame";
 import TopicThumbnail from "@/components/TopicThumbnail";
 import PostThumbnail from "@/components/PostThumbnail";
 import PostThumbnailSlide from "@/components/PostThumbnailSlide";
 import TagList from "@/components/TagList";
 
+// lottie 추가
+import LottieLogo from "@/assets/json/logo.json"
+import Lottie from "lottie-react";
 
 const Sample = ()=>{
     const postPreview = [
@@ -66,6 +69,13 @@ const Sample = ()=>{
     }
 
     const [Appdown,setAppdown] = useState(false);
+    const [Loading,setLoading] = useState(false);
+
+    useEffect(()=>{
+        if(Loading){
+            setTimeout(function(){setLoading(false)},2000)
+        }
+    },[Loading])
 
 
     return (
@@ -191,9 +201,22 @@ const Sample = ()=>{
                 </div>
             </div>
 
+            <div style={{margin:"20px 0"}}></div>
+            <h2 style={{paddingTop:"10px", fontSize:"26px", fontWeight:"400", textAlign:"center", backgroundColor:"#f0f0f0"}}>로딩</h2>
+            <p style={{paddingBottom:"10px",textAlign:"center", backgroundColor:"#f0f0f0", cursor:"pointer"}} onClick={PreveiwHandle} >아래 버튼을 눌러 로딩 페이지를 확인해주세요.</p>
+            <div style={{textAlign:"center",margin:"10px 0"}}>
+                <button onClick={()=>setLoading(true)} style={{padding:"5px 10px", backgroundColor:"#000", color:"#fff", borderRadius:"20px"}}>로딩 확인 버튼</button>
+            </div>
+            {Loading && <LoadingBox />}
 
 
         </div>
+    )
+}
+
+const LoadingBox = ()=>{
+    return (
+        <div id="loading_lottie"><Lottie speed={5} className='lottie_logo' animationData={LottieLogo}/></div>
     )
 }
 

@@ -13,17 +13,6 @@ import MainNavigate from '@/components/MainNavigate';
 import { GlobalProvider } from './layout/GlobalContext';
 
 function App() {
-    // 모바일에서 100vh 사파리 오류 수정
-    const setOneVh = () => {
-        const vh = window.innerHeight * 0.01;
-        document.documentElement.style.setProperty("--vh", `${vh}px`);
-    };
-    useEffect(() => {
-        setOneVh();
-        window.addEventListener("resize", setOneVh);
-        window.addEventListener("click", setOneVh);
-    }, []);
-
     useEffect(() => {
         setTimeout(function () {
             document.getElementById('lottie').classList.add('off')
