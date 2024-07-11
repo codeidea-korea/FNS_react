@@ -4,6 +4,16 @@ import 'swiper/css'; // Import Swiper styles
 import {useLocation, useNavigate} from 'react-router-dom';
 import {useGlobalContext} from '../../layout/GlobalContext';
 import { openAppDownModal } from '../../common/AppDownModalUtil';
+import Lottie from "lottie-react";
+import LottieLogo from "../../assets/json/logo.json"
+
+const LoadingBox = ()=>{
+    return (
+        <div id="loading_lottie">
+            <Lottie speed={5} className='lottie_logo' animationData={LottieLogo}/>
+        </div>
+    )
+}
 
 const Header = ({title, gnbHide}) => {
     const { gnb, setPk } = useGlobalContext();
@@ -12,6 +22,7 @@ const Header = ({title, gnbHide}) => {
     const [lineWidth, setLineWidth] = useState(0);
     const [lineLeft] = useState(16);
     const [lastScroll, setLastScroll] = useState(0);
+    const [loading, setLoading] = useState(false);
 
     useEffect(() => {
         setTimeout(() => {
@@ -21,12 +32,18 @@ const Header = ({title, gnbHide}) => {
         }, 500);
 
         window.addEventListener('resize', () => {
-            categoryPosition(document.querySelector('.gnb_swiper .active'))
+            categoryPosition(document.querySelector('.gnb_swiper .active'));
         });
     }, []);
 
     // gnb 메뉴 클릭 이벤트
     const clickGnb = (gnbVwTypeCd, gnbVwId, gnbParamValue) => {
+        // 로딩
+        setLoading(true);
+
+        // 0.5초 있다가 로딩 강제로 제거
+        setTimeout(() => { setLoading(false) }, 500);
+
         setPk(gnbVwTypeCd === 'VW002001' ? gnbVwId : gnbParamValue);
         navigate(getMenuLink(gnbVwId));
     }
@@ -60,11 +77,10 @@ const Header = ({title, gnbHide}) => {
         return `/home/${gnbVwId}`;
     };
 
+    // gnb 메뉴 클릭 이벤트
     const cateClick = (e) => {
-        const target = e.currentTarget;
-
         // 타겟 이동시키기
-        categoryPosition(target);
+        categoryPosition(e.currentTarget);
 
         // underline 값 수정
         setLineWidth(e.currentTarget.clientWidth - 32);
@@ -131,7 +147,8 @@ const Header = ({title, gnbHide}) => {
                 <div className={title || gnbHide ? "top_area border_type" : "top_area"}>
                     {/*<Link to={"/recommend"} className="page_prev"><img src="/img/prev_arrow.svg" alt="" /></Link>*/}
                     {
-                        title ? <div className="title">{title}</div>
+                        title && title !== ''
+                            ? <div className="title">{title}</div>
                             : <div className='appdown_box'>
                                 <h1 className="logo">
                                     <a href={'/home/10001'}>
@@ -158,6 +175,8 @@ const Header = ({title, gnbHide}) => {
                     </Swiper>
                 </div>
             </header>
+
+            { loading && <LoadingBox /> }
         </>
     )
 }

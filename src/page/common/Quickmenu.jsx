@@ -14,7 +14,7 @@ const Quickmenu = ()=>{
                 <button type={'button'} onClick={openAppDownModal}>앱으로 이동</button>
             </div>
             <ul>
-                <li className={url !== "/foryou" && url !== "/mypage" && url !== "/posts" ? "active" : ""}><Link to="/home/10001"><img src={`/img/home${url !== "/foryou" && url !== "/mypage" && url !== "/posts" ? "_on" : ""}.svg`} alt="" />홈</Link></li>
+                <li className={url !== "/foryou" && url !== "/mypage" && url !== "/posts" ? "active" : ""}><a href={"/home/10001"}><img src={`/img/home${url !== "/foryou" && url !== "/mypage" && url !== "/posts" ? "_on" : ""}.svg`} alt="" />홈</a></li>
                 <li className={url === "/foryou" || url === "/posts" ? "active" : ""}><Link to="/foryou"><img src={`/img/recommend${url === "/foryou" || url === "/posts" ? "_on" : ""}.svg`} alt="" />추천</Link></li>
                 <li className={url === "/mypage" ? "active" : ""}><Link to="/mypage"><i><img src="/img/logo.svg" alt="" /></i>마이페이지</Link></li>
             </ul>

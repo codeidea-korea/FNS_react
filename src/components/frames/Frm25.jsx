@@ -1,5 +1,4 @@
 const Frm25 = ({openAppDownModalFn, grpItem}) => {
-    console.log(grpItem)
     return (
         <section className={`topic_list`}>
             <div className="title">
