@@ -1,28 +1,34 @@
-import { Link } from "react-router-dom";
 import { Swiper, SwiperSlide } from 'swiper/react';
-// Import Swiper styles
 import 'swiper/css';
+import {useEffect, useState} from "react";
 
-const PostThumbnailSlide = ({title,data})=>{
+const Frm24 = ({openAppDownModalFn, grpItem})=>{
+    const [data, setData] = useState([]);
+
+    useEffect(() => {
+        setData(grpItem?.itm_data);
+    }, [grpItem]);
+
     return (
         <section className="issue_slide">
-            <h3 className="main_tit">{title}</h3>
+            <h3 className="main_tit">{grpItem.itm_name}</h3>
             <Swiper slidesPerView={'2.1'} spaceBetween={8} className="issue_list">
                 {data.map((item,index)=>(
                     <SwiperSlide key={index}>
-                        <Link>
+                        <a style={{cursor:"pointer"}} onClick={openAppDownModalFn}>
                             <div className="img_box">
-                                <img src={item.src} alt={item.title+" 이미지"} />
+                                <img src={item.post_images[0].post_image_url} alt={item.post_desc+" 이미지"} />
                             </div>
                             <div className="txt_box">
-                                <div className="name">{item.title}</div>
-                                <div className="cate">{item.category}</div>
+                                <div className="name">{item.post_desc}</div>
+                                <div className="cate">{item.post_tags[0].tag_name}</div>
                             </div>
-                        </Link>
+                        </a>
                     </SwiperSlide>
                 ))}
             </Swiper>
         </section>
     )
 }
-export default PostThumbnailSlide;
+
+export default Frm24;

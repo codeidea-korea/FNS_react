@@ -3,6 +3,7 @@ import {Swiper, SwiperSlide} from 'swiper/react'; // Import Swiper React compone
 import 'swiper/css'; // Import Swiper styles
 import {useLocation, useNavigate} from 'react-router-dom';
 import {useGlobalContext} from '../../layout/GlobalContext';
+import { openAppDownModal } from '../../common/AppDownModalUtil';
 
 const Header = ({title, gnbHide}) => {
     const { gnb, setPk } = useGlobalContext();
@@ -131,7 +132,15 @@ const Header = ({title, gnbHide}) => {
                     {/*<Link to={"/recommend"} className="page_prev"><img src="/img/prev_arrow.svg" alt="" /></Link>*/}
                     {
                         title ? <div className="title">{title}</div>
-                            : <div className='appdown_box'><h1 className="logo"><a href={'/home/10001'}><img src="/img/logo.svg" alt=""/></a><span>패션 & 스타일 앱에서 더 편리하게</span></h1> <button>앱으로 이동</button></div>
+                            : <div className='appdown_box'>
+                                <h1 className="logo">
+                                    <a href={'/home/10001'}>
+                                        <img src="/img/logo.svg" alt=""/>
+                                    </a>
+                                    <span>패션 & 스타일 앱에서 더 편리하게</span>
+                                </h1>
+                                <button type={'button'} onClick={openAppDownModal}>앱으로 이동</button>
+                            </div>
                     }
                 </div>
                 <div className={title || gnbHide ? "gnb hidden" : "gnb"}>

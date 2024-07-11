@@ -1,28 +1,26 @@
-import { Link } from "react-router-dom";
 import { Swiper, SwiperSlide } from 'swiper/react';
-// Import Swiper styles
 import 'swiper/css';
 
-const TagList = ({title,data})=>{
+const Frm12 = ({openAppDownModalFn, grpItem})=>{
     return (
         <section className="popular_list">
-            <h3 className="main_tit" dangerouslySetInnerHTML={{__html:title}}></h3>
+            <h3 className="main_tit" dangerouslySetInnerHTML={{__html:grpItem.itm_name}}></h3>
             <Swiper slidesPerView={'auto'} spaceBetween={8} className="popular_list_slide">
-                {data.map((item,index)=>(
+                {grpItem.itm_data.map((item,index)=>(
                     <SwiperSlide key={index}>
-                        <Link>
+                        <a style={{cursor:"pointer"}} onClick={openAppDownModalFn}>
                             <div className="img_box">
-                                <img src={item.src} alt={item.name+" 이미지"} />
+                                <img src={item.image_url_def ?? item.image_url1} alt={item.tag_name+" 이미지"} />
                             </div>
                             <div className="txt_box">
-                                <div className="name">{item.name}</div>
+                                <div className="name">{item.tag_name}</div>
                             </div>
-                        </Link>
+                        </a>
                     </SwiperSlide>
                 ))}
             </Swiper>
-
         </section>
     )
 }
-export default TagList;
+
+export default Frm12;

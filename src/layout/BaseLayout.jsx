@@ -4,6 +4,7 @@ import Header from '../page/common/Header';
 import Quickmenu from '../page/common/Quickmenu';
 import {useLocation} from 'react-router-dom';
 import {useGlobalContext} from './GlobalContext';
+import GlobalAppDownModal from "../common/AppDownModalUtil";
 
 const BaseLayout = ({title, gnbHide}) => {
     const {gnb} = useGlobalContext();
@@ -57,6 +58,7 @@ const BaseLayout = ({title, gnbHide}) => {
 
     return (
         <>
+            <GlobalAppDownModal/>
             <Header title={title} gnbHide={usGnbHide}/> {/* 헤더 */}
             <Outlet/>
             <Quickmenu/> {/* 퀵메뉴 */}

@@ -1,5 +1,5 @@
 /* 접속 url 혹은 메뉴를 이용하여 해당 페이지에서 호출할 api url을 조회 */
-const getApiUrl = async (gnb, pk) => {
+export const getApiUrl = async (gnb, pk) => {
     const mainGnbIds = ['10001', '10002', '10003']; // 기본 메인 메뉴들
     const tagGnbIds = ['10004', '10005', '10006', '10007', '10008']; // 태그 관련 메뉴들
     const allGnbIds = mainGnbIds.concat(tagGnbIds); // gnb 전체 메뉴들
@@ -29,4 +29,4 @@ const getApiUrl = async (gnb, pk) => {
     return apiUrl;
 }
 
-export default getApiUrl;
+export default {getApiUrl};

@@ -1,25 +1,26 @@
-import { Link } from "react-router-dom";
+import {useEffect, useState} from "react";
 
-const Frm21 = ({img,title,desc,bigTitle,visualType})=>{
-    // img: 이미지 경로
-    // title : 타이틀
-    // desc : 설명글
-    // bigTitle : 메인 타이틀
-    // visualType : 상단 비쥬얼로 들어갈 시 (임의로 만들어둠)
+const Frm21 = ({openAppDownModalFn, grpItem}) => {
+    const [data, setData] = useState([]);
+
+    useEffect(() => {
+        setData(grpItem?.itm_data[0]);
+    }, [grpItem]);
 
     return (
-        <section className={`${visualType?"visual_type":""}`}>
-            {bigTitle && <div className="main_tit">{bigTitle}</div>}
+        <section>
+            {grpItem?.itm_title_disp_yn === true ? <h3 className="main_tit">{grpItem.itm_name}</h3> : <></>}
             <div className={`topic_thumbnail`}>
-                <Link>
-                    <img src={img} alt={title+" 이미지"} />
+                <a style={{cursor: "pointer"}} onClick={openAppDownModalFn}>
+                    <img src={data.image_url_def ?? data.image_url1} alt={'title' + " 이미지"}/>
                     <div className="txt_box">
-                        <h5 dangerouslySetInnerHTML={{__html:title}}></h5>
-                        <p>{desc}</p>
+                        <h5 dangerouslySetInnerHTML={{__html: data.topic_name}}></h5>
+                        <p>{data.topic_desc}</p>
                     </div>
-                </Link>
+                </a>
             </div>
         </section>
     )
 }
+
 export default Frm21;
