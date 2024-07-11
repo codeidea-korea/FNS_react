@@ -35,7 +35,8 @@ const Main = ({apiUrl}) => {
 
     useEffect(() => {
         if (apiUrl) {
-            AxiosInstance.get(apiUrl).then((res) => {
+            AxiosInstance.get('/ui/view/page/10000').then((res) => {
+            // AxiosInstance.get(apiUrl).then((res) => {
                 const contents = res.data.data;
                 const arrFrameComponents = [];
 
