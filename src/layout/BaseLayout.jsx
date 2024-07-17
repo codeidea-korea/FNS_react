@@ -54,7 +54,7 @@ const BaseLayout = ({title, gnbHide}) => {
                 setUsGnbHide(res);
             });
         }
-    }, [gnb]);
+    }, [gnb, url]);
 
     return (
         <>

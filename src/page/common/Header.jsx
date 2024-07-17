@@ -4,16 +4,7 @@ import 'swiper/css'; // Import Swiper styles
 import {useLocation, useNavigate} from 'react-router-dom';
 import {useGlobalContext} from '../../layout/GlobalContext';
 import { openAppDownModal } from '../../common/AppDownModalUtil';
-import Lottie from "lottie-react";
-import LottieLogo from "../../assets/json/logo.json"
-
-const LoadingBox = ()=>{
-    return (
-        <div id="loading_lottie">
-            <Lottie speed={5} className='lottie_logo' animationData={LottieLogo}/>
-        </div>
-    )
-}
+import {showLoadingAnimation} from '../../common/CommonUtils.jsx';
 
 const Header = ({title, gnbHide}) => {
     const { gnb, setPk } = useGlobalContext();
@@ -22,28 +13,24 @@ const Header = ({title, gnbHide}) => {
     const [lineWidth, setLineWidth] = useState(0);
     const [lineLeft] = useState(16);
     const [lastScroll, setLastScroll] = useState(0);
-    const [loading, setLoading] = useState(false);
 
     useEffect(() => {
         setTimeout(() => {
             if (document.querySelector('.gnb_swiper .active')) {
                 setLineWidth(document.querySelector('.gnb_swiper .active')?.clientWidth - 32)
             }
-        }, 500);
+        }, 100);
 
         window.addEventListener('resize', () => {
             categoryPosition(document.querySelector('.gnb_swiper .active'));
         });
-    }, []);
+    }, [url]);
 
     // gnb 메뉴 클릭 이벤트
     const clickGnb = (gnbVwTypeCd, gnbVwId, gnbParamValue) => {
         // 로딩
-        setLoading(true);
-
-        // 0.5초 있다가 로딩 강제로 제거
-        setTimeout(() => { setLoading(false) }, 500);
-
+        showLoadingAnimation();
+        
         setPk(gnbVwTypeCd === 'VW002001' ? gnbVwId : gnbParamValue);
         navigate(getMenuLink(gnbVwId));
     }
@@ -175,8 +162,6 @@ const Header = ({title, gnbHide}) => {
                     </Swiper>
                 </div>
             </header>
-
-            { loading && <LoadingBox /> }
         </>
     )
 }

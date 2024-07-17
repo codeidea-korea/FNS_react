@@ -6,10 +6,6 @@ import 'swiper/css/pagination';
 import {Pagination} from 'swiper/modules';
 
 const Frm1 = ({openAppDownModalFn, grpItem}) => {
-    useEffect(() => {
-        console.log(grpItem)
-    }, [grpItem]);
-
     const [desc, setDesc] = useState([]);
     const [data, setData] = useState({});
     const [swiperActive, setSwiperActive] = useState(0);

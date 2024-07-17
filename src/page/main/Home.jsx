@@ -6,7 +6,7 @@ import Main from "../../page/main/Main";
 
 const Home = () => {
     const {gnb, pk} = useGlobalContext();
-    const location = useLocation();
+    const url = useLocation().pathname;
     const [apiUrl, setApiUrl] = useState(null);
 
     useEffect(() => {
@@ -20,7 +20,7 @@ const Home = () => {
                 }
             });
         }
-    }, [location.pathname, gnb, pk]);
+    }, [url, gnb, pk]);
 
     return (
         <>

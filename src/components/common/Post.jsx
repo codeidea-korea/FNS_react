@@ -1,11 +1,11 @@
 import React, {useEffect, useRef, useState} from 'react';
-import {useNavigate} from "react-router-dom";
 import {Swiper, SwiperSlide} from 'swiper/react';
 import 'swiper/css';
 import 'swiper/css/pagination';
 import {Pagination} from 'swiper/modules';
 import {formatDateString} from "../../common/CommonUtils";
 
+/* 포스트 상세 */
 const Post = ({openAppDownModalFn, post, showComment}) => {
     const [desc, setDesc] = useState([]);
     const [swiperActive, setSwiperActive] = useState(0);
@@ -67,7 +67,6 @@ const Post = ({openAppDownModalFn, post, showComment}) => {
 
     useEffect(() => {
         if (post) {
-            post.post_desc = post.post_desc + '\n' + post.post_desc + '\n' + post.post_desc
             // 설명글 엔터 기준으로 자르기
             setDesc(post.post_desc.split('\n'));
 
@@ -83,50 +82,9 @@ const Post = ({openAppDownModalFn, post, showComment}) => {
         }
     }, [post]);
 
-    // video 음소거 버튼 클릭 이벤트
-    const toggleMute = () => {
-        const video = videoRef.current;
-        video.muted = !video.muted;
-        setIsMuted(video.muted);
-    };
-
-    const descHandle = (e) => {
-        let descBox = e.currentTarget.querySelector('.desc');
-
-        if (desc.length > 2) {
-            if (descBox.classList.contains('open')) {
-                // desc 모든텍스트 다 보일때
-                openAppDownModalFn();
-
-            } else {
-                // desc 텍스트 일부 가려져있을때
-                // e.currentTarget.querySelector('.desc').classList.add('open')
-            }
-
-        } else {
-            // 더보기 버튼 없을때
-            openAppDownModalFn();
-        }
-    }
-
-    // 인스타 출처 태그 클릭시 모달 열기
-    const modalOpen = (e) => {
-        let parent = e.currentTarget.closest('.post_frame')
-        parent.querySelector('.modal_wrap').classList.add('open');
-    }
-
-    // 인스타 출처 태그 모달 닫기
-    const modalClose = (e) => {
-        let modal = e.currentTarget.closest('.modal_wrap')
-        modal.classList.remove('open')
-    }
-
     // 이미지 슬라이드 할 때
     const changePostSlide = (swiper) => {
         const activeIndex = swiper.activeIndex;
-
-        setSwiperActive(swiper.activeIndex);
-        return;
 
         // 첫번째, 두번째 이미지만 볼 수 있음
         if (activeIndex === 0 || activeIndex === 1) {
@@ -143,6 +101,54 @@ const Post = ({openAppDownModalFn, post, showComment}) => {
             openAppDownModalFn();
         }
     }
+
+    // 인스타 출처 태그 클릭시 모달 열기
+    const modalOpen = (e) => {
+        let parent = e.currentTarget.closest('.post_frame')
+        parent.querySelector('.modal_wrap').classList.add('open');
+    }
+
+    // 인스타 출처 태그 모달 닫기
+    const modalClose = (e) => {
+        let modal = e.currentTarget.closest('.modal_wrap')
+        modal.classList.remove('open')
+    }
+
+    // 포스트 본문 클릭 이벤트
+    const clickDescArea = (e) => {
+        let descBox = e.currentTarget.querySelector('.desc');
+
+        if (desc.length > 2) {
+            if (descBox.classList.contains('open')) {
+                // desc 모든텍스트 다 보일때
+                openAppDownModalFn();
+
+            } else {
+                // desc 텍스트 일부 가려져있을때
+                e.currentTarget.querySelector('.desc').classList.add('open')
+            }
+
+        } else {
+            // 더보기 버튼 없을때
+            openAppDownModalFn();
+        }
+    }
+
+    // 비디오 onLoadedData 이벤트
+    const videoLoadedData = (e) => {
+        // 가로가 세로보다 더 긴 경우
+        if (e.target.videoWidth > e.target.videoHeight) {
+            // 클래스 추가
+            e.target.classList.add('type02');
+        }
+    }
+
+    // 비디오 음소거 버튼 클릭 이벤트
+    const toggleMute = () => {
+        const video = videoRef.current;
+        video.muted = !video.muted;
+        setIsMuted(video.muted);
+    };
 
     return (
         <section className="post_frame">
@@ -162,13 +168,16 @@ const Post = ({openAppDownModalFn, post, showComment}) => {
                             if (item.post_video_yn === true) {
                                 return (
                                     <SwiperSlide key={index} className={'video_item'}>
-                                        <video ref={videoRef} poster={item.post_image_url} autoPlay muted loop playsInline>
+                                        <video ref={videoRef} poster={item.post_image_url} autoPlay muted loop playsInline onLoadedData={videoLoadedData}>
                                             <source src={item.post_video_urls[0].video_file_path} type="video/mp4"/>
                                         </video>
-                                        <div className="video_control"><span style={{width: `${progress}%`}}></span>
+                                        <div className="video_control">
+                                            <span style={{width: `${progress}%`}}></span>
                                         </div>
                                         <div className="video_volume">
-                                            <button onClick={toggleMute}><img src={isMuted ? '/img/volume.svg' : '/img/volume_on.svg'} alt={isMuted ? 'Unmute' : 'Mute'}/></button>
+                                            <button onClick={toggleMute}>
+                                                <img src={isMuted ? '/img/volume.svg' : '/img/volume_on.svg'} alt={isMuted ? 'Unmute' : 'Mute'}/>
+                                            </button>
                                         </div>
                                     </SwiperSlide>
                                 )
@@ -212,7 +221,7 @@ const Post = ({openAppDownModalFn, post, showComment}) => {
                         {/* 좋아요 라인 */}
                         <div className="like_box">
                             <p>좋아요 {post?.post_like_user_ids?.length ?? 0}개</p>
-                            <button onClick={openAppDownModalFn}>더 보기</button>
+                            {/*<button onClick={openAppDownModalFn}>더 보기</button>*/}
                         </div>
 
                         {/* 태그 라인 */}
@@ -222,7 +231,7 @@ const Post = ({openAppDownModalFn, post, showComment}) => {
                         </div>
 
                         {/* 본문 라인 */}
-                        <div className="desc_box" onClick={descHandle}>
+                        <div className="desc_box" onClick={clickDescArea}>
                             <div className={'desc'}>
                                 {desc.map((item, index) => (
                                     <p key={index}>
@@ -230,7 +239,7 @@ const Post = ({openAppDownModalFn, post, showComment}) => {
 
                                         {
                                             (desc.length > 2 && index === 1) &&
-                                            <button onClick={openAppDownModalFn}>...더 보기</button>
+                                            <button>...더 보기</button>
                                         }
                                     </p>
                                 ))}

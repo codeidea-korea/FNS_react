@@ -1,63 +1,38 @@
 import {useRoutes} from "react-router-dom"
-import BaseLayout from "@/layout/BaseLayout"
-import Home from "@/page/main/Home"
-import Foryou from "@/page/foryou/Foryou"
-
-import Everyday from "@/page/main/Everyday"
-import Mypage from "@/page/mypage/Mypage"
-import Post from "@/page/recommend/Post"
-import PostTest from "@/page/recommend/PostTest"
-import Sample from "@/page/mypage/Sample"
+import BaseLayout from "../layout/BaseLayout"
+import Home from "../page/main/Home"
+import Foryou from "../page/foryou/Foryou"
+import Mypage from "../page/mypage/Mypage"
+import Sample from "../page/mypage/Sample"
+import Topic from "../page/etc/Topic"
 
 function Router() {
     return useRoutes(
         [
             {
                 path: "/",
-                element: <BaseLayout />,
-                children:
-                [
+                element: <BaseLayout gnbHide={false}/>,
+                children: [
                     {
-                        path: "/home/:id",
-                        element: <Home />,
+                        path: "/sample", // 컴포넌트 확인 페이지 (임시)
+                        element: <Sample/>
                     }
-                    /*{
-                        path: "/home/main",
-                        element: <Main />,
-                    },
-                    {
-                        path: "/home/realwaylook",
-                        element: <Everyday />,
-                    },
-                    {
-                        path: "/home/celebritylook",
-                        element: <Main />,
-                    },
-                    {
-                        path: "/home/10004",
-                        element: <Everyday />,
-                    },
-                    {
-                        path: "/home/10005",
-                        element: <Main />,
-                    },
-                    {
-                        path: "/home/10006",
-                        element: <Everyday />,
-                    },
-                    {
-                        path: "/home/10007",
-                        element: <Main />,
-                    },
-                    {
-                        path: "/home/10008",
-                        element: <Everyday />,
-                    },*/
                 ]
             },
             {
                 path: "/",
-                element: <BaseLayout title={"추천"}/>,
+                element: <BaseLayout gnbHide={true}/>,
+                children:
+                    [
+                        {
+                            path: "/home/:id",
+                            element: <Home/>
+                        }
+                    ]
+            },
+            {
+                path: "/",
+                element: <BaseLayout title={"추천"} gnbHide={false}/>,
                 children: [
                     {
                         path: "/foryou",
@@ -67,38 +42,54 @@ function Router() {
             },
             {
                 path: "/",
-                element: <BaseLayout title={"포스트"}/>,
-                children: [
-                    {
-                        path: "/posts",
-                        element: <Post/>
-                    }
-                ]
-            },
-            {
-                path: "/",
-                element: <BaseLayout title={"포스트 테스트"}/>,
-                children: [
-                    {
-                        path: "/posts/2022/05/08/도예-취미로-힐링해볼까/101695",
-                        element: <PostTest/>
-                    }
-                ]
-            },
-            {
-                path: "/",
-                element: <BaseLayout gnbHide={true}/>,
+                element: <BaseLayout gnbHide={false}/>,
                 children: [
                     {
                         path: "/mypage",
                         element: <Mypage/>
-                    },
-                    {
-                        path: "/sample", // 컴포넌트 확인 페이지 (임시)
-                        element: <Sample/>
                     }
                 ]
             },
+            {
+                path: "/",
+                element: <BaseLayout title={"토픽"}/>,
+                children: [
+                    {
+                        path: "/topic/:key",
+                        element: <Topic/>
+                    }
+                ]
+            },
+            /*{
+                path: "/",
+                element: <BaseLayout title={"태그"}/>,
+                children: [
+                    {
+                        path: "/tag/:key",
+                        element: <Tag/>
+                    }
+                ]
+            },*/
+            /*{
+                path: "/",
+                element: <BaseLayout title={"카테고리"}/>,
+                children: [
+                    {
+                        path: "/category/:key",
+                        element: <Category/>
+                    }
+                ]
+            },*/
+            /*{
+                path: "/",
+                element: <BaseLayout title={"포스트"}/>,
+                children: [
+                    {
+                        path: "/posts/:yy/:mm/:dd/:key",
+                        element: <Post/>
+                    }
+                ]
+            }*/
         ]
     );
 }

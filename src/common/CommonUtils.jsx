@@ -1,3 +1,8 @@
+import Lottie from "lottie-react";
+import LottieLogo from "../assets/json/logo.json"
+import React, {useEffect, useState} from "react";
+import { createRoot } from 'react-dom/client';
+
 /* 접속 url 혹은 메뉴를 이용하여 해당 페이지에서 호출할 api url을 조회 */
 export const getApiUrl = async (gnb, pk) => {
     const mainGnbIds = ['10001', '10002', '10003']; // 기본 메인 메뉴들
@@ -29,6 +34,7 @@ export const getApiUrl = async (gnb, pk) => {
     return apiUrl;
 }
 
+/* 포스트 상세에서 시간을 표시할 때 사용하는 함수 */
 export const formatDateString = (postedTimeStr) => {
     const postedTime = new Date(postedTimeStr);
     const now = new Date();
@@ -73,5 +79,36 @@ export const formatDateString = (postedTimeStr) => {
     return `${postedTime.getMonth() + 1}월 ${postedTime.getDate()}일`;
 }
 
+/* 로딩 에니메이션 효과를 보여주고 0.6초 후 제거 */
+export const showLoadingAnimation = () => {
+    const LoadingComponent = () => {
+        const [isLoading, setIsLoading] = useState(true);
 
-export default {getApiUrl, formatDateString};
+        useEffect(() => {
+            const timer = setTimeout(() => {
+                setIsLoading(false);
+            }, 600);
+
+            return () => clearTimeout(timer);
+        }, []);
+
+        if (!isLoading) return null;
+
+        return (
+            <div id="loading_lottie">
+                <Lottie speed={5} className='lottie_logo' animationData={LottieLogo}/>
+            </div>
+        );
+    };
+
+    const div = document.createElement('div');
+    document.body.appendChild(div);
+
+    const root = createRoot(div);
+    root.render(<LoadingComponent/>);
+
+    setTimeout(() => {
+        root.unmount();
+        document.body.removeChild(div);
+    }, 600); // 0.6초 후 로딩 애니메이션 숨기기 및 DOM 정리
+}
