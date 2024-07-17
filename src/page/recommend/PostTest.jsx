@@ -21,7 +21,7 @@ const Post = ()=>{
             const postId = match ? match[1] : null;
 
             try {
-                const result = await AxiosInstance.get(`/post/preview/${postId}`);
+                const result = await AxiosInstance.get(`/api/v1/post/preview/${postId}`);
                 setPost(result.data.data);
 
             } catch (error) {

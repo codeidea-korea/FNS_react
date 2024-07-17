@@ -1,9 +1,10 @@
 import {useRoutes} from "react-router-dom"
 import BaseLayout from "@/layout/BaseLayout"
 import Home from "@/page/main/Home"
+import Foryou from "@/page/foryou/Foryou"
+
 import Everyday from "@/page/main/Everyday"
 import Mypage from "@/page/mypage/Mypage"
-import Recommend from "@/page/recommend/Recommend"
 import Post from "@/page/recommend/Post"
 import PostTest from "@/page/recommend/PostTest"
 import Sample from "@/page/mypage/Sample"
@@ -60,7 +61,7 @@ function Router() {
                 children: [
                     {
                         path: "/foryou",
-                        element: <Recommend/>
+                        element: <Foryou/>
                     }
                 ]
             },

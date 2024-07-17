@@ -1,4 +1,4 @@
-const Frm25 = ({openAppDownModalFn, grpItem}) => {
+const Frm28 = ({openAppDownModalFn, grpItem}) => {
     return (
         <section className={`topic_list`}>
             <div className="title">
@@ -29,4 +29,4 @@ const Frm25 = ({openAppDownModalFn, grpItem}) => {
     )
 }
 
-export default Frm25;
+export default Frm28;

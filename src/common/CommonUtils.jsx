@@ -18,10 +18,10 @@ export const getApiUrl = async (gnb, pk) => {
         }
 
         if (mainGnbIds.includes(lastPart)) {
-            apiUrl = `/ui/view/${pk}`;
+            apiUrl = `/api/v1/ui/view/${pk}`;
 
         } else if (tagGnbIds.includes(lastPart)) {
-            apiUrl = `/ui/viewpage/tag/${pk}`;
+            apiUrl = `/api/v1/ui/viewpage/tag/${pk}`;
 
         }
     }
@@ -29,4 +29,49 @@ export const getApiUrl = async (gnb, pk) => {
     return apiUrl;
 }
 
-export default {getApiUrl};
+export const formatDateString = (postedTimeStr) => {
+    const postedTime = new Date(postedTimeStr);
+    const now = new Date();
+    const difference = now - postedTime;
+
+    const seconds = Math.floor(difference / 1000);
+    const minutes = Math.floor(seconds / 60);
+    const hours = Math.floor(minutes / 60);
+    const days = Math.floor(hours / 24);
+    const weeks = Math.floor(days / 7);
+
+    if (days < 1) {
+        if (seconds < 60) {
+            return `${seconds}초 전`;
+        }
+
+        if (minutes < 60) {
+            return `${minutes}분 전`;
+        }
+
+        if (hours < 24) {
+            return `${hours}시간 전`;
+        }
+    }
+
+    if (days < 7) {
+        return `${days}일 전`;
+    }
+
+    if (days < 30) {
+        return `${weeks}주 전`;
+    }
+
+    if (days >= 30) {
+        return `${postedTime.getMonth() + 1}월 ${postedTime.getDate()}일`;
+    }
+
+    if (now.getFullYear() !== postedTime.getFullYear()) {
+        return `${postedTime.getFullYear()}년 ${postedTime.getMonth() + 1}월 ${postedTime.getDate()}일`;
+    }
+
+    return `${postedTime.getMonth() + 1}월 ${postedTime.getDate()}일`;
+}
+
+
+export default {getApiUrl, formatDateString};

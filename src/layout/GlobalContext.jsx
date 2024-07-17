@@ -15,7 +15,7 @@ export const GlobalProvider = ({ children }) => {
         // gnb 메뉴 데이터 조회
         const getGnb = async () => {
             try {
-                const result = await AxiosInstance.get('/ui/gnb');
+                const result = await AxiosInstance.get('/api/v1/ui/gnb');
                 return result.data.data;
 
             } catch (error) {
