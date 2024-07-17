@@ -174,7 +174,8 @@ section {padding:16px 16px 20px;}
 .post_frame {padding:0; }
 .post_frame .img_list .swiper-slide {position:relative; width:100%; padding-bottom:125%; }
 .post_frame .img_list .swiper-slide > img,
-.post_frame .img_list .swiper-slide > video {position:absolute; left:0; top:0; width:100%; height:100%; object-fit:cover; }
+.post_frame .img_list .swiper-slide > video {position:absolute; left:0; top:0; width:100%; height:100%; object-fit:cover; background-color:#000; }
+.post_frame .img_list .swiper-slide > video.type02 {object-fit:contain; }
 
 .post_frame .img_list.video_only .swiper-slide {padding-bottom:156.667%; }
 .post_frame .img_list.video_only .tag_list {z-index:10; position:absolute; right:0; bottom:8px; }
