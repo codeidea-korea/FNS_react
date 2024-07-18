@@ -13,6 +13,14 @@ export const getApiUrl = async (gnb, pk) => {
     const lastPart = pathname.substring(lastSlashIndex + 1);
     let apiUrl = '/';
 
+    /**
+     * Test
+     * 외부사이트(NAVER, Google) 등 검색이나 공유 링크 등으로 들어왔을때 링크 처리를 어떻게해야하나?
+     */
+    const seachParams = new URLSearchParams(window.location.seach);
+    // tag_preview_name = 차정원, 강민겸 ..
+    const tagPreviewName = searchParams.get('tag_preview_name');
+
     if (allGnbIds.includes(lastPart)) {
         // gnb 메뉴 클릭시 담기는 해당 메뉴의 key값
         if (!pk) {
@@ -20,14 +28,16 @@ export const getApiUrl = async (gnb, pk) => {
             이런 경우에는 gnb에서 해당하는 key값을 다시 찾아야됨 */
             const gnbObjectByLastPart = gnb.find(item => item.gnb_id === lastPart);
             pk = gnbObjectByLastPart.gnb_vw_type_cd === 'VW002001' ? gnbObjectByLastPart.gnb_id : gnbObjectByLastPart.gnb_param_value;
+
+            console.log(pk);
         }
 
         if (mainGnbIds.includes(lastPart)) {
             apiUrl = `/api/v1/ui/view/${pk}`;
-
+            console.log(apiUrl);
         } else if (tagGnbIds.includes(lastPart)) {
             apiUrl = `/api/v1/ui/viewpage/tag/${pk}`;
-
+            console.log(apiUrl);
         }
     }
 
