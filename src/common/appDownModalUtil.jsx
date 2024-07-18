@@ -8,6 +8,22 @@ let setModalOpen;
 const GlobalAppDownModal = () => {
     const [isOpen, setIsOpen] = useState(false);
 
+    const clickUseApp = () => {
+        /* TODO : 앱 이용하기 버튼 클릭시 이벤트 만들어야됨 */
+
+        /*const userAgent = navigator.userAgent || navigator.vendor || window.opera;
+
+        // iOS detection
+        if (/iPad|iPhone|iPod/.test(userAgent) && !window.MSStream) {
+            window.location.href = "https://apps.apple.com/app/idYOUR_APP_ID"; // Replace YOUR_APP_ID with your app's ID
+        }
+
+        // Android detection
+        else if (/android/i.test(userAgent)) {
+            window.location.href = "https://play.google.com/store/apps/details?id=YOUR_APP_PACKAGE_NAME"; // Replace YOUR_APP_PACKAGE_NAME with your app's package name
+        }*/
+    }
+
     setModalOpen = setIsOpen;
 
     return ReactDOM.createPortal(
@@ -18,7 +34,7 @@ const GlobalAppDownModal = () => {
                     <img src="/img/logo.svg" alt="패션&스타일 로고"/>
                     <h6>패션&스타일 앱에서 제공되는 혜택을<br/>놓치고 계신 건 아닌가요?</h6>
                     <p>패션&스타일 앱은 다양한 혜택 및 코디 탭을 제공 중!</p>
-                    <button className='down_btn'>앱 이용하기</button>
+                    <button className='down_btn' onClick={clickUseApp}>앱 이용하기</button>
                     <button className='close_btn' onClick={() => setIsOpen(false)}>괜찮아요, 모바일웹으로 볼게요.</button>
                 </div>
             </div>

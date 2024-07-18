@@ -1,9 +1,4 @@
-import {useEffect} from "react";
-
-const Frm28 = ({openAppDownModalFn, grpItem}) => {
-    useEffect(() => {
-        console.log(grpItem)
-    }, [grpItem])
+const Frm25 = ({openAppDownModalFn, grpItem}) => {
     return (
         <section className={`topic_list`}>
             <div className="title">
@@ -34,4 +29,4 @@ const Frm28 = ({openAppDownModalFn, grpItem}) => {
     )
 }
 
-export default Frm28;
+export default Frm25;

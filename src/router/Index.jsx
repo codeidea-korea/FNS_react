@@ -1,4 +1,4 @@
-import {useRoutes} from "react-router-dom"
+import {useRoutes, Navigate} from "react-router-dom"
 import BaseLayout from "../layout/BaseLayout"
 import Home from "../page/main/Home"
 import Foryou from "../page/foryou/Foryou"
@@ -9,17 +9,7 @@ import Topic from "../page/etc/Topic"
 function Router() {
     return useRoutes(
         [
-            {
-                path: "/",
-                element: <BaseLayout gnbHide={false}/>,
-                children: [
-                    {
-                        path: "/sample", // 컴포넌트 확인 페이지 (임시)
-                        element: <Sample/>
-                    }
-                ]
-            },
-            {
+            { // 홈의 8개 메뉴
                 path: "/",
                 element: <BaseLayout gnbHide={true}/>,
                 children:
@@ -30,7 +20,7 @@ function Router() {
                         }
                     ]
             },
-            {
+            { // 추천
                 path: "/",
                 element: <BaseLayout title={"추천"} gnbHide={false}/>,
                 children: [
@@ -40,7 +30,7 @@ function Router() {
                     }
                 ]
             },
-            {
+            { // 마이페이지
                 path: "/",
                 element: <BaseLayout gnbHide={false}/>,
                 children: [
@@ -50,9 +40,9 @@ function Router() {
                     }
                 ]
             },
-            {
+            { // 토픽 상세
                 path: "/",
-                element: <BaseLayout title={"토픽"}/>,
+                element: <BaseLayout/>,
                 children: [
                     {
                         path: "/topic/:key",
@@ -60,7 +50,7 @@ function Router() {
                     }
                 ]
             },
-            /*{
+            /*{ // 태그 상세
                 path: "/",
                 element: <BaseLayout title={"태그"}/>,
                 children: [
@@ -70,7 +60,7 @@ function Router() {
                     }
                 ]
             },*/
-            /*{
+            /*{ // 카테고리 상세
                 path: "/",
                 element: <BaseLayout title={"카테고리"}/>,
                 children: [
@@ -80,7 +70,7 @@ function Router() {
                     }
                 ]
             },*/
-            /*{
+            /*{ // 포스트 상세
                 path: "/",
                 element: <BaseLayout title={"포스트"}/>,
                 children: [
@@ -89,7 +79,21 @@ function Router() {
                         element: <Post/>
                     }
                 ]
-            }*/
+            },*/
+            { // 컴포넌트 확인용 샘플 페이지
+                path: "/",
+                element: <BaseLayout gnbHide={false}/>,
+                children: [
+                    {
+                        path: "/sample",
+                        element: <Sample/>
+                    }
+                ]
+            },
+            { // 위에 작성된 경로가 아니면 메인으로 이동
+                path: "*",
+                element: <Navigate to="/home/10001" replace />
+            },
         ]
     );
 }
