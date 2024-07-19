@@ -5,6 +5,7 @@ import Foryou from "../page/foryou/Foryou"
 import Mypage from "../page/mypage/Mypage"
 import Sample from "../page/mypage/Sample"
 import Topic from "../page/etc/Topic"
+import Detail from "../page/recommend/Detail"
 
 function Router() {
     return useRoutes(
@@ -87,6 +88,16 @@ function Router() {
                     {
                         path: "/sample",
                         element: <Sample/>
+                    }
+                ]
+            },
+            { // 페이지 임의로 추가
+                path: "/",
+                element: <BaseLayout gnbHide={false}/>,
+                children: [
+                    {
+                        path: "/detail",
+                        element: <Detail/>
                     }
                 ]
             },
