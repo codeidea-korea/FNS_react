@@ -1,15 +1,19 @@
 const Frm26 = ({openAppDownModalFn, grpItem}) => {
     return (
         <section className={'topic_list same_type'}>
-            <div className="title">
-                <a style={{cursor:"pointer"}} onClick={openAppDownModalFn}>
-                    <i>
-                        <img src={grpItem?.itm_data[0]?.tag_type_cd === 'TAG002005' ? grpItem?.itm_data[0].image_url_def : grpItem?.itm_data[0].image_url1} alt={grpItem.itm_name}/>
-                    </i>
-                    <span>{grpItem.itm_name}</span>
-                    <img src="/img/more_arrow.svg" alt="" />
-                </a>
-            </div>
+            {
+                grpItem?.itm_title_disp_yn === true &&
+                <div className="title">
+                    <a style={{cursor:"pointer"}} onClick={openAppDownModalFn}>
+                        <i>
+                            <img src={grpItem?.itm_data[0]?.tag_type_cd === 'TAG002005' ? grpItem?.itm_data[0].image_url_def : grpItem?.itm_data[0].image_url1} alt={grpItem.itm_name}/>
+                        </i>
+                        <span>{grpItem.itm_name}</span>
+                        <img src="/img/more_arrow.svg" alt="" />
+                    </a>
+                </div>
+            }
+
             <ul>
                 {grpItem?.itm_data.map((item, index) => (
                     <li key={index}>

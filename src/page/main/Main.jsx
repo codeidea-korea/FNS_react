@@ -1,18 +1,8 @@
-import {useEffect, useState, lazy} from "react";
+import {useEffect, useState} from "react";
 import {openAppDownModal} from '../../common/AppDownModalUtil';
 import {componentMap} from '../../common/componentMap';
 import AxiosInstance from "../../common/AxiosInstance";
 import Metatag from "../../components/Metatag";
-
-const Frm12 = lazy(() => import('../../components/frames/Frm12.jsx'));
-const Frm13 = lazy(() => import('../../components/frames/Frm13.jsx'));
-const Frm21 = lazy(() => import('../../components/frames/Frm21.jsx'));
-const Frm22 = lazy(() => import('../../components/frames/Frm22.jsx'));
-const Frm23 = lazy(() => import('../../components/frames/Frm23.jsx'));
-const Frm24 = lazy(() => import('../../components/frames/Frm24.jsx'));
-const Frm26 = lazy(() => import('../../components/frames/Frm26.jsx'));
-const Frm27 = lazy(() => import('../../components/frames/Frm27.jsx'));
-const Frm28 = lazy(() => import('../../components/frames/Frm28.jsx'));
 
 /* TODO : 고객사에게 전달받은 내용들
 *   1번 과 25번은 현재  사용중이지 않습니다.
@@ -25,8 +15,8 @@ const Main = ({apiUrl}) => {
 
     useEffect(() => {
         if (apiUrl) {
+            // AxiosInstance.get('/api/v1/ui/view/page/10000').then((res) => {
             AxiosInstance.get(apiUrl).then((res) => {
-            // AxiosInstance.get(apiUrl).then((res) => {
                 const contents = res.data.data;
                 const arrFrameComponents = [];
 

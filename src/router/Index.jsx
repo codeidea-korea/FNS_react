@@ -1,11 +1,12 @@
 import {useRoutes, Navigate} from "react-router-dom"
 import BaseLayout from "../layout/BaseLayout"
+import Sample from "../page/mypage/Sample"
+import Detail from "../page/recommend/Detail"
 import Home from "../page/main/Home"
 import Foryou from "../page/foryou/Foryou"
 import Mypage from "../page/mypage/Mypage"
-import Sample from "../page/mypage/Sample"
 import Topic from "../page/etc/Topic"
-import Detail from "../page/recommend/Detail"
+import Tag from "../page/etc/Tag"
 
 function Router() {
     return useRoutes(
@@ -51,16 +52,16 @@ function Router() {
                     }
                 ]
             },
-            /*{ // 태그 상세
+            { // 태그 상세
                 path: "/",
-                element: <BaseLayout title={"태그"}/>,
+                element: <BaseLayout/>,
                 children: [
                     {
                         path: "/tag/:key",
                         element: <Tag/>
                     }
                 ]
-            },*/
+            },
             /*{ // 카테고리 상세
                 path: "/",
                 element: <BaseLayout title={"카테고리"}/>,

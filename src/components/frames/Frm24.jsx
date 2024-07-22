@@ -11,7 +11,8 @@ const Frm24 = ({openAppDownModalFn, grpItem})=>{
 
     return (
         <section className="issue_slide">
-            <h3 className="main_tit">{grpItem.itm_name}</h3>
+            {grpItem?.itm_title_disp_yn === true ? <h3 className="main_tit">{grpItem.itm_name}</h3> : <></>}
+            {/*<h3 className="main_tit">{grpItem.itm_name}</h3>*/}
             <Swiper slidesPerView={'2.1'} spaceBetween={8} className="issue_list">
                 {data.map((item,index)=>(
                     <SwiperSlide key={index}>

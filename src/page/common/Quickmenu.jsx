@@ -27,10 +27,9 @@ const Quickmenu = () => {
                 <button type={'button'} onClick={openAppDownModal}>앱으로 이동</button>
             </div>
             <ul>
-                <li className={url !== "/foryou" && url !== "/mypage" && url !== "/posts" ? "active" : ""}>
+                <li className={url.includes('/home/') ? "active" : ""}>
                     <a style={{cursor: "pointer"}} onClick={() => clickQuickMenu('/home/10001')}>
-                        {/*<a style={{cursor:"pointer"}} onClick={() => clickQuickMenu('/home/10001')}>*/}
-                        <img src={`/img/home${url !== "/foryou" && url !== "/mypage" && url !== "/posts" ? "_on" : ""}.svg`} alt=""/>
+                        <img src={`/img/home${url.includes('/home/') ? "_on" : ""}.svg`} alt=""/>
                         홈
                     </a>
                 </li>

@@ -9,7 +9,7 @@ const Frm22 = ({openAppDownModalFn, grpItem})=>{
 
     return (
         <section className={`topic_list`}>
-            <h3 className="main_tit" dangerouslySetInnerHTML={{__html:grpItem.itm_name}}></h3>
+            {grpItem?.itm_title_disp_yn === true ? <h3 className="main_tit">{grpItem.itm_name}</h3> : <></>}
             <ul>
                 {data.map((item,index)=>(
                     <li key={index}>
