@@ -157,6 +157,16 @@ section {padding:16px 16px 20px;}
 .detail_top .btn_wrap.off {display:none; }
 .detail_top .prev_btn {z-index:10; position:absolute; left:0; top:0; display:flex; align-items:center; justify-content:center; width:50px; height:50px; padding-left:16px; padding-top:5px; }
 
+.detail_top.people_detail .txt_box {padding-bottom:10px; }
+.detail_top.people_detail .txt_box p {display:none;}
+
+.detail_top.people_detail .follow_btn {z-index:10; position:absolute; right:15px; bottom:11px; }
+
+.follow_btn {display:flex; align-items:center; gap:4px; padding:6px 12px 6px 8px; background-color:var(--primary-color); border-radius:4px; font-size:15px; font-weight:700; color:#fff; line-height:1; }
+.follow_btn:before {content:''; width:24px; height:24px; background:url('/img/plus.svg') no-repeat center center;}
+.follow_btn.following {border:1px solid #fff; background-color:transparent; }
+.follow_btn.following:before {background:url('/img/check.svg') no-repeat center center; }
+
 .bottom_category {z-index:11; position:sticky; left:0; top:0; visibility:hidden; opacity:0; width:100%; height:74px; margin-top:-74px; border-bottom:1px solid #e7e7e7; padding:6px 0 13px; background-color:rgba(255,255,255,0.95); transition:opacity 0.5s, top 0.5s; }
 .bottom_category.on {visibility:visible; opacity:1; }
 .bottom_category.active {top:60px; }
@@ -168,6 +178,15 @@ section {padding:16px 16px 20px;}
 .bottom_category .category_swiper .swiper-slide {width:auto; padding:8px 14px; border:1px solid #ccc; border-radius:8px; cursor:pointer; line-height:1.1; }
 .bottom_category .category_swiper .swiper-slide.active {border-color:var(--primary-color); color:#fff; background-color:var(--primary-color); }
  
+.scroll_tit {opacity:0; position:sticky; top:-56px; display:flex; align-items:center; justify-content:center; width:100%; height:56px; padding:0 16px; background-color:#fff; text-align:center; transition:opacity 0.2s, top 0.5s; }
+.scroll_tit.active {opacity:1; }
+.scroll_tit.on {top:63px; }
+.scroll_tit h3 {font-size:16px; font-weight:500; }
+.scroll_tit .prev_btn {position:absolute; left:16px; top:calc(50% - 24px); }
+.scroll_tit .follow_btn {z-index:10; position:absolute; right:15px; bottom:11px; }
+.scroll_tit .follow_btn.following {color:#000; border-color:#000; }
+.scroll_tit .follow_btn.following:before {background:url('/img/check_b.svg') no-repeat center center; }
+
 /* ------------------------------------------------------------
         마이페이지
 ------------------------------------------------------------ */

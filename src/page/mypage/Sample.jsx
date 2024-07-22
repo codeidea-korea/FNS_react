@@ -78,8 +78,71 @@ const Sample = ()=>{
     },[Loading])
 
 
+    const [lastScroll, setLastScroll] = useState(0);
+
+    useEffect(()=>{
+        window.addEventListener('scroll',scrollHandle);
+        return ()=>{window.removeEventListener('scroll',scrollHandle)}
+    },[lastScroll])
+
+    const scrollHandle = ()=>{
+        console.log(window.scrollY)
+        const top = document.querySelector('.detail_top')
+
+        // 스크롤시 이미지 상단고정
+        const topImg = top.querySelector('.topic_thumbnail img')
+        if(window.scrollY > top.offsetTop + (window.scrollY * 0.3)){
+            topImg.style.top = (window.scrollY - top.offsetTop - (window.scrollY * 0.3)) + "px";
+            // (window.scrollY * 0.3)
+        }else{
+            topImg.style.top = "0px"
+        }
+
+        // 스크롤시 이전 버튼 같이 따라다니기
+        const currentScrollY = window.scrollY;
+        const prevBtn = top.querySelector('.btn_wrap')
+        const scrollTit = document.querySelector('.scroll_tit')
+
+        if (lastScroll < currentScrollY) {
+            prevBtn.classList.remove('on')
+            scrollTit.classList.remove('on')
+        } else {
+            prevBtn.classList.add('on')
+            scrollTit.classList.add('on')
+        }
+
+        setLastScroll(currentScrollY)
+
+        // 스크롤시 메뉴 보이기
+        
+        if(window.scrollY > (top.offsetTop + top.clientHeight)){
+            scrollTit.classList.add('active')
+        }else{
+            scrollTit.classList.remove('active')
+        }
+    }
+
+
     return (
         <div style={{paddingBottom:"120px"}}>
+
+            <div className="detail_top people_detail">
+                <div className="btn_wrap"><button className="prev_btn"><img src="/img/prev_arrow_w.svg" alt="이전페이지로 이동" /></button></div>
+                <TopicThumbnail img={"/img/thumbnail/topic_1.png"} title={"강민경"} visualType={true} />
+                {/* 팔로잉 시 클래스 following 추가 */}
+                <button className="follow_btn">팔로우</button>
+            </div>
+
+            {/* 스크롤시 메뉴 */}
+            <div className='scroll_tit'>
+                <button className='prev_btn'><img src="/img/prev_arrow.svg" alt="이전페이지로 이동" /></button>
+                <h3>강민경</h3>
+                {/* 팔로잉 시 클래스 following 추가 */}
+                <button className="follow_btn">팔로우</button>
+            </div>
+
+
+
             <h1 style={{fontSize:"30px", fontWeight:"500", textAlign:"center"}}>컴포넌트</h1>
 
 
