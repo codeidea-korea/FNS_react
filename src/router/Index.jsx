@@ -5,8 +5,9 @@ import Detail from "../page/recommend/Detail"
 import Home from "../page/main/Home"
 import Foryou from "../page/foryou/Foryou"
 import Mypage from "../page/mypage/Mypage"
-import Topic from "../page/etc/Topic"
-import Tag from "../page/etc/Tag"
+import TopicDetail from "../page/etc/TopicDetail"
+import TagDetail from "../page/etc/TagDetail"
+import PostDetail from "../page/etc/PostDetail"
 
 function Router() {
     return useRoutes(
@@ -48,7 +49,7 @@ function Router() {
                 children: [
                     {
                         path: "/topic/:key",
-                        element: <Topic/>
+                        element: <TopicDetail/>
                     }
                 ]
             },
@@ -58,7 +59,7 @@ function Router() {
                 children: [
                     {
                         path: "/tag/:key",
-                        element: <Tag/>
+                        element: <TagDetail/>
                     }
                 ]
             },
@@ -68,20 +69,20 @@ function Router() {
                 children: [
                     {
                         path: "/category/:key",
-                        element: <Category/>
+                        element: <CategoryDetail/>
                     }
                 ]
             },*/
-            /*{ // 포스트 상세
+            { // 포스트 상세
                 path: "/",
                 element: <BaseLayout title={"포스트"}/>,
                 children: [
                     {
                         path: "/posts/:yy/:mm/:dd/:key",
-                        element: <Post/>
+                        element: <PostDetail/>
                     }
                 ]
-            },*/
+            },
             { // 컴포넌트 확인용 샘플 페이지
                 path: "/",
                 element: <BaseLayout gnbHide={false}/>,

@@ -75,12 +75,12 @@ export const formatDateString = (postedTimeStr) => {
         return `${weeks}주 전`;
     }
 
-    if (days >= 30) {
-        return `${postedTime.getMonth() + 1}월 ${postedTime.getDate()}일`;
-    }
-
     if (now.getFullYear() !== postedTime.getFullYear()) {
         return `${postedTime.getFullYear()}년 ${postedTime.getMonth() + 1}월 ${postedTime.getDate()}일`;
+    }
+
+    if (days >= 30) {
+        return `${postedTime.getMonth() + 1}월 ${postedTime.getDate()}일`;
     }
 
     return `${postedTime.getMonth() + 1}월 ${postedTime.getDate()}일`;

@@ -11,16 +11,30 @@ const Frm28 = ({openAppDownModalFn, grpItem}) => {
         (data && data.length > 0) && (
             <section className={`topic_list`}>
                 {
-                    grpItem.vw_flt_image_url &&
-                    <div className="title">
-                        <a style={{cursor: "pointer"}} onClick={openAppDownModalFn}>
-                            <i>
-                                <img src={grpItem.vw_flt_image_url} alt={grpItem.vw_flt_name}/>
-                            </i>
-                            <span>{grpItem.vw_flt_name}</span>
-                            <img src="/img/more_arrow.svg" alt=""/>
-                        </a>
-                    </div>
+                    grpItem.itm_image_yn === true && grpItem.itm_image_url
+                        ? (
+                            <div className="title">
+                                <a style={{cursor: "pointer"}} onClick={openAppDownModalFn}>
+                                    <i>
+                                        <img src={grpItem.itm_image_url} alt={grpItem.itm_name}/>
+                                    </i>
+                                    <span>{grpItem.itm_name}</span>
+                                    <img src="/img/more_arrow.svg" alt=""/>
+                                </a>
+                            </div>
+                        )
+                        : (
+                            grpItem.vw_flt_image_url &&
+                            <div className="title">
+                                <a style={{cursor: "pointer"}} onClick={openAppDownModalFn}>
+                                    <i>
+                                        <img src={grpItem.vw_flt_image_url} alt={grpItem.vw_flt_name}/>
+                                    </i>
+                                    <span>{grpItem.vw_flt_name}</span>
+                                    <img src="/img/more_arrow.svg" alt=""/>
+                                </a>
+                            </div>
+                        )
                 }
 
                 <ul>

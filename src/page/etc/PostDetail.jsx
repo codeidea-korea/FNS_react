@@ -1,13 +1,90 @@
-import React, {useEffect, useState, lazy} from "react";
+import React, {useEffect, useState} from "react";
 import {openAppDownModal} from '../../common/AppDownModalUtil';
 import {componentMap} from '../../common/componentMap';
 import AxiosInstance from "../../common/AxiosInstance";
 import {useNavigate, useParams} from "react-router-dom";
+import Post from "../../components/common/Post";
 
-const Tag = () => {
+const PostDetail = () => {
     const navigate = useNavigate();
-    const {key} = useParams();
+    const {yy, mm, dd, key} = useParams();
     const [frameComponents, setFrameComponents] = useState([]);
+    const [post, setPost] = useState({});
+
+    useEffect(() => {
+        if (yy && mm && dd && key) {
+            AxiosInstance.get(`/api/v1/post/preview_name/${yy}${mm}${dd}/${key}`).then((res) => {
+                const contents = res.data.data;
+                setPost(contents.post);
+
+                const arrFrameComponents = [];
+
+                console.log(contents.suggest)
+                contents.suggest.vw_groups.forEach((vwGroup, vwGroupIdx) => {
+                    vwGroup.grp_items.forEach((grpItem, grpItemIdx) => {
+                        /*
+                        * vwGroup.grp_id 값이 '22', '23', '24'인 경우에만 아래 로직을 적용
+                        * post_images.post_image_user_tags[0]의 값이 contents.vw_user_account[0]랑 같은 이미지만 추출
+                        * */
+                        /*if (userAccount && ['22', '23', '24'].some(id => vwGroup.grp_id.includes(id))) {
+                            grpItem.itm_data.forEach((id) => {
+                                const filteredImages = id.post_images.filter(postImage => postImage?.post_image_user_tags[0] === userAccount);
+
+                                if (filteredImages.length > 0) {
+                                    id.post_images = filteredImages;
+                                }
+                            });
+                        }*/
+
+                        const frmId = grpItem.itm_frm_id; // 프레임 id
+
+                        if (grpItem.itm_data.length > 0) {
+                            const DynamicFrameComponent = componentMap[`Frm${frmId}`];
+
+                            if (DynamicFrameComponent) {
+                                arrFrameComponents.push(
+                                    <DynamicFrameComponent
+                                        key={`component_${vwGroupIdx}_${grpItemIdx}`}
+                                        grpItem={grpItem}
+                                        openAppDownModalFn={openAppDownModal}
+                                    />
+                                );
+                            }
+                        }
+                    });
+                });
+
+                setFrameComponents(arrFrameComponents);
+
+            }).catch(() => {
+                goMain();
+            });
+
+        } else {
+            goMain();
+        }
+
+    }, []);
+
+    const goMain = () => {
+        navigate('home/10001');
+    }
+
+    return (
+        <>
+            {
+                (post && post.post_images?.length > 0) && (
+                    <div className="main section_box">
+                        <Post openAppDownModalFn={openAppDownModal} post={post} showComment={true}/>
+
+                        {frameComponents}
+                    </div>
+                )
+            }
+        </>
+    )
+
+    /*const [frameComponents, setFrameComponents] = useState([]);
     const [tagId, setTagId] = useState("");
     const [data, setData] = useState({});
     const [data02, setData02] = useState([]); // 최하단 포스트 영역 전용
@@ -26,10 +103,10 @@ const Tag = () => {
 
                 contents.vw_groups.forEach((vwGroup, vwGroupIdx) => {
                     vwGroup.grp_items.forEach((grpItem, grpItemIdx) => {
-                        /*
+                        /!*
                         * vwGroup.grp_id 값이 '22', '23', '24'인 경우에만 아래 로직을 적용
                         * post_images.post_image_user_tags[0]의 값이 contents.vw_user_account[0]랑 같은 이미지만 추출
-                        * */
+                        * *!/
                         if (userAccount && ['22', '23', '24'].some(id => vwGroup.grp_id.includes(id))) {
                             grpItem.itm_data.forEach((id) => {
                                 const filteredImages = id.post_images.filter(postImage => postImage?.post_image_user_tags[0] === userAccount);
@@ -143,22 +220,22 @@ const Tag = () => {
                                 </div>
                             </section>
 
-                            {/* 팔로잉 시 클래스 following 추가 */}
+                            {/!* 팔로잉 시 클래스 following 추가 *!/}
                             <button className="follow_btn" onClick={openAppDownModal}>팔로우</button>
                         </div>
 
-                        {/* 스크롤시 메뉴 */}
+                        {/!* 스크롤시 메뉴 *!/}
                         <div className='scroll_tit'>
                             <button onClick={() => navigate(-1)} className='prev_btn'>
                                 <img src="/img/prev_arrow.svg" alt="이전페이지로 이동"/>
                             </button>
                             <h3>{data.vw_title}</h3>
-                            {/* 팔로잉 시 클래스 following 추가 */}
+                            {/!* 팔로잉 시 클래스 following 추가 *!/}
                             <button className="follow_btn" onClick={openAppDownModal}>팔로우</button>
                         </div>
 
                         <div className="main section_box">
-                            {/* 프레임별 컴포넌트들 조합 */}
+                            {/!* 프레임별 컴포넌트들 조합 *!/}
                             {frameComponents}
 
                             {
@@ -189,7 +266,7 @@ const Tag = () => {
                 )
             }
         </>
-    )
+    )*/
 }
 
-export default Tag;
+export default PostDetail;

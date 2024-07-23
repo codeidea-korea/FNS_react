@@ -5,7 +5,7 @@ import AxiosInstance from "../../common/AxiosInstance";
 import {useNavigate, useParams} from "react-router-dom";
 import {Swiper, SwiperSlide} from "swiper/react";
 
-const Topic = () => {
+const TopicDetail = () => {
     let tempIdx = 0;
     let tempIdx2 = 0;
     const navigate = useNavigate();
@@ -284,4 +284,4 @@ const Topic = () => {
     )
 }
 
-export default Topic;
+export default TopicDetail;

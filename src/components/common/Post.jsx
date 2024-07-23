@@ -9,13 +9,17 @@ import {formatDateString} from "../../common/CommonUtils";
 const Post = ({openAppDownModalFn, post, showComment}) => {
     const [desc, setDesc] = useState([]);
     const [swiperActive, setSwiperActive] = useState(0);
-    const [uniqueTags, setUniqueTags] = useState([]);
     const videoRef = useRef(null);
     const [progress, setProgress] = useState(0);
     const [isMuted, setIsMuted] = useState(true);
     const [, setIsPlaying] = useState(false);
+    const [modalImageAccId, setModalImageAccId] = useState('');
+    const [modalImageAccName, setModalImageAccName] = useState('');
+    const [modalImageAccImgSrc, setModalImageAccImgSrc] = useState('');
 
     useEffect(() => {
+        setDesc(post.post_desc.split('\n'));
+
         const video = videoRef.current;
 
         // video 영상 재생률 표시
@@ -65,26 +69,11 @@ const Post = ({openAppDownModalFn, post, showComment}) => {
         }
     }, [videoRef]);
 
-    useEffect(() => {
-        if (post) {
-            // 설명글 엔터 기준으로 자르기
-            setDesc(post.post_desc.split('\n'));
-
-            // 인스타 태그 목록에서 중복을 제거시키기
-            const seen = new Set();
-
-            const newTags = post.post_images.filter((item) => {
-                const accName = item.post_image_acc[0]?.post_image_acc_name;
-                if (accName) return seen.has(accName) ? false : seen.add(accName);
-            });
-
-            setUniqueTags(newTags);
-        }
-    }, [post]);
-
     // 이미지 슬라이드 할 때
     const changePostSlide = (swiper) => {
         const activeIndex = swiper.activeIndex;
+        setSwiperActive(swiper.activeIndex);
+        return;
 
         // 첫번째, 두번째 이미지만 볼 수 있음
         if (activeIndex === 0 || activeIndex === 1) {
@@ -103,8 +92,12 @@ const Post = ({openAppDownModalFn, post, showComment}) => {
     }
 
     // 인스타 출처 태그 클릭시 모달 열기
-    const modalOpen = (e) => {
-        let parent = e.currentTarget.closest('.post_frame')
+    const modalOpen = (e, imageAccId, imageAccName, imageAccImgSrc) => {
+        setModalImageAccId(imageAccId);
+        setModalImageAccName(imageAccName);
+        setModalImageAccImgSrc(imageAccImgSrc);
+
+        let parent = e.currentTarget.closest('.post_frame');
         parent.querySelector('.modal_wrap').classList.add('open');
     }
 
@@ -194,11 +187,16 @@ const Post = ({openAppDownModalFn, post, showComment}) => {
                         <div className="tag_list">
                             {post.post_images.map((item, index) => {
                                 // post_image_acc_name가 없는 경우도 있어서 체크가 필요함
-                                let imageAccName = item.post_image_acc[0]?.post_image_acc_name;
-                                if (imageAccName) imageAccName = 'instagram @' + imageAccName;
+                                const postImageAccFirst = item.post_image_acc[0];
+
+                                let imageAccId = postImageAccFirst?.post_image_acc_name;
+                                if (imageAccId) imageAccId = 'instagram @' + imageAccId;
+
+                                const imageAccImgSrc = postImageAccFirst?.post_image_acc_tag[0]?.image_url1 ?? '';
+                                const imageAccName = postImageAccFirst?.post_image_acc_tag[0]?.tag_name ?? '';
 
                                 return (
-                                    <span key={index} className={swiperActive === index ? "active" : ""} onClick={modalOpen}>{imageAccName}</span>
+                                    <span key={index} className={swiperActive === index ? "active" : ""} onClick={(e) => modalOpen(e, imageAccId, imageAccName, imageAccImgSrc)}>{imageAccId}</span>
                                 )
                             })}
                         </div>
@@ -227,7 +225,8 @@ const Post = ({openAppDownModalFn, post, showComment}) => {
                         {/* 태그 라인 */}
                         <div className="tag_box">
                             {post.post_tags.map((item, index) => (
-                                <button key={index} onClick={openAppDownModalFn}>{item.tag_name}</button>))}
+                                <button key={index} onClick={openAppDownModalFn}>{item.tag_name}</button>
+                            ))}
                         </div>
 
                         {/* 본문 라인 */}
@@ -253,18 +252,27 @@ const Post = ({openAppDownModalFn, post, showComment}) => {
                             <p>{formatDateString(post?.posted_at)}</p>
                         </div>
 
-                        {/* TODO : 댓글 관련 내용 체크하고 개발 필요 */}
-
-                        {/* 작성된 댓글 라인 */}
-                        {showComment &&
+                        {/* 작성된 댓글 */}
+                        {
+                            (showComment && post?.post_comment?.length > 0) &&
                             <div className="comment_list">
-                                <button style={{marginBottom: '10px'}} onClick={openAppDownModalFn}>댓글 16개 모두 보기</button>
-                                <div className='comment_item'><b>yoongarden</b><span>우정하자 🔥</span></div>
-                                <div className='comment_item'><b>userab</b><span>크리스탈 언니 여름 일상룩 아이템~</span></div>
+                                {
+                                    post.post_comment.length > 2 ? (
+                                        <button style={{marginBottom: '10px'}} onClick={openAppDownModalFn}>
+                                            댓글 {post.post_comment.length}개 모두 보기
+                                        </button>
+                                    ) : <></>
+                                }
+
+                                {post.post_comment.slice(0, 2).map((item, index) => (
+                                    <div key={index} className='comment_item'>
+                                        <b>{item.created_user_name}</b><span>{item.cmt_desc}</span>
+                                    </div>
+                                ))}
                             </div>
                         }
 
-                        {/* 댓글 작성 라인 */}
+                        {/* 댓글 작성 */}
                         <div className="comment_box">
                             <i><img src="/img/profile_img.jpg" alt=""/></i>
                             <div className="comment" onClick={openAppDownModalFn}>댓글 달기</div>
@@ -280,21 +288,16 @@ const Post = ({openAppDownModalFn, post, showComment}) => {
                             <div className="modal_content">
                                 <div className="insta_item">
                                     {
-                                        uniqueTags && uniqueTags.map((item, index) => {
-                                            // post_image_acc_name가 없는 경우도 있어서 체크가 필요함
-                                            let imageAccName = item.post_image_acc[0]?.post_image_acc_name;
-                                            if (imageAccName) imageAccName = 'instagram @' + imageAccName;
-
-                                            return (
-                                                <a key={index} style={{cursor: "pointer"}} onClick={openAppDownModalFn}>
-                                                    <i className="insta_icon"><img src="/img/insta_icon.svg" alt=""/></i>
-                                                    <div>
-                                                        <p>{imageAccName}</p>
-                                                    </div>
-                                                    <img src="/img/more_arrow.svg" alt=""/>
-                                                </a>
-                                            )
-                                        })
+                                        <a style={{cursor: "pointer"}} onClick={openAppDownModalFn}>
+                                            <i className={modalImageAccImgSrc ? modalImageAccImgSrc : 'insta_icon'}>
+                                                <img src={modalImageAccImgSrc ? modalImageAccImgSrc : "/img/insta_icon.svg"} alt=""/>
+                                            </i>
+                                            <div>
+                                                {modalImageAccName ? <p>{modalImageAccName}</p> : <></>}
+                                                {modalImageAccId ? <p>{modalImageAccId}</p> : <></>}
+                                            </div>
+                                            <img src="/img/more_arrow.svg" alt=""/>
+                                        </a>
                                     }
                                 </div>
                             </div>
