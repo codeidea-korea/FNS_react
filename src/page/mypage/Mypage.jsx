@@ -1,10 +1,15 @@
 import Metatag from "@/components/Metatag";
-import {handleDownloadClick} from '@/common/downloadUtils';
+import {clickUseApp} from "../../common/CommonUtils";
+import React from "react";
 
 const Mypage = () => {
     return (
         <>
-            <Metatag desc="패션 & 스타일이 제공하는 최신 트렌드 패션 아이템과 다양한 셀럽들의 스타일을 만나보세요" image="/img/full_logo.svg"/>
+            <Metatag
+                title={'패션 & 스타일|Fashion&Style'}
+                desc={'패션 & 스타일이 제공하는 최신 트렌드 패션아이템과 다양한 셀럽들의 스타일을 만나보세요.'}
+                image={window.location.origin + '/img/full_logo.svg'}
+            />
 
             <div className="mypage">
                 <section className="mypage_con01">
@@ -17,7 +22,7 @@ const Mypage = () => {
 
                     <div className="mock_img">
                         <img src="/img/main01_img01.png" alt=""/>
-                        <a onClick={handleDownloadClick} target="_blank" className="down_btn">App Download</a>
+                        <a onClick={clickUseApp} style={{cursor:'pointer'}} className="down_btn">App Download</a>
                     </div>
 
                     <div className="bottom_txt">

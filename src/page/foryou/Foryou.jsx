@@ -23,7 +23,11 @@ const Foryou = () => {
 
     return (
         <>
-            <Metatag desc="감각적인 에디터와 개발자들이 트렌디한 패션 뉴스와 빅데이터, AI 기술을 활용해 유익한 패션 정보를 제공합니다." image="/img/full_logo.svg"/>
+            <Metatag
+                title={'패션 & 스타일|Fashion&Style'}
+                desc={'감각적인 에디터와 개발자들이 트렌디한 패션 뉴스와 빅데이터, AI기술을 활용해 유익한 패션정보를 제공합니다.'}
+                image={window.location.origin + '/img/full_logo.svg'}
+            />
 
             <div className="recommend">
                 {

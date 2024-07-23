@@ -1,5 +1,5 @@
 import {useEffect, useState} from "react";
-import {useLocation} from "react-router-dom";
+import {useLocation, useParams} from "react-router-dom";
 import {useGlobalContext} from '../../layout/GlobalContext';
 import {getApiUrl} from "../../common/CommonUtils";
 import Main from "../../page/main/Main";

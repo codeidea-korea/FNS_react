@@ -58,7 +58,6 @@ const Post = ()=>{
 
     return (
         <>
-            <Metatag title="청량한 뉴진스 캠빈 데님룩" desc="청량한 뉴진스 캠빈 데님룩 여름이니까 크로셰모자" image="/img/recommend/feed03_1.jpg" />
             <div className="recommend">
                 {post && (
                     <PostFrame data={post && post} descOpen={true} />

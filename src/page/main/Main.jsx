@@ -3,6 +3,7 @@ import {openAppDownModal} from '../../common/AppDownModalUtil';
 import {componentMap} from '../../common/componentMap';
 import AxiosInstance from "../../common/AxiosInstance";
 import Metatag from "../../components/Metatag";
+import {useParams} from "react-router-dom";
 
 /* TODO : 고객사에게 전달받은 내용들
 *   1번 과 25번은 현재  사용중이지 않습니다.
@@ -11,7 +12,9 @@ import Metatag from "../../components/Metatag";
 * */
 
 const Main = ({apiUrl}) => {
+    const {id} = useParams();
     const [frameComponents, setFrameComponents] = useState([]);
+    const [metaDesc, setMetaDesc] = useState('');
 
     useEffect(() => {
         if (apiUrl) {
@@ -47,9 +50,33 @@ const Main = ({apiUrl}) => {
         }
     }, [apiUrl]);
 
+    useEffect(() => {
+        if(id) {
+            if(id === '10001') { // 메인
+                setMetaDesc('패션 & 스타일이 제공하는 최신 트렌드 패션아이템과 다양한 셀럽들의 스타일을 만나보세요.');
+
+            }else if (id === '10002') { // 일상룩
+                setMetaDesc('시즌별 유행하는 아이템, 뷰티관련 팁까지! 패션 & 스타일에서 만나보세요.');
+
+            }else if (id === '10003') { // 셀럽룩
+                setMetaDesc('연예인의 일상속 스타일링 이야기까지! 어디서도 찾기 힘든 패션스타일 코디추천, 패션 & 스타일에서 경험하세요.');
+
+            }else if(id === '10004' || id === '10005' || id === '10006' || id === '10007' || id === '10008') {
+                setMetaDesc('패션 & 스타일 oFashion&Style)에서 실시간으로 *데이트되는 패션, 라이프스타일 뉴스를 만나보세요.');
+            }
+        }
+    }, [id]);
+
     return (
         <>
-            <Metatag desc="패션 & 스타일이 제공하는 최신 트렌드 패션 아이템과 다양한 셀럽들의 스타일을 만나보세요." image="/img/thumbnail/topic_1.png"/>
+            {
+                (metaDesc && metaDesc !== '') &&
+                <Metatag
+                    title={'패션 & 스타일|Fashion&Style'}
+                    desc={metaDesc}
+                    image={window.location.origin + '/img/full_logo.svg'}
+                />
+            }
 
             <div className="main section_box">
                 {frameComponents}

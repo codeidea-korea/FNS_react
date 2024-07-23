@@ -59,8 +59,6 @@ const Recommend = ()=>{
 
     return (
         <>
-            <Metatag desc="감각적인 에디터와 개발자들이 트렌디한 패션 뉴스와 빅데이터, AI 기술을 활용해 유익한 패션 정보를 제공합니다." image="/img/full_logo.svg" />
-
             <div className="recommend">
                 <PostFrame data={feedData[4]} /> {/* 비디오만 있을때 */}
                 <PostFrame data={feedData[3]} /> {/* 비디오랑 이미지 같이 있을떄 */}

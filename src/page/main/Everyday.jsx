@@ -29,8 +29,6 @@ const Everyday = ()=>{
 
     return (
         <>
-            <Metatag desc="시즌별 유행하는 아이템, 뷰티 관련 팁까지! 패션 & 스타일에서 만나보세요." image="/img/thumbnail/post_1.png" />
-
             <div className="main">
                 <PostThumbnail rank={true} title={"인기 스타일 BEST 5"} data={bestData} />
 

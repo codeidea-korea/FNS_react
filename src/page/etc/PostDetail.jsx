@@ -19,24 +19,15 @@ const PostDetail = () => {
 
                 const arrFrameComponents = [];
 
-                console.log(contents.suggest)
                 contents.suggest.vw_groups.forEach((vwGroup, vwGroupIdx) => {
                     vwGroup.grp_items.forEach((grpItem, grpItemIdx) => {
-                        /*
-                        * vwGroup.grp_id 값이 '22', '23', '24'인 경우에만 아래 로직을 적용
-                        * post_images.post_image_user_tags[0]의 값이 contents.vw_user_account[0]랑 같은 이미지만 추출
-                        * */
-                        /*if (userAccount && ['22', '23', '24'].some(id => vwGroup.grp_id.includes(id))) {
-                            grpItem.itm_data.forEach((id) => {
-                                const filteredImages = id.post_images.filter(postImage => postImage?.post_image_user_tags[0] === userAccount);
-
-                                if (filteredImages.length > 0) {
-                                    id.post_images = filteredImages;
-                                }
-                            });
-                        }*/
-
                         const frmId = grpItem.itm_frm_id; // 프레임 id
+
+                        if(frmId === '28') {
+                            if(grpItem.itm_data.length > 4) {
+                                grpItem.itm_data = grpItem.itm_data.slice(0, 4);
+                            }
+                        }
 
                         if (grpItem.itm_data.length > 0) {
                             const DynamicFrameComponent = componentMap[`Frm${frmId}`];
