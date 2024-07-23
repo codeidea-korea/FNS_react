@@ -8,10 +8,15 @@ import Mypage from "../page/mypage/Mypage"
 import TopicDetail from "../page/etc/TopicDetail"
 import TagDetail from "../page/etc/TagDetail"
 import PostDetail from "../page/etc/PostDetail"
+import Test from "../page/etc/Test"
 
 function Router() {
     return useRoutes(
         [
+            { // 테스트 페이지
+                path: "/test",
+                element: <Test />,
+            },
             { // 홈의 8개 메뉴
                 path: "/",
                 element: <BaseLayout gnbHide={true}/>,
