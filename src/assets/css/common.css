@@ -109,6 +109,8 @@ section {padding:16px 16px 20px;}
 .topic_list ul li a {display:block; width:100%; }
 .topic_list ul li .img_box {overflow:hidden; position:relative; width:100%; padding-bottom:125%; border-radius:4px; }
 .topic_list ul li .img_box img {position:absolute; left:0; top:0; width:100%; height:100%; object-fit:cover; }
+.topic_list ul li .img_box i.video_thumb {position:absolute; left:10px; bottom:10px; height:10px; width:20px; height:20px; background-color:rgba(0,0,0,0.3); border-radius:50%; }
+.topic_list ul li .img_box i.video_thumb:before {content:''; position:absolute; left:0; top:0; right:-1px; bottom:0; width:8px; height:10px; margin:auto; border-left:8px solid #fff; border-top:5px solid transparent; border-bottom:5px solid transparent; box-sizing:border-box; border-radius:2px; }
 .topic_list ul li .txt_box {margin-top:8px; }
 .topic_list ul li .txt_box .rank {font-size:15px; font-weight:600; }
 .topic_list ul li .txt_box .name {overflow:hidden; max-width:100%; text-overflow:ellipsis; white-space:nowrap; font-size:13px; font-weight:600; }
@@ -143,6 +145,8 @@ section {padding:16px 16px 20px;}
 .issue_slide .issue_list .swiper-slide {width:160px; }
 .issue_slide .issue_list .swiper-slide .img_box {overflow:hidden; position:relative; width:100%; padding-bottom:175%; border-radius:4px; }
 .issue_slide .issue_list .swiper-slide .img_box img {position:absolute; left:0; top:0; width:100%; height:100%; object-fit:cover; }
+.issue_slide .issue_list .swiper-slide .img_box i.video_thumb {position:absolute; left:10px; bottom:10px; height:10px; width:20px; height:20px; background-color:rgba(0,0,0,0.3); border-radius:50%; }
+.issue_slide .issue_list .swiper-slide .img_box i.video_thumb:before {content:''; position:absolute; left:0; top:0; right:-1px; bottom:0; width:8px; height:10px; margin:auto; border-left:8px solid #fff; border-top:5px solid transparent; border-bottom:5px solid transparent; box-sizing:border-box; border-radius:2px; }
 .issue_slide .issue_list .swiper-slide .txt_box {margin-top:8px; }
 .issue_slide .issue_list .swiper-slide .txt_box .name {overflow:hidden; max-width:100%; text-overflow:ellipsis; white-space:nowrap; font-size:13px; font-weight:600; }
 .issue_slide .issue_list .swiper-slide .txt_box .cate {font-size:14px; color:var(--primary-color); font-weight:600; }
