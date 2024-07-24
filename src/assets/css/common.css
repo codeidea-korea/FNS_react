@@ -166,6 +166,11 @@ section {padding:16px 16px 20px;}
 
 .detail_top.people_detail .follow_btn {z-index:10; position:absolute; right:15px; bottom:11px; }
 
+/* top_detail */
+.top_detail {padding:0 10px; }
+.top_detail .tit_box {display:flex; align-items:center; justify-content:space-between; }
+.top_detail .tit_box h3 {font-size:30px; font-weight:700; }
+
 .follow_btn {display:flex; align-items:center; gap:4px; padding:6px 12px 6px 8px; background-color:var(--primary-color); border-radius:4px; font-size:15px; font-weight:700; color:#fff; line-height:1; }
 .follow_btn:before {content:''; width:24px; height:24px; background:url('/img/plus.svg') no-repeat center center;}
 .follow_btn.following {border:1px solid #fff; background-color:transparent; }

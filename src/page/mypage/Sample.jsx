@@ -133,6 +133,17 @@ const Sample = ()=>{
                 <button className="follow_btn">팔로우</button>
             </div>
 
+            {/* 상단 타이틀 추가 */}
+            <div className='top_detail'>
+                <div className="btn_wrap">
+                    <button className="prev_btn"><img src="/img/prev_arrow.svg" alt="이전페이지로 이동" /></button>
+                </div>
+                <div className="tit_box">
+                    <h3>일상룩</h3>
+                    <button className="follow_btn">팔로우</button>
+                </div>
+            </div>
+
             {/* 스크롤시 메뉴 */}
             <div className='scroll_tit'>
                 <button className='prev_btn'><img src="/img/prev_arrow.svg" alt="이전페이지로 이동" /></button>
