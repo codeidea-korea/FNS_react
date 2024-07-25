@@ -23,7 +23,6 @@ const Detail = ()=>{
 
 
     const scrollHandle = ()=>{
-        console.log(window.scrollY)
         const top = document.querySelector('.detail_top')
 
         // 스크롤시 이미지 상단고정

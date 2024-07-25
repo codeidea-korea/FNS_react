@@ -188,11 +188,13 @@ const TopicDetail = () => {
                 data && filters?.length > 0 && groups?.length > 0 && (
                     <>
                         <div className="detail_top">
+                            {/* 단독 페이지인데 뒤로가기가 필요한가? */}
                             <div className="btn_wrap">
-                                <button onClick={() => navigate(-1)} className="prev_btn">
+                                {/*<button onClick={() => navigate(-1)} className="prev_btn">
                                     <img src="/img/prev_arrow_w.svg" alt="이전페이지로 이동"/>
-                                </button>
+                                </button>*/}
                             </div>
+
                             <section className={'visual_type'}>
                                 <div className={`topic_thumbnail`}>
                                     <a style={{cursor: "pointer"}} onClick={openAppDownModal}>
@@ -210,9 +212,9 @@ const TopicDetail = () => {
                             <h3>{data.vw_title}</h3>
                             <div className="cate_wrap">
                                 {/* button 태그변경시 클래스만 유지. */}
-                                <button className="prev_btn" onClick={() => navigate(-1)}>
+                                {/*<button className="prev_btn" onClick={() => navigate(-1)}>
                                     <img src="/img/prev_arrow.svg" alt="이전페이지로 이동"/>
-                                </button>
+                                </button>*/}
                                 <Swiper slidesPerView={'auto'} spaceBetween={12} className="category_swiper">
                                     {
                                         filters.map((filter, filterIdx) => {

@@ -1,6 +1,6 @@
 import { Swiper, SwiperSlide } from 'swiper/react';
 import 'swiper/css';
-import {useEffect, useState} from "react";
+import React, {useEffect, useState} from "react";
 
 const Frm24 = ({openAppDownModalFn, grpItem})=>{
     const [data, setData] = useState([]);
@@ -19,6 +19,7 @@ const Frm24 = ({openAppDownModalFn, grpItem})=>{
                         <a style={{cursor:"pointer"}} onClick={openAppDownModalFn}>
                             <div className="img_box">
                                 <img src={item.post_images[0].post_image_url} alt={item.post_desc+" 이미지"} />
+                                {item.post_images[0].post_video_yn === true && <i className="video_thumb"></i>}
                             </div>
                             <div className="txt_box">
                                 <div className="name">{item.post_desc}</div>

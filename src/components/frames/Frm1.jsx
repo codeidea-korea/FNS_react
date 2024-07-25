@@ -5,6 +5,8 @@ import 'swiper/css';
 import 'swiper/css/pagination';
 import {Pagination} from 'swiper/modules';
 
+/* 이 코드는 사용하지 않고, /common/Post.jsx 사용중 */
+
 const Frm1 = ({openAppDownModalFn, grpItem}) => {
     const [desc, setDesc] = useState([]);
     const [data, setData] = useState({});

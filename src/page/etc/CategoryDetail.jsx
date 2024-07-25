@@ -4,13 +4,11 @@ import {componentMap} from '../../common/componentMap';
 import AxiosInstance from "../../common/AxiosInstance";
 import {useNavigate, useParams} from "react-router-dom";
 
-const TagDetail = () => {
+const CategoryDetail = () => {
     const navigate = useNavigate();
     const {key} = useParams();
     const [frameComponents, setFrameComponents] = useState([]);
-    const [tagId, setTagId] = useState("");
     const [data, setData] = useState({});
-    const [data02, setData02] = useState([]); // 최하단 포스트 영역 전용
 
     useEffect(() => {
         if (key === null || key === undefined || (typeof key === 'string' && key.trim() === '')) {
@@ -25,9 +23,6 @@ const TagDetail = () => {
                 const arrFrameComponents = [];
 
                 if (contents && contents.vw_groups?.length > 0) {
-                    // 태그 고유의 key값 추출
-                    setTagId(contents.vw_groups[0]?.grp_items[0]?.itm_data[0]?.tag_id ?? '');
-
                     contents.vw_groups.forEach((vwGroup, vwGroupIdx) => {
                         vwGroup.grp_items.forEach((grpItem, grpItemIdx) => {
                             /*
@@ -71,15 +66,6 @@ const TagDetail = () => {
         }
     }, [key]);
 
-    useEffect(() => {
-        // 태그 상세 - 최하단 포스트 영역
-        if (tagId !== '') {
-            AxiosInstance.get(`/api/v1/tag/posts/${tagId}`).then((res) => {
-                setData02(res.data.data);
-            });
-        }
-    }, [tagId]);
-
     const goMain = () => {
         navigate('home/10001');
     }
@@ -95,17 +81,7 @@ const TagDetail = () => {
     }, [lastScroll])
 
     const scrollHandle = () => {
-        const top = document.querySelector('.detail_top')
-
-        // 스크롤시 이미지 상단고정
-        const topImg = top.querySelector('.topic_thumbnail img')
-
-        if (window.scrollY > top.offsetTop + (window.scrollY * 0.3)) {
-            topImg.style.top = (window.scrollY - top.offsetTop - (window.scrollY * 0.3)) + "px";
-
-        } else {
-            topImg.style.top = "0px"
-        }
+        const top = document.querySelector('.top_detail')
 
         // 스크롤시 이전 버튼 같이 따라다니기
         const currentScrollY = window.scrollY;
@@ -137,27 +113,18 @@ const TagDetail = () => {
             {
                 (data && frameComponents && frameComponents.length > 0) && (
                     <>
-                        <div className="detail_top people_detail">
-                            {/* 단독 페이지인데 뒤로가기가 필요한가? */}
+
+                        {/* 상단 타이틀 추가 */}
+                        <div className='top_detail' style={{padding: '20px 20px 0 20px'}}>
                             <div className="btn_wrap">
-                                {/*<button onClick={() => navigate(-1)} className="prev_btn">
-                                    <img src="/img/prev_arrow_w.svg" alt="이전페이지로 이동"/>
+                                {/*<button onClick={() => navigate(-1)} className='prev_btn'>
+                                    <img src="/img/prev_arrow.svg" alt="이전페이지로 이동"/>
                                 </button>*/}
                             </div>
-
-                            <section className={'visual_type'}>
-                                <div className={`topic_thumbnail`}>
-                                    <a style={{cursor: "pointer"}} onClick={openAppDownModal}>
-                                        <img src={data.vw_image_url} alt={data.vw_title + " 이미지"}/>
-                                        <div className="txt_box">
-                                            <h5 dangerouslySetInnerHTML={{__html: data.vw_title}}></h5>
-                                        </div>
-                                    </a>
-                                </div>
-                            </section>
-
-                            {/* 팔로잉 시 클래스 following 추가 */}
-                            <button className="follow_btn" onClick={openAppDownModal}>팔로우</button>
+                            <div className="tit_box">
+                                <h3>{data.vw_title}</h3>
+                                <button className="follow_btn" onClick={openAppDownModal}>팔로우</button>
+                            </div>
                         </div>
 
                         {/* 스크롤시 메뉴 */}
@@ -173,31 +140,6 @@ const TagDetail = () => {
                         <div className="main section_box">
                             {/* 프레임별 컴포넌트들 조합 */}
                             {frameComponents}
-
-                            {
-                                // 태그 상세 - 최하단 포스트 영역
-                                (data02 && data02.length > 0) && (
-                                    <section className={`topic_list same_type`}>
-                                        <h3 className="main_tit">포스트</h3>
-                                        <ul>
-                                            {data02.map((item, index) => (
-                                                <li key={index}>
-                                                    <a style={{cursor: "pointer"}} onClick={openAppDownModal}>
-                                                        <div className="img_box">
-                                                            <img src={item.post_images[0].post_image_url} alt={item.post_desc.replace(/\n/g,
-                                                                <br/>) + " 이미지"}/>
-                                                        </div>
-                                                        <div className="txt_box">
-                                                            <div className="name">{item.post_desc.split('\n')[0]}</div>
-                                                            <p className="cate">{item.post_tags[0].tag_name}</p>
-                                                        </div>
-                                                    </a>
-                                                </li>
-                                            ))}
-                                        </ul>
-                                    </section>
-                                )
-                            }
                         </div>
                     </>
                 )
@@ -206,4 +148,4 @@ const TagDetail = () => {
     )
 }
 
-export default TagDetail;
+export default CategoryDetail;

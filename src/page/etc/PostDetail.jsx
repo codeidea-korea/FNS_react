@@ -23,7 +23,19 @@ const PostDetail = () => {
                     vwGroup.grp_items.forEach((grpItem, grpItemIdx) => {
                         const frmId = grpItem.itm_frm_id; // 프레임 id
 
-                        if(frmId === '28') {
+                        const itm_link_param1 = grpItem.itm_link_param1;
+                        const itm_link_id = grpItem.itm_link_id;
+
+                        // (포스트 상세의 프레임 28) + (grpItem.itm_link_param1값이 TAG002002, TAG002012, TAG002005) 인 경우
+                        if(frmId === '28' && (itm_link_param1 === 'TAG002002' || itm_link_param1 === 'TAG002012' || itm_link_param1 === 'TAG002005')) {
+                            // itm_link_id를 이용해서 맞는 이미지를 추출
+                            grpItem.itm_data.forEach((id) => {
+                                const filteredImages = id.post_images.filter(pi => pi?.post_image_acc[0]?.post_image_acc_tag[0]?.tag_id === itm_link_id);
+                                if (filteredImages.length > 0) {
+                                    id.post_images = filteredImages;
+                                }
+                            });
+
                             if(grpItem.itm_data.length > 4) {
                                 grpItem.itm_data = grpItem.itm_data.slice(0, 4);
                             }

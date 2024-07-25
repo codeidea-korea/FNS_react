@@ -8,6 +8,7 @@ import Mypage from "../page/mypage/Mypage"
 import TopicDetail from "../page/etc/TopicDetail"
 import TagDetail from "../page/etc/TagDetail"
 import PostDetail from "../page/etc/PostDetail"
+import CategoryDetail from "../page/etc/CategoryDetail"
 import Test from "../page/etc/Test"
 
 function Router() {
@@ -68,16 +69,16 @@ function Router() {
                     }
                 ]
             },
-            /*{ // 카테고리 상세
+            { // 카테고리 상세
                 path: "/",
-                element: <BaseLayout title={"카테고리"}/>,
+                element: <BaseLayout/>,
                 children: [
                     {
                         path: "/category/:key",
                         element: <CategoryDetail/>
                     }
                 ]
-            },*/
+            },
             { // 포스트 상세
                 path: "/",
                 element: <BaseLayout title={"포스트"}/>,
