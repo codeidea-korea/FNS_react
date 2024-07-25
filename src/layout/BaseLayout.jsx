@@ -13,41 +13,35 @@ const BaseLayout = ({title, gnbHide}) => {
 
     useEffect(() => {
         if (gnb && gnb.length > 0) {
-            /*
-            *   현재 접속한 URL을 이용하여 헤더의 gnb 노출 여부를 확인함
-            *   lastPart : URL의 가장 마지막 / 뒤의 문자 (pk 느낌이라고 보면 됨)
-            *   isTagMenu : 태그 관련 메뉴인가?
-            *       lastPart 값이
-            *       10001, 10002, 10003 === false
-            *       10004, 10005, 10006, 10007, 10008 === true
-            *   isGnbHide : gnb 메뉴를 숨길것인가?
-            *       lastPart 값이 10001, 10002, 10003, 10004, 10005, 10006, 10007, 10008 === false
-            */
+            /* 현재 접속한 URL과 gnb를 이용하여 헤더 메뉴 노출 여부를 판단 */
             const getIsContainMenu = async () => {
-                const mainGnbIds = ['10001', '10002', '10003'];
-                const tagGnbIds = ['10004', '10005', '10006', '10007', '10008'];
-                const allGnbIds = mainGnbIds.concat(tagGnbIds);
-                const lastSlashIndex = url.lastIndexOf('/');
-                const lastPart = url.substring(lastSlashIndex + 1);
-                const isTagMenu = (mainGnbIds.includes(lastPart)) ? false : (tagGnbIds.includes(lastPart));
-                let isGnbHide = !(allGnbIds.includes(lastPart));
+                if (!url.includes('/home/')) {
+                    return true;
 
-                gnb.map((item) => {
-                    if (item.gnb_vw_type_cd === 'VW002001' && !isTagMenu) {
-                        if (item.gnb_vw_id === lastPart) {
-                            isGnbHide = false;
-                            return false;
-                        }
+                } else {
+                    const lastSlashIndex = url.lastIndexOf('/');
+                    const lastPart = url.substring(lastSlashIndex + 1);
+                    let isContainGnb = false;
 
-                    } else if (item.gnb_vw_type_cd === 'VW002003' && isTagMenu) {
-                        if (item.gnb_param_value === lastPart) {
-                            isGnbHide = false;
-                            return false;
+                    gnb.map((item) => {
+                        if (item.gnb_vw_type_cd === 'VW002001') {
+                            if (item.gnb_vw_id === lastPart) {
+                                isContainGnb = true;
+                            }
+
+                        } else if (item.gnb_vw_type_cd === 'VW002003') {
+                            if (item.gnb_param_value === lastPart) {
+                                isContainGnb = true;
+                            }
                         }
+                    });
+
+                    if(!isContainGnb) {
+                        // TODO 여기서 9번째 메뉴 만들어 주고 ACTIVE 시키면 됨, 근데 메뉴 이름은 어떻게 구하지?
                     }
-                });
 
-                return isGnbHide;
+                    return false;
+                }
             }
 
             getIsContainMenu().then(res => {

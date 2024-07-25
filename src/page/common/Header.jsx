@@ -7,7 +7,7 @@ import { openAppDownModal } from '../../common/AppDownModalUtil';
 import {showLoadingAnimation} from '../../common/CommonUtils.jsx';
 
 const Header = ({title, gnbHide}) => {
-    const { gnb, setPk } = useGlobalContext();
+    const { gnb } = useGlobalContext();
     const url = useLocation().pathname;
     const navigate = useNavigate();
     const [lineWidth, setLineWidth] = useState(0);
@@ -30,14 +30,13 @@ const Header = ({title, gnbHide}) => {
     const clickGnb = (gnbVwTypeCd, gnbVwId, gnbParamValue) => {
         // 로딩
         showLoadingAnimation();
-        
-        setPk(gnbVwTypeCd === 'VW002001' ? gnbVwId : gnbParamValue);
-        navigate(getMenuLink(gnbVwId));
+
+        navigate(getMenuLink(gnbVwId, gnbParamValue));
     }
 
     // 메뉴에 적용시킬 active class
-    const getMenuClassName = (gnbVwId) => {
-        const linkUrl = getMenuLink(gnbVwId);
+    const getMenuClassName = (gnbVwId, gnbParamValue) => {
+        const linkUrl = getMenuLink(gnbVwId, gnbParamValue);
 
         if (linkUrl === url) {
             return 'active';
@@ -48,8 +47,8 @@ const Header = ({title, gnbHide}) => {
     };
 
     // 메뉴에 적용시킬 underline i tag
-    const getUnderLine = (gnbVwId) => {
-        const linkUrl = getMenuLink(gnbVwId);
+    const getUnderLine = (gnbVwId, gnbParamValue) => {
+        const linkUrl = getMenuLink(gnbVwId, gnbParamValue);
 
         if (linkUrl === url) {
             return <i className="underline" style={{width: `${lineWidth}px`, left: `${lineLeft}px`}}></i>;
@@ -60,8 +59,13 @@ const Header = ({title, gnbHide}) => {
     };
 
     // 메뉴에 적용시킬 link url
-    const getMenuLink = (gnbVwId) => {
-        return `/home/${gnbVwId}`;
+    const getMenuLink = (gnbVwId, gnbParamValue) => {
+        if(['10001', '10002', '10003'].includes(gnbVwId)) {
+            return `/home/${gnbVwId}`;
+
+        }else {
+            return `/home/${gnbParamValue}`;
+        }
     };
 
     // gnb 메뉴 클릭 이벤트
@@ -147,14 +151,15 @@ const Header = ({title, gnbHide}) => {
                             </div>
                     }
                 </div>
+
                 <div className={title || gnbHide ? "gnb hidden" : "gnb"}>
                     <Swiper slidesPerView={'auto'} spaceBetween={0} className="gnb_swiper">
                         {gnb.length > 0 && gnb.map((item) => {
                             return (
-                                <SwiperSlide key={item.gnb_vw_id} className={getMenuClassName(item.gnb_vw_id)} data- onClick={cateClick}>
+                                <SwiperSlide key={item.gnb_vw_id} className={getMenuClassName(item.gnb_vw_id, item.gnb_param_value)} data- onClick={cateClick}>
                                     <a style={{cursor: "pointer"}} onClick={() => clickGnb(item.gnb_vw_type_cd, item.gnb_vw_id, item.gnb_param_value)}>
                                         <span>{item.gnb_name}</span>
-                                        {getUnderLine(item.gnb_vw_id)}
+                                        {getUnderLine(item.gnb_vw_id, item.gnb_param_value)}
                                     </a>
                                 </SwiperSlide>
                             )

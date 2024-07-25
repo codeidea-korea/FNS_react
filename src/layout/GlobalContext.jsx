@@ -9,7 +9,6 @@ export const useGlobalContext = () => {
 
 export const GlobalProvider = ({ children }) => {
     const [gnb, setGnb] = useState([]);
-    const [pk, setPk] = useState(null);
 
     useEffect(() => {
         // gnb 메뉴 데이터 조회
@@ -29,7 +28,7 @@ export const GlobalProvider = ({ children }) => {
     }, [setGnb]);
 
     return (
-        <GlobalContext.Provider value={{ gnb, pk, setPk }}>
+        <GlobalContext.Provider value={{ gnb }}>
             {children}
         </GlobalContext.Provider>
     );

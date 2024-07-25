@@ -1,19 +1,16 @@
 import {useLocation, useNavigate} from "react-router-dom";
 import {openAppDownModal} from '../../common/AppDownModalUtil';
 import {showLoadingAnimation} from '../../common/CommonUtils.jsx';
-import {useGlobalContext} from '../../layout/GlobalContext';
 
 const Quickmenu = () => {
     const url = useLocation().pathname;
     const navigate = useNavigate();
-    const {setPk} = useGlobalContext();
 
     // 퀵 메뉴 클릭 이벤트
     const clickQuickMenu = (link) => {
         // 로딩
         showLoadingAnimation();
 
-        setPk('10001');
         navigate(link);
     }
 
