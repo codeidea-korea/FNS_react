@@ -21,6 +21,35 @@ const Foryou = () => {
         });
     }, []);
 
+    /* 특정 영역 아래로 스크롤이 내려가면 앱 다운로드 모달 표시 */
+    const [isAlertShown, setIsAlertShown] = useState(false);
+
+    useEffect(() => {
+        const handleScroll = () => {
+            const restrictedElement = document.querySelector('section.topic_list.same_type.type02');
+            const sectionBottom = restrictedElement.getBoundingClientRect().bottom + window.scrollY + 120;
+            const currentScroll = window.scrollY + window.innerHeight;
+
+            if (currentScroll > sectionBottom) {
+                window.scrollTo(0, sectionBottom - window.innerHeight);
+
+                if (!isAlertShown) {
+                    openAppDownModal();
+                    setIsAlertShown(true);
+                }
+
+            } else {
+                setIsAlertShown(false);
+            }
+        };
+
+        window.addEventListener('scroll', handleScroll);
+
+        return () => {
+            window.removeEventListener('scroll', handleScroll);
+        };
+    }, [isAlertShown]);
+
     return (
         <>
             <Metatag

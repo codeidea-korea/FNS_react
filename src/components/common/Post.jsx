@@ -72,8 +72,6 @@ const Post = ({openAppDownModalFn, post, showComment}) => {
     // 이미지 슬라이드 할 때
     const changePostSlide = (swiper) => {
         const activeIndex = swiper.activeIndex;
-        setSwiperActive(swiper.activeIndex);
-        return;
 
         // 첫번째, 두번째 이미지만 볼 수 있음
         if (activeIndex === 0 || activeIndex === 1) {
