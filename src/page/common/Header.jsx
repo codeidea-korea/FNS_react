@@ -143,9 +143,9 @@ const Header = ({title, gnbHide}) => {
                             : <div className='appdown_box'>
                                 <h1 className="logo">
                                     <a href={'/home/10001'}>
-                                        <img src="/img/logo.svg" alt=""/>
+                                        <img src="/img/fns.svg" alt="패션&스타일 로고"/>
                                     </a>
-                                    <span>패션 & 스타일 앱에서 더 편리하게</span>
+                                    <span>새로운 패션, 트렌드, 스타일링 팁<br/>패션 & 스타일에서 만나보세요!</span>
                                 </h1>
                                 <button type={'button'} onClick={openAppDownModal}>앱으로 이동</button>
                             </div>
