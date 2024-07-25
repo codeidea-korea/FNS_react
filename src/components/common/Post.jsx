@@ -7,6 +7,7 @@ import {formatDateString} from "../../common/CommonUtils";
 
 /* 포스트 상세 */
 const Post = ({openAppDownModalFn, post, showComment}) => {
+    const [postRateClass, setPostRateClass] = useState('');
     const [desc, setDesc] = useState([]);
     const [swiperActive, setSwiperActive] = useState(0);
     const videoRef = useRef(null);
@@ -18,7 +19,8 @@ const Post = ({openAppDownModalFn, post, showComment}) => {
     const [modalImageAccImgSrc, setModalImageAccImgSrc] = useState('');
 
     useEffect(() => {
-        setDesc(post.post_desc.split('\n'));
+        setPostRateClass(getPostAreaClassForRate(post));
+        setDesc(post.post_desc?.split('\n'));
 
         const video = videoRef.current;
 
@@ -68,6 +70,44 @@ const Post = ({openAppDownModalFn, post, showComment}) => {
             }
         }
     }, [videoRef]);
+
+    // post_frame_type_cd 값에 따라 포스트 영역의 비율을 정하는 클래스를 구함
+    const getPostAreaClassForRate = (post) => {
+        const postFrameTypeCd = post?.post_frame_type_cd;
+        console.log(postFrameTypeCd)
+        let classNm = '';
+
+        switch (postFrameTypeCd) {
+            case 'FAR001001' : // 4:5
+                classNm = 'rate_4vs5'; break;
+
+            case 'FAR001002' : // 9:14
+                classNm = 'rate_9vs14';  break;
+
+            case 'FAR001003' : // 1:1
+                classNm = 'rate_1vs1';  break;
+
+            case 'FAR001004' : // 5:4
+                classNm = 'rate_5vs4';  break;
+
+            case 'FAR001005' : // 14:9
+                classNm = 'rate_14vs9';  break;
+
+            default :
+                if(post?.post_images?.length === 1 && post?.post_images[0]?.post_video_yn === true) {
+                    // 9:14 - 포스트가 단독 영상인 경우
+                    classNm = 'rate_9vs14';
+
+                }else {
+                    // 4:5 - 기본
+                    classNm = 'rate_4vs5';
+                }
+
+                break;
+        }
+
+        return classNm;
+    }
 
     // 이미지 슬라이드 할 때
     const changePostSlide = (swiper) => {
@@ -151,7 +191,7 @@ const Post = ({openAppDownModalFn, post, showComment}) => {
                         spaceBetween={0}
                         pagination={{dynamicBullets: true}}
                         modules={[Pagination]}
-                        className={`img_list`}
+                        className={`img_list ${postRateClass}`}
                         onSlideChange={(swiper) => changePostSlide(swiper)}
                     >
                         {/* 이미지가 2개 이상일 때만 SwiperSlide 적용 */}
