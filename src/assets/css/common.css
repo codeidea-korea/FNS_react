@@ -225,13 +225,25 @@ section {padding:16px 16px 20px;}
 .post_frame .img_list .swiper-slide > video {position:absolute; left:0; top:0; width:100%; height:100%; object-fit:cover; background-color:#000; }
 .post_frame .img_list .swiper-slide > video.type02 {object-fit:contain; }
 
-.post_frame .img_list.video_only .swiper-slide {padding-bottom:156.667%; }
+/* .post_frame .img_list.video_only .swiper-slide {padding-bottom:156.667%; } */
 .post_frame .img_list.video_only .tag_list {z-index:10; position:absolute; right:0; bottom:8px; }
 .post_frame .img_list.video_only {margin-bottom:10px; }
 
 .post_frame .img_list .swiper-slide.video_item .video_control {z-index:10; position:absolute; left:0; bottom:0; width:100%; height:4px; background-color:#888; }
 .post_frame .img_list .swiper-slide.video_item .video_control span {display:block; width:0%; height:100%; background-color:var(--primary-color); }
 .post_frame .img_list .swiper-slide.video_item .video_volume {z-index:10; position:absolute; right:14px; bottom:54px; }
+
+/* 4:5 세로가 긴 */
+.post_frame .img_list.longH .swiper-slide {padding-bottom:125%;}
+/* 9:14 세로가 매우 긴 */
+.post_frame .img_list.vlongH .swiper-slide {padding-bottom:155.5555555556%;}
+/* 1:1 정사각형 */
+.post_frame .img_list.square .swiper-slide {padding-bottom:100%;}
+/* 5:4 가로가 긴 */
+.post_frame .img_list.longW .swiper-slide {padding-bottom:80%;}
+/* 5:4 가로가 긴 */
+.post_frame .img_list.vlongW .swiper-slide {padding-bottom:64.2857142857%;}
+
 
 .post_frame .img_list .swiper-pagination {width:100%; }
 .post_frame .img_list .swiper-pagination-bullet {opacity:.4}
