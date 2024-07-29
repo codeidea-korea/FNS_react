@@ -14,6 +14,7 @@ const Header = ({title, gnbHide, isContainGnb}) => {
     const [lineWidth, setLineWidth] = useState(0);
     const [lineLeft] = useState(16);
     const [lastScroll, setLastScroll] = useState(0);
+    const [swiperInstance, setSwiperInstance] = useState(null);
 
     useEffect(() => {
         setTimeout(() => {
@@ -28,30 +29,46 @@ const Header = ({title, gnbHide, isContainGnb}) => {
     }, [url]);
 
     useEffect(() => {
-        const copyGnb = [...gnb];
+        if (gnb?.length > 0) {
+            const copyGnb = [...gnb];
 
-        /* home 메뉴인데 gnb에 없는 메뉴이면 9번째 메뉴 생성 */
-        if (gnb?.length > 0 && gnbHide === false && isContainGnb === false) {
-            const pathname = window.location.pathname;
-            const pathSplitSlash = pathname.split('/');
-            const key1 = pathSplitSlash[pathSplitSlash.length - 2];
-            const key2 = decodeURIComponent(pathSplitSlash[pathSplitSlash.length - 1]);
+            /* home 메뉴인데 gnb에 없는 메뉴이면 9번째 메뉴 생성 */
+            if (gnbHide === false && isContainGnb === false) {
+                const pathname = window.location.pathname;
+                const pathSplitSlash = pathname.split('/');
+                const key1 = pathSplitSlash[pathSplitSlash.length - 2];
+                const key2 = decodeURIComponent(pathSplitSlash[pathSplitSlash.length - 1]);
 
-            if (pathSplitSlash.length === 5 && key1?.length > 1 && key2?.length > 1) {
-                const newSlide = {
-                    gnb_vw_id: '',
-                    gnb_param_value: key1,
-                    gnb_name: key2,
-                    gnb_vw_type_cd: ''
-                };
+                if (pathSplitSlash.length === 5 && key1?.length > 1 && key2?.length > 1) {
+                    const newSlide = {
+                        gnb_vw_id: Date.now().toString(),
+                        gnb_param_value: key1,
+                        gnb_name: key2,
+                        gnb_vw_type_cd: ''
+                    };
 
-                copyGnb.push(newSlide);
+                    copyGnb.push(newSlide);
+                }
             }
+
+            setNewGnb(copyGnb);
         }
-
-        setNewGnb(copyGnb)
-
     }, [gnb, url, isContainGnb]);
+
+    // gnb swiper가 만들어 졌을 때 실행
+    useEffect(() => {
+        if (swiperInstance?.slides?.length > 7) {
+            // active된 gnb swiper로 슬라이드를 이동시킴
+            const slides = document.querySelectorAll('.swiper-slide');
+            const activeSlideIndex = Array.from(slides).findIndex(slide => slide.classList.contains('active'));
+            swiperInstance.slideTo(activeSlideIndex, 1);
+        }
+    }, [swiperInstance?.slides]);
+
+    // gnb swiper의 onSwiper 이벤트
+    const handleSwiper = (swiper) => {
+        setSwiperInstance(swiper)
+    };
 
     // gnb 메뉴 클릭 이벤트
     const clickGnb = (gnbVwTypeCd, gnbVwId, gnbParamValue, gnbName) => {
@@ -183,10 +200,15 @@ const Header = ({title, gnbHide, isContainGnb}) => {
                 </div>
 
                 <div className={title || gnbHide === true ? "gnb hidden" : "gnb"}>
-                    <Swiper slidesPerView={'auto'} spaceBetween={0} className="gnb_swiper">
+                    <Swiper
+                        slidesPerView={'auto'}
+                        spaceBetween={0}
+                        className="gnb_swiper"
+                        onSwiper={handleSwiper}
+                    >
                         {newGnb?.length > 0 && newGnb.map((item) => {
                             return (
-                                <SwiperSlide key={item.gnb_vw_id} className={getMenuClassName(item.gnb_vw_id, item.gnb_param_value, item.gnb_name)} data- onClick={cateClick}>
+                                <SwiperSlide key={item.gnb_vw_id} className={getMenuClassName(item.gnb_vw_id, item.gnb_param_value, item.gnb_name)} onClick={cateClick}>
                                     <a style={{cursor: "pointer"}} onClick={() => clickGnb(item.gnb_vw_type_cd, item.gnb_vw_id, item.gnb_param_value, item.gnb_name)}>
                                         <span>{item.gnb_name}</span>
                                         {getUnderLine(item.gnb_vw_id, item.gnb_param_value, item.gnb_name)}
