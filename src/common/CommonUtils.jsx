@@ -4,18 +4,18 @@ import React, {useEffect, useState} from "react";
 import {createRoot} from 'react-dom/client';
 
 /* 접속 url 혹은 메뉴를 이용하여 해당 페이지에서 호출할 api url을 조회 */
-export const getApiUrl = async (gnb) => {
-    const mainGnbIds = ['10001', '10002', '10003']; // 기본 메인 메뉴들
+export const getApiUrl = async () => {
+    const mainGnbIds = ['/home/10001', '/home/10002', '/home/10003']; // 기본 메인 메뉴 3개
     const pathname = window.location.pathname;
-    const lastSlashIndex = pathname.lastIndexOf('/');
-    const lastPart = pathname.substring(lastSlashIndex + 1);
+    const pathSplitSlash = pathname.split('/');
+
     let apiUrl;
 
-    if (mainGnbIds.includes(lastPart)) {
-        apiUrl = `/api/v1/ui/view/${lastPart}`;
+    if (mainGnbIds.includes(pathname)) {
+        apiUrl = `/api/v1/ui/view/${pathSplitSlash[pathSplitSlash.length-1]}`;
 
     }else {
-        apiUrl = `/api/v1/ui/viewpage/tag/${lastPart}`;
+        apiUrl = `/api/v1/ui/viewpage/tag/${pathSplitSlash[pathSplitSlash.length-2]}`;
     }
 
     return apiUrl;

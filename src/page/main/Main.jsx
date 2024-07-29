@@ -80,7 +80,7 @@ const Main = ({apiUrl}) => {
                 <Metatag
                     title={'패션 & 스타일|Fashion&Style'}
                     desc={metaDesc}
-                    image={window.location.origin + '/img/full_logo.svg'}
+                    image={''}
                 />
             }
 

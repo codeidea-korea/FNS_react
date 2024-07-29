@@ -3,12 +3,13 @@ import {Swiper, SwiperSlide} from 'swiper/react'; // Import Swiper React compone
 import 'swiper/css'; // Import Swiper styles
 import {useLocation, useNavigate} from 'react-router-dom';
 import {useGlobalContext} from '../../layout/GlobalContext';
-import { openAppDownModal } from '../../common/AppDownModalUtil';
+import {openAppDownModal} from '../../common/AppDownModalUtil';
 import {showLoadingAnimation} from '../../common/CommonUtils.jsx';
 
-const Header = ({title, gnbHide}) => {
-    const { gnb } = useGlobalContext();
-    const url = useLocation().pathname;
+const Header = ({title, gnbHide, isContainGnb}) => {
+    const {gnb} = useGlobalContext();
+    const [newGnb, setNewGnb] = useState([]);
+    const url = decodeURIComponent(useLocation().pathname);
     const navigate = useNavigate();
     const [lineWidth, setLineWidth] = useState(0);
     const [lineLeft] = useState(16);
@@ -26,17 +27,43 @@ const Header = ({title, gnbHide}) => {
         });
     }, [url]);
 
+    useEffect(() => {
+        const copyGnb = [...gnb];
+
+        /* home 메뉴인데 gnb에 없는 메뉴이면 9번째 메뉴 생성 */
+        if (gnb?.length > 0 && gnbHide === false && isContainGnb === false) {
+            const pathname = window.location.pathname;
+            const pathSplitSlash = pathname.split('/');
+            const key1 = pathSplitSlash[pathSplitSlash.length - 2];
+            const key2 = decodeURIComponent(pathSplitSlash[pathSplitSlash.length - 1]);
+
+            if (pathSplitSlash.length === 5 && key1?.length > 1 && key2?.length > 1) {
+                const newSlide = {
+                    gnb_vw_id: '',
+                    gnb_param_value: key1,
+                    gnb_name: key2,
+                    gnb_vw_type_cd: ''
+                };
+
+                copyGnb.push(newSlide);
+            }
+        }
+
+        setNewGnb(copyGnb)
+
+    }, [gnb, url, isContainGnb]);
+
     // gnb 메뉴 클릭 이벤트
-    const clickGnb = (gnbVwTypeCd, gnbVwId, gnbParamValue) => {
+    const clickGnb = (gnbVwTypeCd, gnbVwId, gnbParamValue, gnbName) => {
         // 로딩
         showLoadingAnimation();
 
-        navigate(getMenuLink(gnbVwId, gnbParamValue));
+        navigate(getMenuLink(gnbVwId, gnbParamValue, gnbName));
     }
 
     // 메뉴에 적용시킬 active class
-    const getMenuClassName = (gnbVwId, gnbParamValue) => {
-        const linkUrl = getMenuLink(gnbVwId, gnbParamValue);
+    const getMenuClassName = (gnbVwId, gnbParamValue, gnbName) => {
+        const linkUrl = getMenuLink(gnbVwId, gnbParamValue, gnbName);
 
         if (linkUrl === url) {
             return 'active';
@@ -47,8 +74,8 @@ const Header = ({title, gnbHide}) => {
     };
 
     // 메뉴에 적용시킬 underline i tag
-    const getUnderLine = (gnbVwId, gnbParamValue) => {
-        const linkUrl = getMenuLink(gnbVwId, gnbParamValue);
+    const getUnderLine = (gnbVwId, gnbParamValue, gnbName) => {
+        const linkUrl = getMenuLink(gnbVwId, gnbParamValue, gnbName);
 
         if (linkUrl === url) {
             return <i className="underline" style={{width: `${lineWidth}px`, left: `${lineLeft}px`}}></i>;
@@ -59,12 +86,15 @@ const Header = ({title, gnbHide}) => {
     };
 
     // 메뉴에 적용시킬 link url
-    const getMenuLink = (gnbVwId, gnbParamValue) => {
-        if(['10001', '10002', '10003'].includes(gnbVwId)) {
+    const getMenuLink = (gnbVwId, gnbParamValue, gnbName) => {
+        if (['10001', '10002', '10003'].includes(gnbVwId)) {
             return `/home/${gnbVwId}`;
 
-        }else {
-            return `/home/${gnbParamValue}`;
+        } else if (gnbParamValue && gnbName) {
+            return `/home/tag/${gnbParamValue}/${gnbName}`;
+
+        } else {
+            return `/home/10001`;
         }
     };
 
@@ -135,7 +165,7 @@ const Header = ({title, gnbHide}) => {
     return (
         <>
             <header>
-                <div className={title || gnbHide ? "top_area border_type" : "top_area"}>
+                <div className={title || gnbHide === true ? "top_area border_type" : "top_area"}>
                     {/*<Link to={"/recommend"} className="page_prev"><img src="/img/prev_arrow.svg" alt="" /></Link>*/}
                     {
                         title && title !== ''
@@ -152,14 +182,14 @@ const Header = ({title, gnbHide}) => {
                     }
                 </div>
 
-                <div className={title || gnbHide ? "gnb hidden" : "gnb"}>
+                <div className={title || gnbHide === true ? "gnb hidden" : "gnb"}>
                     <Swiper slidesPerView={'auto'} spaceBetween={0} className="gnb_swiper">
-                        {gnb.length > 0 && gnb.map((item) => {
+                        {newGnb?.length > 0 && newGnb.map((item) => {
                             return (
-                                <SwiperSlide key={item.gnb_vw_id} className={getMenuClassName(item.gnb_vw_id, item.gnb_param_value)} data- onClick={cateClick}>
-                                    <a style={{cursor: "pointer"}} onClick={() => clickGnb(item.gnb_vw_type_cd, item.gnb_vw_id, item.gnb_param_value)}>
+                                <SwiperSlide key={item.gnb_vw_id} className={getMenuClassName(item.gnb_vw_id, item.gnb_param_value, item.gnb_name)} data- onClick={cateClick}>
+                                    <a style={{cursor: "pointer"}} onClick={() => clickGnb(item.gnb_vw_type_cd, item.gnb_vw_id, item.gnb_param_value, item.gnb_name)}>
                                         <span>{item.gnb_name}</span>
-                                        {getUnderLine(item.gnb_vw_id, item.gnb_param_value)}
+                                        {getUnderLine(item.gnb_vw_id, item.gnb_param_value, item.gnb_name)}
                                     </a>
                                 </SwiperSlide>
                             )

@@ -20,18 +20,30 @@ function Router() {
             },
             { // 홈의 8개 메뉴
                 path: "/",
-                element: <BaseLayout gnbHide={true}/>,
+                element: <BaseLayout gnbHide={false}/>,
                 children:
                     [
                         {
-                            path: "/home/:id",
+                            path: "/home/10001",
+                            element: <Home/>
+                        },
+                        {
+                            path: "/home/10002",
+                            element: <Home/>
+                        },
+                        {
+                            path: "/home/10003",
+                            element: <Home/>
+                        },
+                        {
+                            path: "/home/tag/:key1/:key2",
                             element: <Home/>
                         }
                     ]
             },
             { // 추천
                 path: "/",
-                element: <BaseLayout title={"추천"} gnbHide={false}/>,
+                element: <BaseLayout title={"추천"} gnbHide={true}/>,
                 children: [
                     {
                         path: "/foryou",
@@ -41,7 +53,7 @@ function Router() {
             },
             { // 마이페이지
                 path: "/",
-                element: <BaseLayout gnbHide={false}/>,
+                element: <BaseLayout gnbHide={true}/>,
                 children: [
                     {
                         path: "/mypage",

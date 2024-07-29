@@ -4,6 +4,7 @@ import {componentMap} from '../../common/componentMap';
 import AxiosInstance from "../../common/AxiosInstance";
 import {useNavigate, useParams} from "react-router-dom";
 import {Swiper, SwiperSlide} from "swiper/react";
+import Metatag from "@/components/Metatag.jsx";
 
 const TopicDetail = () => {
     let tempIdx = 0;
@@ -11,6 +12,7 @@ const TopicDetail = () => {
     const navigate = useNavigate();
     const {key} = useParams();
 
+    const [metaDesc, setMetaDesc] = useState('');
     const [data, setData] = useState({});
     const [filters, setFilters] = useState([]);
     const [groups, setGroups] = useState([]);
@@ -54,7 +56,33 @@ const TopicDetail = () => {
 
             setGroups(data.vw_groups);
         }
-    }, [data, tagId])
+    }, [data, tagId]);
+
+    /* meta의 desc 값 만들기 */
+    useEffect(() => {
+        if (data && data.vw_groups?.length > 0) {
+            /* desc = 토픽제목 + 토픽부제목 + 각 필터칩태그o7개) 각각의 첫번째 포스트 캡션들 (특수문자,이모지제외) */
+            let tempMetaDesc = '';
+
+            // 토픽제목
+            tempMetaDesc += key + ' ';
+
+            // 토픽부제목
+            tempMetaDesc += data.vw_title + ' ';
+
+            // 필터칩태그 각각의 첫번째 포스트 캡션들
+            tempMetaDesc += data.vw_groups.flatMap(group =>
+                group.grp_items.map(item =>
+                    item.itm_data[0]?.post_desc?.split('\n')[0] || ""
+                )
+            ).filter(desc => desc !== "").join(' ') + ' ';
+
+            // 영어, 숫자, 한글, 띄어쓰기 제외 모든 문자 제거
+            tempMetaDesc = tempMetaDesc.replace(/[^a-zA-Z0-9가-힣 ]/g, ' ')
+
+            setMetaDesc(tempMetaDesc);
+        }
+    }, [data]);
 
     useEffect(() => {
         window.addEventListener('scroll', scrollHandle);
@@ -190,6 +218,7 @@ const TopicDetail = () => {
             const restrictedElement = document.querySelector('.main.section_box .category_cont');
             const sectionBottom = restrictedElement.getBoundingClientRect().bottom + window.scrollY + 120;
             const currentScroll = window.scrollY + window.innerHeight;
+            return;
 
             if (currentScroll > sectionBottom) {
                 window.scrollTo(0, sectionBottom - window.innerHeight);
@@ -213,6 +242,12 @@ const TopicDetail = () => {
 
     return (
         <>
+            <Metatag
+                title={key}
+                desc={metaDesc}
+                image={''}
+            />
+
             {
                 data && filters?.length > 0 && groups?.length > 0 && (
                     <>
