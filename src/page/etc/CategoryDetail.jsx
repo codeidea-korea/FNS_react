@@ -3,12 +3,18 @@ import {openAppDownModal} from '../../common/AppDownModalUtil';
 import {componentMap} from '../../common/componentMap';
 import AxiosInstance from "../../common/AxiosInstance";
 import {useNavigate, useParams} from "react-router-dom";
+import Metatag from "../../components/Metatag";
+import {clearMetaText} from '../../common/CommonUtils';
 
 const CategoryDetail = () => {
     const navigate = useNavigate();
     const {key} = useParams();
+
+    const [lastScroll, setLastScroll] = useState(0);
+    const [isAlertShown, setIsAlertShown] = useState(false);
     const [frameComponents, setFrameComponents] = useState([]);
     const [data, setData] = useState({});
+    const [metaDesc, setMetaDesc] = useState('');
 
     useEffect(() => {
         if (key === null || key === undefined || (typeof key === 'string' && key.trim() === '')) {
@@ -66,11 +72,21 @@ const CategoryDetail = () => {
         }
     }, [key]);
 
-    const goMain = () => {
-        navigate('home/10001');
-    }
+    /* meta의 desc 값 만들기 */
+    useEffect(() => {
+        if (data && data.vw_groups?.length > 0) {
+            const top5Data = data.vw_groups[2].grp_items[0].itm_data;
 
-    const [lastScroll, setLastScroll] = useState(0);
+            /* desc = Top 5 에 있는 5개 포스트의 캡션들 총합 */
+            let tempMetaDesc = '';
+
+            top5Data.map((topData) => {
+                tempMetaDesc = tempMetaDesc + topData.post_desc?.split('\n')[0] + ' ';
+            });
+
+            setMetaDesc(clearMetaText(tempMetaDesc));
+        }
+    }, [data]);
 
     useEffect(() => {
         window.addEventListener('scroll', scrollHandle);
@@ -79,6 +95,37 @@ const CategoryDetail = () => {
             window.removeEventListener('scroll', scrollHandle)
         }
     }, [lastScroll])
+
+    /* 특정 영역 아래로 스크롤이 내려가면 앱 다운로드 모달 표시 */
+    useEffect(() => {
+        const handleScroll = () => {
+            const restrictedElement = document.querySelector('.main.section_box .topic_list');
+            const sectionBottom = restrictedElement.getBoundingClientRect().bottom + window.scrollY + 120;
+            const currentScroll = window.scrollY + window.innerHeight;
+
+            if (currentScroll > sectionBottom) {
+                window.scrollTo(0, sectionBottom - window.innerHeight);
+
+                if (!isAlertShown) {
+                    openAppDownModal();
+                    setIsAlertShown(true);
+                }
+
+            } else {
+                setIsAlertShown(false);
+            }
+        };
+
+        window.addEventListener('scroll', handleScroll);
+
+        return () => {
+            window.removeEventListener('scroll', handleScroll);
+        };
+    }, [isAlertShown]);
+
+    const goMain = () => {
+        navigate('home/10001');
+    }
 
     const scrollHandle = () => {
         const top = document.querySelector('.top_detail')
@@ -108,40 +155,16 @@ const CategoryDetail = () => {
         }
     }
 
-    /* 특정 영역 아래로 스크롤이 내려가면 앱 다운로드 모달 표시 */
-    const [isAlertShown, setIsAlertShown] = useState(false);
-
-    useEffect(() => {
-        const handleScroll = () => {
-            const restrictedElement = document.querySelector('.main.section_box .topic_list');
-            const sectionBottom = restrictedElement.getBoundingClientRect().bottom + window.scrollY + 120;
-            const currentScroll = window.scrollY + window.innerHeight;
-
-            if (currentScroll > sectionBottom) {
-                window.scrollTo(0, sectionBottom - window.innerHeight);
-
-                if (!isAlertShown) {
-                    openAppDownModal();
-                    setIsAlertShown(true);
-                }
-
-            } else {
-                setIsAlertShown(false);
-            }
-        };
-
-        window.addEventListener('scroll', handleScroll);
-
-        return () => {
-            window.removeEventListener('scroll', handleScroll);
-        };
-    }, [isAlertShown]);
-
     return (
         <>
             {
                 (data && frameComponents && frameComponents.length > 0) && (
                     <>
+                        <Metatag
+                            title={key ?? ''}
+                            desc={metaDesc ?? ''}
+                            image={data?.vw_groups[1]?.grp_items[0]?.itm_data[0]?.image_url_def ?? data?.vw_groups[0]?.grp_items[0]?.itm_data[0]?.image_url1}
+                        />
 
                         {/* 상단 타이틀 추가 */}
                         <div className='top_detail' style={{padding: '20px 20px 0 20px'}}>

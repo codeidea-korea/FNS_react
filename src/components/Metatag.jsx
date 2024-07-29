@@ -1,27 +1,29 @@
 import {Helmet} from "react-helmet-async";
 
-const Metatag = ({title = '', desc = '', image = ''}) => {
+const Metatag = ({title = '', desc = '', image = '', date = ''}) => {
     return (
         <Helmet>
+
             <title>{title}</title>
+            <meta charSet={'utf-8'}/>
 
             <meta property="og:type"        content="website"/>
-            <meta name="content-language"   content="kr"/>
-            <meta name="copyright"          content="Copyrights © 2022 www.fashionandstyle.com All Rights Reserved"/>
-            <meta name="robots"             content="ALL"/>
-            <meta name="author"             content="www.fashionandstyle.com"/>
-
-            <meta property="og:url"         content={window.location.href}/>
-
+            <meta property="og:url"         content={decodeURIComponent(window.location.href)}/>
             <meta property="og:title"       content={title}/>
+            <meta property="og:description" content={desc}/>
+            <meta property="og:image"       content={image}/>
+
+            <meta name="viewport"           content="width=device-width, initial-scale=1.0"/>
+            <meta name="copyright"          content="Copyrights © 2022 패션앤스타일컴퍼니 주식회사 All Rights Reserved"/>
+            <meta name="robots"             content="index, follow"/>
+            <meta name="author"             content="패션앤스타일컴퍼니 주식회사"/>
             <meta name="title"              content={title}/>
             <meta name="subject"            content={title}/>
-
-            <meta property="og:description" content={desc}/>
             <meta name="description"        content={desc}/>
             <meta name="keywords"           content={desc}/>
+            <meta name="date"               content={date}/>
+            <meta name="build"              content={new Date().toISOString().split('T')[0]}/>
 
-            <meta property="og:image"       content={image}/>
         </Helmet>
     )
 }

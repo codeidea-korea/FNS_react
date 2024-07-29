@@ -74,7 +74,6 @@ const Post = ({openAppDownModalFn, post, showComment}) => {
     // post_frame_type_cd 값에 따라 포스트 영역의 비율을 정하는 클래스를 구함
     const getPostAreaClassForRate = (post) => {
         const postFrameTypeCd = post?.post_frame_type_cd;
-        console.log(postFrameTypeCd)
         let classNm = '';
 
         switch (postFrameTypeCd) {

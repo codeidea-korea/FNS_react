@@ -4,18 +4,26 @@ import {componentMap} from '../../common/componentMap';
 import AxiosInstance from "../../common/AxiosInstance";
 import {useNavigate, useParams} from "react-router-dom";
 import Post from "../../components/common/Post";
+import Metatag from "../../components/Metatag";
+import {clearMetaText} from '../../common/CommonUtils';
 
 const PostDetail = () => {
     const navigate = useNavigate();
     const {yy, mm, dd, key} = useParams();
+
+    const [isAlertShown, setIsAlertShown] = useState(false);
     const [frameComponents, setFrameComponents] = useState([]);
     const [post, setPost] = useState({});
+    const [suggest, setSuggest] = useState({});
+    const [metaTitle, setMetaTitle] = useState('');
+    const [metaDesc, setMetaDesc] = useState('');
 
     useEffect(() => {
         if (yy && mm && dd && key) {
             AxiosInstance.get(`/api/v1/post/preview_name/${yy}${mm}${dd}/${key}`).then((res) => {
                 const contents = res.data.data;
                 setPost(contents.post);
+                setSuggest(contents.suggest);
 
                 const arrFrameComponents = [];
 
@@ -27,7 +35,7 @@ const PostDetail = () => {
                         const itm_link_id = grpItem.itm_link_id;
 
                         // (포스트 상세의 프레임 28) + (grpItem.itm_link_param1값이 TAG002002, TAG002012, TAG002005) 인 경우
-                        if(frmId === '28' && (itm_link_param1 === 'TAG002002' || itm_link_param1 === 'TAG002012' || itm_link_param1 === 'TAG002005')) {
+                        if (frmId === '28' && (itm_link_param1 === 'TAG002002' || itm_link_param1 === 'TAG002012' || itm_link_param1 === 'TAG002005')) {
                             // itm_link_id를 이용해서 맞는 이미지를 추출
                             grpItem.itm_data.forEach((id) => {
                                 const filteredImages = id.post_images.filter(pi => pi?.post_image_acc[0]?.post_image_acc_tag[0]?.tag_id === itm_link_id);
@@ -37,12 +45,13 @@ const PostDetail = () => {
                                 }
                             });
 
-                            if(grpItem.itm_data.length > 4) {
+                            if (grpItem.itm_data.length > 4) {
                                 grpItem.itm_data = grpItem.itm_data.slice(0, 4);
                             }
                         }
 
                         if (grpItem.itm_data.length > 0) {
+
                             const DynamicFrameComponent = componentMap[`Frm${frmId}`];
 
                             if (DynamicFrameComponent) {
@@ -70,15 +79,29 @@ const PostDetail = () => {
 
     }, []);
 
-    const goMain = () => {
-        navigate('home/10001');
-    }
+    /* meta의 desc 값 만들기 */
+    useEffect(() => {
+        if (post.post_images?.length > 0 && suggest?.vw_groups?.length > 0 && frameComponents.length > 0) {
+            /* meta title */
+            let tempMetaTitle = post.post_desc?.split('\n')[0];
+            setMetaTitle(clearMetaText(tempMetaTitle));
+
+            /* meta desc */
+            /* desc = post_desc 텍스트 전부 + 첫번째 태그 1번 포스트캡션 + 두번째 태그 1번 포스트캡션 */
+            let tempMetaDesc = post.post_desc + ' ';
+
+            suggest.vw_groups.map((vwGroup, idx) => {
+                if (idx < 2) {
+                    tempMetaDesc = tempMetaDesc + vwGroup?.grp_items[0]?.itm_data[0]?.post_desc?.split('\n')[0] + ' ';
+                }
+            });
+
+            setMetaDesc(clearMetaText(tempMetaDesc));
+        }
+    }, [post, suggest, frameComponents]);
 
     /* 특정 영역 아래로 스크롤이 내려가면 앱 다운로드 모달 표시 */
-    const [isAlertShown, setIsAlertShown] = useState(false);
-
     useEffect(() => {
-
         const handleScroll = () => {
             const restrictedElement = document.querySelector('.main.section_box .post_frame');
             const sectionBottom = restrictedElement.getBoundingClientRect().bottom + window.scrollY + 120;
@@ -104,15 +127,28 @@ const PostDetail = () => {
         };
     }, [isAlertShown]);
 
+    const goMain = () => {
+        navigate('home/10001');
+    }
+
     return (
         <>
             {
                 (post && post.post_images?.length > 0) && (
-                    <div className="main section_box">
-                        <Post openAppDownModalFn={openAppDownModal} post={post} showComment={true}/>
+                    <>
+                        <Metatag
+                            title={metaTitle}
+                            desc={metaDesc ?? ''}
+                            image={post?.post_images[0]?.post_image_url}
+                            date={`${yy}-${mm}-${dd}`}
+                        />
 
-                        {frameComponents}
-                    </div>
+                        <div className="main section_box">
+                            <Post openAppDownModalFn={openAppDownModal} post={post} showComment={true}/>
+
+                            {frameComponents}
+                        </div>
+                    </>
                 )
             }
         </>

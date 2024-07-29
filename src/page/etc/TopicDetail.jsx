@@ -4,20 +4,22 @@ import {componentMap} from '../../common/componentMap';
 import AxiosInstance from "../../common/AxiosInstance";
 import {useNavigate, useParams} from "react-router-dom";
 import {Swiper, SwiperSlide} from "swiper/react";
-import Metatag from "@/components/Metatag.jsx";
+import Metatag from "../../components/Metatag";
+import {clearMetaText} from '../../common/CommonUtils';
 
 const TopicDetail = () => {
     let tempIdx = 0;
     let tempIdx2 = 0;
+
     const navigate = useNavigate();
     const {key} = useParams();
 
-    const [metaDesc, setMetaDesc] = useState('');
     const [data, setData] = useState({});
     const [filters, setFilters] = useState([]);
     const [groups, setGroups] = useState([]);
     const [tagId, setTagId] = useState("");
     const [lastScroll, setLastScroll] = useState(0);
+    const [metaDesc, setMetaDesc] = useState('');
 
     useEffect(() => {
         if (key === null || key === undefined || (typeof key === 'string' && key.trim() === '')) {
@@ -70,6 +72,10 @@ const TopicDetail = () => {
             // 토픽부제목
             tempMetaDesc += data.vw_title + ' ';
 
+            data.vw_filters.map((filter) => {
+                tempMetaDesc = tempMetaDesc + filter.vw_flt_name + ' ';
+            });
+
             // 필터칩태그 각각의 첫번째 포스트 캡션들
             tempMetaDesc += data.vw_groups.flatMap(group =>
                 group.grp_items.map(item =>
@@ -77,10 +83,7 @@ const TopicDetail = () => {
                 )
             ).filter(desc => desc !== "").join(' ') + ' ';
 
-            // 영어, 숫자, 한글, 띄어쓰기 제외 모든 문자 제거
-            tempMetaDesc = tempMetaDesc.replace(/[^a-zA-Z0-9가-힣 ]/g, ' ')
-
-            setMetaDesc(tempMetaDesc);
+            setMetaDesc(clearMetaText(tempMetaDesc));
         }
     }, [data]);
 
@@ -218,7 +221,6 @@ const TopicDetail = () => {
             const restrictedElement = document.querySelector('.main.section_box .category_cont');
             const sectionBottom = restrictedElement.getBoundingClientRect().bottom + window.scrollY + 120;
             const currentScroll = window.scrollY + window.innerHeight;
-            return;
 
             if (currentScroll > sectionBottom) {
                 window.scrollTo(0, sectionBottom - window.innerHeight);
@@ -242,15 +244,15 @@ const TopicDetail = () => {
 
     return (
         <>
-            <Metatag
-                title={key}
-                desc={metaDesc}
-                image={''}
-            />
-
             {
                 data && filters?.length > 0 && groups?.length > 0 && (
                     <>
+                        <Metatag
+                            title={key ?? ''}
+                            desc={metaDesc ?? ''}
+                            image={data.vw_image_url ?? ''}
+                        />
+
                         <div className="detail_top">
                             {/* 단독 페이지인데 뒤로가기가 필요한가? */}
                             <div className="btn_wrap">
