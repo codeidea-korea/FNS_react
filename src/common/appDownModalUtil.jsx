@@ -22,10 +22,10 @@ const GlobalAppDownModal = () => {
             <div className="modal_box">
                 <div className="modal_content appdown_cont">
                     <img src="/img/logo.svg" alt="패션&스타일 로고"/>
-                    <h6>패션&스타일 앱에서 제공되는 혜택을<br/>놓치고 계신 건 아닌가요?</h6>
-                    <p>패션&스타일 앱은 다양한 혜택 및 코디 탭을 제공 중!</p>
-                    <button type={'button'} className='down_btn' onClick={clickUseAppEvent}>앱 이용하기</button>
-                    <button type={'button'} className='close_btn' onClick={() => setIsOpen(false)}>괜찮아요, 모바일웹으로 볼게요.</button>
+                    <h6>패션 & 스타일 앱에서<br/>트렌디한 패션 정보를 확인해보세요.</h6>
+                    <p>실시간 패션 트렌드, 라이프 & 셀럽 스타일을 쉽고 빠르게!</p>
+                    <button type={'button'} className='down_btn' onClick={clickUseAppEvent}>앱으로 보기</button>
+                    <button type={'button'} className='close_btn' onClick={() => setIsOpen(false)}>웹으로 볼게요</button>
                 </div>
             </div>
         </div>,

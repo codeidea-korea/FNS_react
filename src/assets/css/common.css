@@ -322,9 +322,9 @@ section {padding:16px 16px 20px;}
 
 /* 앱 다운 모달 */
 .appdown_cont {padding:30px 0 !important; text-align:center; }
-.appdown_cont img {margin:10px; }
-.appdown_cont h6 {margin-top:24px; font-size:20px; font-weight:400; line-height:30px; }
-.appdown_cont p {padding:8px 0 24px; font-size:14px; color:rgb(110,110,110); line-height:21px; }
-.appdown_cont button.down_btn {display:block; width:100%; max-width:335px; height:50px; margin:0 auto; font-size:14px; line-height:50px; border-radius:24px; background-color:#000; color:#fff; }
-.appdown_cont button.close_btn {display:block; width:100%; max-width:335px; height:50px; margin:0 auto; font-size:14px; line-height:50px; color:rgb(179,179,179); }
+.appdown_cont img {width:92px; }
+.appdown_cont h6 {margin-top:5px; font-size:20px; font-weight:600; line-height:1.5; }
+.appdown_cont p {padding:10px 0 40px; font-size:12px; color:#6E6E6E; line-height:21px; }
+.appdown_cont button.down_btn {display:block; width:100%; max-width:251px; height:34px; margin:0 auto; font-size:14px; font-weight:600; line-height:34px; border-radius:8px; background-color:var(--primary-color); color:#fff; }
+.appdown_cont button.close_btn {display:block; width:100%; max-width:251px; height:34px; margin:5px auto 0; font-size:11px; line-height:34px; color:rgb(179,179,179); }
 
