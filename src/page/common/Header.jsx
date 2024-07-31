@@ -199,6 +199,7 @@ const Header = ({title, gnbHide, isContainGnb}) => {
                     }
                 </div>
 
+                <h1 className={title || gnbHide === true ? "logo hidden" : "logo"}><img src="/img/logo.svg" alt="" /></h1>
                 <div className={title || gnbHide === true ? "gnb hidden" : "gnb"}>
                     <Swiper
                         slidesPerView={'auto'}

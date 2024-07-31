@@ -21,7 +21,7 @@ const GlobalAppDownModal = () => {
             <div className="modal_bg" onClick={() => setIsOpen(false)}></div>
             <div className="modal_box">
                 <div className="modal_content appdown_cont">
-                    <img src="/img/app_logo.svg" alt="패션&스타일 로고"/>
+                    <img src="/img/app_logo.png" alt="패션&스타일 로고"/>
                     <h6>패션 & 스타일 앱에서<br/>트렌디한 패션 정보를 확인해보세요.</h6>
                     <p>실시간 패션 트렌드, 라이프 & 셀럽 스타일을 쉽고 빠르게!</p>
                     <button type={'button'} className='down_btn' onClick={clickUseAppEvent}>앱으로 보기</button>
