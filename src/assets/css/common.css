@@ -321,10 +321,10 @@ section {padding:16px 16px 20px;}
 .insta_item > a p {color:#313131; font-weight:400; }
 
 /* 앱 다운 모달 */
-.appdown_cont {padding:30px 0 !important; text-align:center; }
-.appdown_cont img {margin:10px; }
-.appdown_cont h6 {margin-top:24px; font-size:20px; font-weight:400; line-height:30px; }
-.appdown_cont p {padding:8px 0 24px; font-size:14px; color:rgb(110,110,110); line-height:21px; }
-.appdown_cont button.down_btn {display:block; width:100%; max-width:335px; height:50px; margin:0 auto; font-size:14px; line-height:50px; border-radius:24px; background-color:#000; color:#fff; }
-.appdown_cont button.close_btn {display:block; width:100%; max-width:335px; height:50px; margin:0 auto; font-size:14px; line-height:50px; color:rgb(179,179,179); }
+.appdown_cont {padding:30px 0 0 !important; text-align:center; }
+.appdown_cont img {width:92px; }
+.appdown_cont h6 {margin-top:5px; font-size:18px; font-weight:600; line-height:1.3; letter-spacing:-0.54px; color:#313131; }
+.appdown_cont p {padding:40px 0 20px; font-size:14px; color:#6E6E6E; }
+.appdown_cont button.down_btn {display:block; width:100%; max-width:321px; height:56px; margin:0 auto; font-size:17px; font-weight:600; line-height:56px; border-radius:16px; background-color:var(--primary-color); color:#fff; }
+.appdown_cont button.close_btn {display:block; width:100%; max-width:321px; height:56px; margin:20px auto 0; font-size:14px; line-height:56px; color:#AEAEAE; text-decoration:underline; text-underline-offset:2px; }
 
