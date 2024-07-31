@@ -3,7 +3,6 @@ import {Helmet} from "react-helmet-async";
 const Metatag = ({title = '', desc = '', image = '', date = ''}) => {
     return (
         <Helmet>
-
             <title>{title}</title>
             <meta charSet={'utf-8'}/>
 
@@ -22,8 +21,7 @@ const Metatag = ({title = '', desc = '', image = '', date = ''}) => {
             <meta name="description"        content={desc}/>
             <meta name="keywords"           content={desc}/>
             <meta name="date"               content={date}/>
-            <meta name="build"              content={new Date().toISOString().split('T')[0]}/>
-
+            <meta name="build"              content={new Date(new Date().getTime() - new Date().getTimezoneOffset() * 60000).toISOString().slice(0, 19).replace('T', ' ')}/>
         </Helmet>
     )
 }

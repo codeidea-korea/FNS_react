@@ -251,6 +251,7 @@ const TopicDetail = () => {
                             title={key ?? ''}
                             desc={metaDesc ?? ''}
                             image={data.vw_image_url ?? ''}
+                            date={data?.created_at ?? ''}
                         />
 
                         <div className="detail_top">

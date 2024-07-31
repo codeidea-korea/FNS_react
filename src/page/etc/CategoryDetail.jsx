@@ -164,6 +164,7 @@ const CategoryDetail = () => {
                             title={key ?? ''}
                             desc={metaDesc ?? ''}
                             image={data?.vw_groups[1]?.grp_items[0]?.itm_data[0]?.image_url_def ?? data?.vw_groups[0]?.grp_items[0]?.itm_data[0]?.image_url1}
+                            date={data?.created_at ?? ''}
                         />
 
                         {/* 상단 타이틀 추가 */}

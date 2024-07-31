@@ -140,7 +140,7 @@ const PostDetail = () => {
                             title={metaTitle}
                             desc={metaDesc ?? ''}
                             image={post?.post_images[0]?.post_image_url}
-                            date={`${yy}-${mm}-${dd}`}
+                            date={post?.created_at ?? ''}
                         />
 
                         <div className="main section_box">
