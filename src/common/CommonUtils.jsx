@@ -12,10 +12,10 @@ export const getApiUrl = async () => {
     let apiUrl;
 
     if (mainGnbIds.includes(pathname)) {
-        apiUrl = `/api/v1/ui/view/${pathSplitSlash[pathSplitSlash.length-1]}`;
+        apiUrl = `/api/v1/ui/view/${pathSplitSlash[pathSplitSlash.length - 1]}`;
 
-    }else {
-        apiUrl = `/api/v1/ui/viewpage/tag/${pathSplitSlash[pathSplitSlash.length-2]}`;
+    } else {
+        apiUrl = `/api/v1/ui/viewpage/tag/${pathSplitSlash[pathSplitSlash.length - 2]}`;
     }
 
     return apiUrl;
@@ -88,48 +88,70 @@ export const showLoadingAnimation = () => {
         );
     };
 
-    const div = document.createElement('div');
+    /*const div = document.createElement('div');
     document.body.appendChild(div);
 
     const root = createRoot(div);
     root.render(<LoadingComponent/>);
 
+    // 0.6초 후 로딩 애니메이션 숨기기 및 DOM 정리
     setTimeout(() => {
         root.unmount();
         document.body.removeChild(div);
-    }, 600); // 0.6초 후 로딩 애니메이션 숨기기 및 DOM 정리
+    }, 600);*/
 }
 
 /* 앱 이용하기 버튼 클릭시 */
 export const clickUseApp = () => {
+    // 유니버설 링크 또는 앱 링크 설정
+    const universalLink = 'https://www.fashionandstyle.com'; // 실제 유니버설 링크 또는 앱 링크로 변경
+
+    // 사용자 에이전트를 사용하여 모바일 여부 및 운영 체제 체크
     const userAgent = navigator.userAgent || navigator.vendor || window.opera;
+    const isMobile = /iPhone|iPad|iPod|Android/i.test(userAgent);
+    const isAndroid = /Android/i.test(userAgent);
+    const isIOS = /iPad|iPhone|iPod/i.test(userAgent);
+    const isWindows = /Windows/i.test(userAgent);
+    const isMac = /Macintosh/i.test(userAgent);
 
-    const androidURL = "https://play.google.com/store/apps/details?id=com.fas.android&hl=ko";
-    const macURL = "https://apps.apple.com/kr/app/%ED%8C%A8%EC%85%98-%EC%8A%A4%ED%83%80%EC%9D%BC/id1620312420";
-    const androidMobileURL = "market://details?id=com.fas.android"; // 플레이스토어 앱 다운로드 링크
-    const iosMobileURL = "https://apps.apple.com/kr/app/%ED%8C%A8%EC%85%98-%EC%8A%A4%ED%83%80%EC%9D%BC/id1620312420"; // 앱스토어 링크
+    const windowURL = "https://play.google.com/store/apps/details?id=com.fas.android&hl=ko"; // 윈도우 - 플레이스토어 앱 다운로드 링크
+    const macURL = "https://apps.apple.com/kr/app/%ED%8C%A8%EC%85%98-%EC%8A%A4%ED%83%80%EC%9D%BC/id1620312420"; // max -  앱스토어 링크
+    const androidMobileURL = "market://details?id=com.fas.android"; // android - 플레이스토어 앱 다운로드 링크
+    const iosMobileURL = "https://apps.apple.com/kr/app/%ED%8C%A8%EC%85%98-%EC%8A%A4%ED%83%80%EC%9D%BC/id1620312420"; // ios - 앱스토어 링크
 
-    if (/android/i.test(userAgent)) {
-        if (/Mobile/i.test(userAgent)) {
-            // 모바일 안드로이드
-            window.open(androidMobileURL, '_blank');
+    if (isMobile) {
+        // 모바일 디바이스일 경우
+        const startTime = new Date().getTime();
 
-        } else {
-            // PC 윈도우
-            window.open(androidURL, '_blank');
-        }
+        // 유니버설 링크를 사용하여 앱 열기
+        window.open(universalLink, '_blank');
 
-    } else if (/iPad|iPhone|iPod/.test(userAgent) && !window.MSStream) {
-        // 모바일 iOS
-        window.open(iosMobileURL, '_blank');
+        // 일정 시간 후에 앱이 열리지 않았으면 대체 동작 수행
+        setTimeout(() => {
+            const endTime = new Date().getTime();
 
-    } else if (/Macintosh/.test(userAgent)) {
-        // PC 맥
-        window.open(macURL, '_blank');
+            if (endTime - startTime < 1500) { // 앱이 열리지 않았다고 간주하는 시간
+                if (isAndroid) {
+                    // Android 기기에서 앱이 열리지 않으면
+                    window.open(androidMobileURL, '_blank');
+
+                } else if (isIOS) {
+                    // iOS 기기에서 앱이 열리지 않으면
+                    window.open(iosMobileURL, '_blank');
+                }
+            }
+        }, 1500); // 딥 링크 실행 대기 시간
 
     } else {
-        // 그 외 (PC 윈도우로 가정)
-        window.open(androidURL, '_blank');
+        // 웹 브라우저일 경우
+        if (isWindows) {
+            // 웹 브라우저에서 Windows인 경우
+            window.open(windowURL, '_blank');
+
+        } else if (isMac) {
+            // 웹 브라우저에서 macOS인 경우
+            window.open(macURL, '_blank');
+        }
     }
 }
 

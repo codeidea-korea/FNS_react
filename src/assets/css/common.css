@@ -38,7 +38,7 @@ header .top_area .page_prev {position:absolute; left:16px; top:calc(50% - 24px);
 /* header .top_area .page_prev img {width:48px; height:48px; } */
 header h1.logo {text-align:center; }
 header h1.logo.hidden {display:none; }
-header h1.logo img {width:60px; }
+header h1.logo img {width:60px; vertical-align: middle;}
 header .gnb {position:relative; height:40px; }
 header .gnb.hidden {display:none; }
 header .gnb .underline {position:absolute; left:0; bottom:0; width:100px; height:2px; background-color:var(--primary-color); transition:all 0.5s; }

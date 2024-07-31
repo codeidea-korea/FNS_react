@@ -3,7 +3,7 @@ import {openAppDownModal} from '../../common/AppDownModalUtil';
 import {componentMap} from '../../common/componentMap';
 import AxiosInstance from "../../common/AxiosInstance";
 import Metatag from "../../components/Metatag";
-import {useNavigate, useParams} from "react-router-dom";
+import {useLocation, useNavigate, useParams} from "react-router-dom";
 
 /* TODO : 고객사에게 전달받은 내용들
 *   1번 과 25번은 현재  사용중이지 않습니다.
@@ -12,7 +12,7 @@ import {useNavigate, useParams} from "react-router-dom";
 * */
 
 const Main = ({apiUrl}) => {
-    const {id} = useParams();
+    const url = useLocation().pathname;
     const navigate = useNavigate();
     const [frameComponents, setFrameComponents] = useState([]);
     const [metaDesc, setMetaDesc] = useState('');
@@ -20,7 +20,7 @@ const Main = ({apiUrl}) => {
     useEffect(() => {
         if (apiUrl) {
             AxiosInstance.get(apiUrl).then((res) => {
-            // AxiosInstance.get('/api/v1/ui/view/page/10000').then((res) => {
+                // AxiosInstance.get('/api/v1/ui/view/page/10000').then((res) => {
                 const contents = res.data.data;
                 const arrFrameComponents = [];
 
@@ -32,7 +32,7 @@ const Main = ({apiUrl}) => {
                             if (grpItem.itm_data.length > 0) {
                                 const DynamicFrameComponent = componentMap[`Frm${frmId}`];
 
-                                if(DynamicFrameComponent) {
+                                if (DynamicFrameComponent) {
                                     arrFrameComponents.push(
                                         <DynamicFrameComponent
                                             key={`component_${vwGroupIdx}_${grpItemIdx}`}
@@ -45,7 +45,7 @@ const Main = ({apiUrl}) => {
                         });
                     });
 
-                }else {
+                } else {
                     navigate('home/10001');
                 }
 
@@ -58,21 +58,29 @@ const Main = ({apiUrl}) => {
     }, [apiUrl]);
 
     useEffect(() => {
-        if(id) {
-            if(id === '10001') { // 메인
-                setMetaDesc('패션 & 스타일이 제공하는 최신 트렌드 패션아이템과 다양한 셀럽들의 스타일을 만나보세요.');
-
-            }else if (id === '10002') { // 일상룩
-                setMetaDesc('시즌별 유행하는 아이템, 뷰티관련 팁까지! 패션 & 스타일에서 만나보세요.');
-
-            }else if (id === '10003') { // 셀럽룩
-                setMetaDesc('연예인의 일상속 스타일링 이야기까지! 어디서도 찾기 힘든 패션스타일 코디추천, 패션 & 스타일에서 경험하세요.');
-
-            }else { // 나머지 태그 관련 메뉴들
+        if (url) {
+            if (url.includes('/tag/')) {
                 setMetaDesc('패션 & 스타일 oFashion&Style)에서 실시간으로 *데이트되는 패션, 라이프스타일 뉴스를 만나보세요.');
+
+            } else {
+                const pathSplitSlash = url.split('/');
+                const id = pathSplitSlash[pathSplitSlash.length - 1];
+
+                if (id === '10001') { // 메인
+                    setMetaDesc('패션 & 스타일이 제공하는 최신 트렌드 패션아이템과 다양한 셀럽들의 스타일을 만나보세요.');
+
+                } else if (id === '10002') { // 일상룩
+                    setMetaDesc('시즌별 유행하는 아이템, 뷰티관련 팁까지! 패션 & 스타일에서 만나보세요.');
+
+                } else if (id === '10003') { // 셀럽룩
+                    setMetaDesc('연예인의 일상속 스타일링 이야기까지! 어디서도 찾기 힘든 패션스타일 코디추천, 패션 & 스타일에서 경험하세요.');
+
+                } else { // 나머지 태그 관련 메뉴들
+                    setMetaDesc('패션 & 스타일 oFashion&Style)에서 실시간으로 *데이트되는 패션, 라이프스타일 뉴스를 만나보세요.');
+                }
             }
         }
-    }, [id]);
+    }, [url]);
 
     return (
         <>
@@ -81,7 +89,6 @@ const Main = ({apiUrl}) => {
                 <Metatag
                     title={'패션 & 스타일|Fashion&Style'}
                     desc={metaDesc}
-                    image={''}
                 />
             }
 
