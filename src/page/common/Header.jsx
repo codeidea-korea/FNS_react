@@ -189,10 +189,8 @@ const Header = ({title, gnbHide, isContainGnb}) => {
                             ? <div className="title">{title}</div>
                             : <div className='appdown_box'>
                                 <h1 className="logo">
-                                    <a href={'/home/10001'}>
-                                        <img src="/img/fns.svg" alt="패션&스타일 로고"/>
-                                    </a>
-                                    <span>새로운 패션, 트렌드, 스타일링 팁<br/>패션 & 스타일에서 만나보세요!</span>
+                                    <img src="/img/fns.svg" alt="패션&스타일 로고"/>
+                                    <span style={{textAlign:'left'}}>새로운 패션, 트렌드, 스타일링 팁<br/>패션 & 스타일에서 만나보세요!</span>
                                 </h1>
                                 <button type={'button'} onClick={clickUseApp}>앱으로 보기</button>
                             </div>

@@ -50,11 +50,18 @@ const Post = ({openAppDownModalFn, post, showComment}) => {
                 (entries) => {
                     entries.forEach((entry) => {
                         if (entry.isIntersecting) {
-                            video.play();
+                            // 비디오가 재생 중이 아닌 경우에만 play() 호출
+                            if (video.paused) {
+                                video.play().catch(error => {
+                                    console.error('Error playing video:', error);
+                                });
+                            }
                             setIsPlaying(true);
-
                         } else {
-                            video.pause();
+                            // 비디오가 재생 중인 경우에만 pause() 호출
+                            if (!video.paused) {
+                                video.pause();
+                            }
                             setIsPlaying(false);
                         }
                     });
@@ -78,26 +85,31 @@ const Post = ({openAppDownModalFn, post, showComment}) => {
 
         switch (postFrameTypeCd) {
             case 'FAR001001' : // 4:5
-                classNm = 'rate_4vs5'; break;
+                classNm = 'rate_4vs5';
+                break;
 
             case 'FAR001002' : // 9:14
-                classNm = 'rate_9vs14';  break;
+                classNm = 'rate_9vs14';
+                break;
 
             case 'FAR001003' : // 1:1
-                classNm = 'rate_1vs1';  break;
+                classNm = 'rate_1vs1';
+                break;
 
             case 'FAR001004' : // 5:4
-                classNm = 'rate_5vs4';  break;
+                classNm = 'rate_5vs4';
+                break;
 
             case 'FAR001005' : // 14:9
-                classNm = 'rate_14vs9';  break;
+                classNm = 'rate_14vs9';
+                break;
 
             default :
-                if(post?.post_images?.length === 1 && post?.post_images[0]?.post_video_yn === true) {
+                if (post?.post_images?.length === 1 && post?.post_images[0]?.post_video_yn === true) {
                     // 9:14 - 포스트가 단독 영상인 경우
                     classNm = 'rate_9vs14';
 
-                }else {
+                } else {
                     // 4:5 - 기본
                     classNm = 'rate_4vs5';
                 }
