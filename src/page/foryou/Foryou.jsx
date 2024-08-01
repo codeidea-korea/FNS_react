@@ -27,19 +27,22 @@ const Foryou = () => {
     useEffect(() => {
         const handleScroll = () => {
             const restrictedElement = document.querySelector('section.topic_list.same_type.type02');
-            const sectionBottom = restrictedElement.getBoundingClientRect().bottom + window.scrollY + 120;
-            const currentScroll = window.scrollY + window.innerHeight;
 
-            if (currentScroll > sectionBottom) {
-                window.scrollTo(0, sectionBottom - window.innerHeight);
+            if (restrictedElement) {
+                const sectionBottom = restrictedElement.getBoundingClientRect().bottom + window.scrollY + 120;
+                const currentScroll = window.scrollY + window.innerHeight;
 
-                if (!isAlertShown) {
-                    openAppDownModal();
-                    setIsAlertShown(true);
+                if (currentScroll > sectionBottom) {
+                    window.scrollTo(0, sectionBottom - window.innerHeight);
+
+                    if (!isAlertShown) {
+                        openAppDownModal();
+                        setIsAlertShown(true);
+                    }
+
+                } else {
+                    setIsAlertShown(false);
                 }
-
-            } else {
-                setIsAlertShown(false);
             }
         };
 
