@@ -54,6 +54,10 @@ header .gnb .swiper-slide.active a {color:var(--primary-color); }
 .appdown_box .logo span {font-weight:400; }
 .appdown_box button {padding:7px 15px; background-color:var(--primary-color); color:#fff; border-radius:20px; font-size:14px; font-weight:500; line-height:1; }
 
+@media all and (max-width:420px){
+    header .top_area {height:auto; min-height:44px; }
+    header .top_area .appdown_box {height:64px;}
+}
 @media all and (max-width:320px){
     .appdown_box .logo img {width:30px; }
     .appdown_box .logo span {font-size:12px; }
@@ -200,6 +204,11 @@ section {padding:16px 16px 20px;}
 .scroll_tit .follow_btn {z-index:10; position:absolute; right:15px; bottom:11px; }
 .scroll_tit .follow_btn.following {color:#000; border-color:#000; }
 .scroll_tit .follow_btn.following:before {background:url('/img/check_b.svg') no-repeat center center; }
+
+@media all and (max-width:420px){
+    .scroll_tit {height:44px; }
+    .scroll_tit.active {height:44px; }
+}
 
 /* ------------------------------------------------------------
         마이페이지
