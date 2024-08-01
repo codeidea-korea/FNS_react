@@ -1,8 +1,18 @@
 import Metatag from "@/components/Metatag";
-import {openAppDownModal} from '../../common/AppDownModalUtil';
 import React from "react";
+import {clickUseApp} from '../../common/CommonUtils.jsx';
+import {isMobileFn, openAppDownModal} from '../../common/AppDownModalUtil';
 
 const Mypage = () => {
+    /* 앱으로 보기 버튼 클릭 */
+    const clickUseAppBtn = () => {
+        if(isMobileFn()) {
+            clickUseApp();
+        }else {
+            openAppDownModal();
+        }
+    }
+
     return (
         <>
             <Metatag
@@ -22,7 +32,7 @@ const Mypage = () => {
 
                     <div className="mock_img">
                         <img src="/img/main01_img01.png" alt=""/>
-                        <a onClick={openAppDownModal} style={{cursor:'pointer'}} className="down_btn">App Download</a>
+                        <a onClick={clickUseAppBtn} style={{cursor:'pointer'}} className="down_btn">App Download</a>
                     </div>
 
                     <div className="bottom_txt">

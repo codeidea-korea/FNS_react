@@ -138,10 +138,12 @@ const CategoryDetail = () => {
         if (lastScroll < currentScrollY) {
             prevBtn.classList.remove('on')
             scrollTit.classList.remove('on')
+            scrollTit.style.display = 'none';
 
         } else {
             prevBtn.classList.add('on')
             scrollTit.classList.add('on')
+            scrollTit.style.display = 'flex';
         }
 
         setLastScroll(currentScrollY)
@@ -149,9 +151,11 @@ const CategoryDetail = () => {
         // 스크롤시 메뉴 보이기
         if (window.scrollY > (top.offsetTop + top.clientHeight)) {
             scrollTit.classList.add('active')
+            scrollTit.style.display = 'flex';
 
         } else {
             scrollTit.classList.remove('active')
+            scrollTit.style.display = 'none';
         }
     }
 
@@ -168,7 +172,7 @@ const CategoryDetail = () => {
                         />
 
                         {/* 상단 타이틀 추가 */}
-                        <div className='top_detail' style={{padding: '20px 20px 0 20px'}}>
+                        <div className='top_detail' style={{padding: '16px 20px 0 20px'}}>
                             <div className="btn_wrap">
                                 {/*<button onClick={() => navigate(-1)} className='prev_btn'>
                                     <img src="/img/prev_arrow.svg" alt="이전페이지로 이동"/>
@@ -181,7 +185,7 @@ const CategoryDetail = () => {
                         </div>
 
                         {/* 스크롤시 메뉴 */}
-                        <div className='scroll_tit'>
+                        <div className='scroll_tit' style={{display:'none'}}>
                             {/*<button onClick={() => navigate(-1)} className='prev_btn'>
                                 <img src="/img/prev_arrow.svg" alt="이전페이지로 이동"/>
                             </button>*/}

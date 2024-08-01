@@ -31,7 +31,7 @@ const GlobalAppDownModal = () => {
                     </div>
                 </div>
             </div>
-            ,document.body
+            , document.body
         );
 
     } else {
@@ -52,19 +52,14 @@ const GlobalAppDownModal = () => {
                     </div>
                 </div>
             </div>
-            ,document.body
+            , document.body
         );
     }
 };
 
 export const openAppDownModal = () => {
-    if(isMobileFn()) {
-        clickUseApp();
-
-    }else {
-        document.body.style.overflow = 'hidden';
-        setModalOpen(true);
-    }
+    document.body.style.overflow = 'hidden';
+    setModalOpen(true);
 };
 
 export const closeAppDownModal = () => {
@@ -72,7 +67,7 @@ export const closeAppDownModal = () => {
     setModalOpen(false);
 };
 
-const isMobileFn = () => {
+export const isMobileFn = () => {
     const userAgent = navigator.userAgent || navigator.vendor || window.opera;
     return /iPhone|iPad|iPod|Android/i.test(userAgent);
 }
