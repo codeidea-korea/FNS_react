@@ -323,7 +323,7 @@ const Post = ({openAppDownModalFn, post, showComment}) => {
 
                         {/* 댓글 작성 */}
                         <div className="comment_box">
-                            <i><img src="/img/profile_img.jpg" alt=""/></i>
+                            <i><img src="/img/profile_64x64.svg" alt=""/></i>
                             <div className="comment" onClick={openAppDownModalFn}>댓글 달기</div>
                             <button onClick={openAppDownModalFn}>게시</button>
                         </div>
