@@ -11,7 +11,6 @@ import { Pagination } from 'swiper/modules';
 
 // 모달 Open/Close 이벤트
 import Modal from "@/page/common/Modal";
-import DownloadModal from "@/page/common/DownloadModal.jsx";
 
 const PostFrame = ({data,descOpen})=>{
     // data : 데이터
@@ -159,8 +158,6 @@ const PostFrame = ({data,descOpen})=>{
                     </div>
                 </div>
             )}
-
-            <DownloadModal isOpen={modalId === 'appDownload'} closeModal={closeModal} />
         </section>
     )
 }

@@ -7,8 +7,6 @@ import {clickUseApp} from "../common/CommonUtils";
 let setModalOpen;
 
 const GlobalAppDownModal = () => {
-    const userAgent = navigator.userAgent || navigator.vendor || window.opera;
-    const isMobile = /iPhone|iPad|iPod|Android/i.test(userAgent);
     const [isOpen, setIsOpen] = useState(false);
 
     const clickUseAppEvent = () => {
@@ -18,7 +16,7 @@ const GlobalAppDownModal = () => {
 
     setModalOpen = setIsOpen;
 
-    if (isMobile) {
+    if (isMobileFn()) {
         // 모바일용 모달
         return ReactDOM.createPortal(
             <div className={"modal_wrap " + (isOpen ? "open" : "")}>
@@ -60,13 +58,23 @@ const GlobalAppDownModal = () => {
 };
 
 export const openAppDownModal = () => {
-    document.body.style.overflow = 'hidden';
-    setModalOpen(true);
+    if(isMobileFn()) {
+        clickUseApp();
+
+    }else {
+        document.body.style.overflow = 'hidden';
+        setModalOpen(true);
+    }
 };
 
 export const closeAppDownModal = () => {
     document.body.style.overflow = '';
     setModalOpen(false);
 };
+
+const isMobileFn = () => {
+    const userAgent = navigator.userAgent || navigator.vendor || window.opera;
+    return /iPhone|iPad|iPod|Android/i.test(userAgent);
+}
 
 export default GlobalAppDownModal;

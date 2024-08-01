@@ -3,8 +3,8 @@ import {Swiper, SwiperSlide} from 'swiper/react'; // Import Swiper React compone
 import 'swiper/css'; // Import Swiper styles
 import {useLocation, useNavigate} from 'react-router-dom';
 import {useGlobalContext} from '../../layout/GlobalContext';
-import {clickUseApp} from "../../common/CommonUtils";
 import {showLoadingAnimation} from '../../common/CommonUtils.jsx';
+import {openAppDownModal} from '../../common/AppDownModalUtil';
 
 const Header = ({title, gnbHide, isContainGnb}) => {
     const {gnb} = useGlobalContext();
@@ -192,7 +192,7 @@ const Header = ({title, gnbHide, isContainGnb}) => {
                                     <img src="/img/fns.svg" alt="패션&스타일 로고"/>
                                     <span style={{textAlign:'left'}}>새로운 패션, 트렌드, 스타일링 팁<br/>패션 & 스타일에서 만나보세요!</span>
                                 </h1>
-                                <button type={'button'} onClick={clickUseApp}>앱으로 보기</button>
+                                <button type={'button'} onClick={openAppDownModal}>앱으로 보기</button>
                             </div>
                     }
                 </div>

@@ -1,5 +1,5 @@
 import Metatag from "@/components/Metatag";
-import {clickUseApp} from "../../common/CommonUtils";
+import {openAppDownModal} from '../../common/AppDownModalUtil';
 import React from "react";
 
 const Mypage = () => {
@@ -22,7 +22,7 @@ const Mypage = () => {
 
                     <div className="mock_img">
                         <img src="/img/main01_img01.png" alt=""/>
-                        <a onClick={clickUseApp} style={{cursor:'pointer'}} className="down_btn">App Download</a>
+                        <a onClick={openAppDownModal} style={{cursor:'pointer'}} className="down_btn">App Download</a>
                     </div>
 
                     <div className="bottom_txt">

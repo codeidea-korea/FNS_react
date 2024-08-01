@@ -1,5 +1,6 @@
 import {useLocation, useNavigate} from "react-router-dom";
-import {clickUseApp, showLoadingAnimation} from '../../common/CommonUtils.jsx';
+import {showLoadingAnimation} from '../../common/CommonUtils.jsx';
+import {openAppDownModal} from '../../common/AppDownModalUtil';
 
 const Quickmenu = () => {
     const url = useLocation().pathname;
@@ -15,7 +16,7 @@ const Quickmenu = () => {
 
     return (
         <div className="quick_menu">
-            <div className='appdown_box' onClick={clickUseApp} style={{cursor:'pointer'}}>
+            <div className='appdown_box' onClick={openAppDownModal} style={{cursor:'pointer'}}>
                 <img src="/img/fns.svg" alt="패션&스타일 로고"/>
                 <span>데일리 패션과 코디, 최신 뉴스를 만나보세요!<br/>패션 & 스타일 앱으로 보기</span>
             </div>
