@@ -69,6 +69,7 @@ const Sample = ()=>{
     }
 
     const [Appdown,setAppdown] = useState(false);
+    const [Appdown2,setAppdown2] = useState(false);
     const [Loading,setLoading] = useState(false);
 
     useEffect(()=>{
@@ -274,6 +275,29 @@ const Sample = ()=>{
                 </div>
             </div>
 
+            {/* 앱다운 모달 - pc */}
+            <h2 style={{paddingTop:"10px", fontSize:"26px", fontWeight:"400", textAlign:"center", backgroundColor:"#f0f0f0"}}>어플 다운 유도 모달 - PC</h2>
+            <div style={{textAlign:"center",margin:"10px 0"}}>
+                <button onClick={()=>setAppdown2(!Appdown2)} style={{padding:"5px 10px", backgroundColor:"#000", color:"#fff", borderRadius:"20px"}}>모달 열림 버튼</button>
+            </div>
+            <div className={"modal_wrap " + (Appdown2 ? "open" : "")}>
+                <div className="modal_bg" onClick={()=>setAppdown2(false)}></div>
+                <div className="modal_box center_box">
+                    <div className="modal_content appdown_pc_cont">
+                        <div className="img_box">
+                            <img src="/img/qr.png" alt="" />
+                        </div>
+                        <div className="txt_box">
+                            <h6>패션 & 스타일 앱에서<br/>트렌디한 패션 정보를 확인해보세요.</h6>
+                            <p>QR코드 스캔으로 더 쉽고 빠르게!</p>
+                            <button className='close_btn' onClick={()=>setAppdown2(!Appdown2)}>확인</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+
             <div style={{margin:"20px 0"}}></div>
             <h2 style={{paddingTop:"10px", fontSize:"26px", fontWeight:"400", textAlign:"center", backgroundColor:"#f0f0f0"}}>로딩</h2>
             <p style={{paddingBottom:"10px",textAlign:"center", backgroundColor:"#f0f0f0", cursor:"pointer"}} onClick={PreveiwHandle} >아래 버튼을 눌러 로딩 페이지를 확인해주세요.</p>
@@ -281,6 +305,9 @@ const Sample = ()=>{
                 <button onClick={()=>setLoading(true)} style={{padding:"5px 10px", backgroundColor:"#000", color:"#fff", borderRadius:"20px"}}>로딩 확인 버튼</button>
             </div>
             {Loading && <LoadingBox />}
+
+            
+
 
 
         </div>
