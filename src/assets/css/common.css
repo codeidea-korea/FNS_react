@@ -271,8 +271,8 @@ section {padding:16px 16px 20px;}
 .post_frame .img_list:hover .pager {opacity:1; }
 
 
-.post_frame .img_list .tag_list {max-width:calc(50% - 40px); margin:10px 0 4px auto; padding:0 18px; text-align:right; } 
-.post_frame .img_list .tag_list span {overflow:hidden; display:none; height:16px; font-size:12px; font-weight:400; color:#aaa; white-space:nowrap; text-overflow:ellipsis; cursor:pointer; }
+.post_frame .img_list .tag_list {max-width:calc(50% - 50px); margin:7px 0 4px auto; padding:0 13px; text-align:right; } 
+.post_frame .img_list .tag_list span {overflow:hidden; display:none; height:16px; font-size:10px; font-weight:400; color:#aaa; white-space:nowrap; text-overflow:ellipsis; cursor:pointer; }
 .post_frame .img_list .tag_list span.active {display:block; }
 
 .post_frame .txt_box {padding:5px 16px 12px; line-height:1.5; }
