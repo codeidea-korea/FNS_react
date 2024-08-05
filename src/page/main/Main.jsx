@@ -60,7 +60,7 @@ const Main = ({apiUrl}) => {
     useEffect(() => {
         if (url) {
             if (url.includes('/tag/')) {
-                setMetaDesc('패션 & 스타일 oFashion&Style)에서 실시간으로 *데이트되는 패션, 라이프스타일 뉴스를 만나보세요.');
+                setMetaDesc('패션 & 스타일(Fashion & Style) 에서 실시간으로 업데이트 되는 패션, 라이프스타일 뉴스를 만나보세요');
 
             } else {
                 const pathSplitSlash = url.split('/');
@@ -70,13 +70,13 @@ const Main = ({apiUrl}) => {
                     setMetaDesc('패션 & 스타일이 제공하는 최신 트렌드 패션아이템과 다양한 셀럽들의 스타일을 만나보세요.');
 
                 } else if (id === '10002') { // 일상룩
-                    setMetaDesc('시즌별 유행하는 아이템, 뷰티관련 팁까지! 패션 & 스타일에서 만나보세요.');
+                    setMetaDesc('시즌별 유행하는 아이템, 뷰티 관련 팁까지! 패션 & 스타일에서 만나보세요.');
 
                 } else if (id === '10003') { // 셀럽룩
-                    setMetaDesc('연예인의 일상속 스타일링 이야기까지! 어디서도 찾기 힘든 패션스타일 코디추천, 패션 & 스타일에서 경험하세요.');
+                    setMetaDesc('연예인의 일상 속 스타일링 이야기까지! 어디서도 찾기 힘든 패션 스타일 코디 추천, 패션 & 스타일에서 경험하세요.');
 
                 } else { // 나머지 태그 관련 메뉴들
-                    setMetaDesc('패션 & 스타일 oFashion&Style)에서 실시간으로 *데이트되는 패션, 라이프스타일 뉴스를 만나보세요.');
+                    setMetaDesc('패션 & 스타일(Fashion & Style) 에서 실시간으로 업데이트 되는 패션, 라이프스타일 뉴스를 만나보세요');
                 }
             }
         }

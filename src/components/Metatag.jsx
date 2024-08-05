@@ -13,7 +13,7 @@ const Metatag = ({title = '', desc = '', image = '', date = ''}) => {
             <meta property="og:image"       content={image}/>
 
             <meta name="viewport"           content="width=device-width, initial-scale=1.0"/>
-            <meta name="copyright"          content="Copyrights © 2022 패션앤스타일컴퍼니 주식회사 All Rights Reserved"/>
+            <meta name="copyright"          content="Copyrights © 2024 패션앤스타일컴퍼니 주식회사 All Rights Reserved"/>
             <meta name="robots"             content="index, follow"/>
             <meta name="author"             content="패션앤스타일컴퍼니 주식회사"/>
             <meta name="title"              content={title}/>
