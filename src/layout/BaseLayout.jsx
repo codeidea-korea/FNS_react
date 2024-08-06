@@ -57,6 +57,21 @@ const BaseLayout = ({title, gnbHide}) => {
         }
     }, [gnb, url]);
 
+    /*useEffect(() => {
+        /!* URL에서 %20을 -로 대체 *!/
+        const url = new URL(decodeURIComponent(window.location.href));
+
+        // URL의 pathname과 search 부분에서 %20을 -로 대체
+        const updatedPathname = url.pathname.replace(/%20/g, '-');
+        const updatedSearch = url.search.replace(/%20/g, '-');
+
+        // 업데이트된 URL 생성
+        const newUrl = `${url.origin}${updatedPathname}${updatedSearch}${url.hash}`;
+
+        // 브라우저의 URL을 변경 (페이지를 다시 로드하지 않음)
+        window.history.replaceState(null, '', newUrl);
+    }, [url]);*/
+
     return (
         <>
             <GlobalAppDownModal/>

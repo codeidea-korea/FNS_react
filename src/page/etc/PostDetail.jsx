@@ -5,7 +5,7 @@ import AxiosInstance from "../../common/AxiosInstance";
 import {useNavigate, useParams} from "react-router-dom";
 import Post from "../../components/common/Post";
 import Metatag from "../../components/Metatag";
-import {clearMetaText} from '../../common/CommonUtils';
+import {getMetaUrl, getOriginKey, clearMetaText} from "../../common/CommonUtils";
 
 const PostDetail = () => {
     const navigate = useNavigate();
@@ -15,11 +15,13 @@ const PostDetail = () => {
     const [frameComponents, setFrameComponents] = useState([]);
     const [post, setPost] = useState({});
     const [suggest, setSuggest] = useState({});
+    const [metaUrl, setMetaUrl] = useState('');
     const [metaTitle, setMetaTitle] = useState('');
     const [metaDesc, setMetaDesc] = useState('');
 
     useEffect(() => {
         if (yy && mm && dd && key) {
+            /* 포스트 API 호출 */
             AxiosInstance.get(`/api/v1/post/preview_name/${yy}${mm}${dd}/${key}`).then((res) => {
                 const contents = res.data.data;
                 setPost(contents.post);
@@ -84,7 +86,7 @@ const PostDetail = () => {
         if (post.post_images?.length > 0 && suggest?.vw_groups?.length > 0 && frameComponents.length > 0) {
             /* meta title */
             let tempMetaTitle = post.post_desc?.split('\n')[0];
-            setMetaTitle(clearMetaText(tempMetaTitle));
+            setMetaTitle(clearMetaText(tempMetaTitle) + ' | 패션앤스타일 (Fashion & Style)');
 
             /* meta desc */
             /* desc = post_desc 텍스트 전부 + 첫번째 태그 1번 포스트캡션 + 두번째 태그 1번 포스트캡션 */
@@ -137,6 +139,7 @@ const PostDetail = () => {
                 (post && post.post_images?.length > 0) && (
                     <>
                         <Metatag
+                            // url={metaUrl}
                             title={metaTitle}
                             desc={metaDesc ?? ''}
                             image={post?.post_images[0]?.post_image_url}

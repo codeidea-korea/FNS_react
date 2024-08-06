@@ -24,13 +24,13 @@ const TagDetail = () => {
 
         } else {
             AxiosInstance.get(`/api/v1/ui/view/tag_preview_name/${key}`).then((res) => {
+                const arrFrameComponents = [];
                 const contents = res.data.data;
-                const userAccount = (contents.vw_desc === '태그상세-셀럽' && contents.vw_user_account?.length > 0) ? contents.vw_user_account[0] : '';
                 setData(contents);
 
-                const arrFrameComponents = [];
-
                 if (contents && contents.vw_groups?.length > 0) {
+                    const userAccount = (contents.vw_desc === '태그상세-셀럽' && contents.vw_user_account?.length > 0) ? contents.vw_user_account[0] : '';
+
                     // 태그 고유의 key값 추출
                     setTagId(contents.vw_groups[0]?.grp_items[0]?.itm_data[0]?.tag_id ?? '');
 
@@ -185,7 +185,7 @@ const TagDetail = () => {
                 (data && frameComponents && frameComponents.length > 0) && (
                     <>
                         <Metatag
-                            title={key ?? ''}
+                            title={key + ' | 패션앤스타일 (Fashion & Style)' ?? ''}
                             desc={metaDesc ?? ''}
                             image={data?.vw_groups[0]?.grp_items[0]?.itm_data[0]?.image_url_def ?? data?.vw_groups[0]?.grp_items[0]?.itm_data[0]?.image_url1}
                             date={data?.created_at ?? ''}

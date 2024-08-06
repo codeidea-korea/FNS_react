@@ -1,13 +1,13 @@
 import {Helmet} from "react-helmet-async";
 
-const Metatag = ({title = '', desc = '', image = '', date = ''}) => {
+const Metatag = ({url = decodeURIComponent(window.location.href), title = '', desc = '', image = '', date = ''}) => {
     return (
         <Helmet>
             <title>{title}</title>
             <meta charSet={'utf-8'}/>
 
             <meta property="og:type"        content="website"/>
-            <meta property="og:url"         content={decodeURIComponent(window.location.href)}/>
+            <meta property="og:url"         content={url}/>
             <meta property="og:title"       content={title}/>
             <meta property="og:description" content={desc}/>
             <meta property="og:image"       content={image}/>

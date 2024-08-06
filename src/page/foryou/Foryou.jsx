@@ -27,37 +27,51 @@ const Foryou = () => {
     useEffect(() => {
         const handleScroll = () => {
             const restrictedElement = document.querySelector('section.topic_list.same_type.type02');
+            /*const sectionBottom = restrictedElement.getBoundingClientRect().bottom + window.scrollY + 200;
+            const currentScroll = window.scrollY + window.innerHeight;
 
-            if (restrictedElement) {
-                const sectionBottom = restrictedElement.getBoundingClientRect().bottom + window.scrollY + 120;
-                const currentScroll = window.scrollY + window.innerHeight;
-
-                if (currentScroll > sectionBottom) {
-                    window.scrollTo(0, sectionBottom - window.innerHeight);
-
-                    if (!isAlertShown) {
-                        openAppDownModal();
-                        setIsAlertShown(true);
-                    }
-
-                } else {
-                    setIsAlertShown(false);
+            if (currentScroll > sectionBottom) {
+                if (!isAlertShown) {
+                    restrictedElement.classList.add('asdf');
+                    openAppDownModal(restrictedElement);
+                    setIsAlertShown(true);
                 }
+
+            }else {
+                restrictedElement.classList.remove('asdf');
+                setIsAlertShown(false);
+            }*/
+
+            const sectionBottom = restrictedElement.getBoundingClientRect().bottom + window.scrollY + 120;
+            const currentScroll = window.scrollY + window.innerHeight;
+
+            if (currentScroll > sectionBottom) {
+                window.scrollTo(0, sectionBottom - window.innerHeight);
+
+                if (!isAlertShown) {
+                    openAppDownModal(restrictedElement);
+                    setIsAlertShown(true);
+                }
+
+            } else {
+                setIsAlertShown(false);
             }
         };
 
         window.addEventListener('scroll', handleScroll);
+        window.addEventListener('touchmove', handleScroll);
 
         return () => {
             window.removeEventListener('scroll', handleScroll);
+            window.removeEventListener('touchmove', handleScroll);
         };
     }, [isAlertShown]);
 
     return (
         <>
             <Metatag
-                title={'패션 & 스타일|Fashion&Style'}
-                desc={'감각적인 에디터와 개발자들이 트렌디한 패션 뉴스와 빅데이터, AI기술을 활용해 유익한 패션정보를 제공합니다.'}
+                title={'추천 | 패션앤스타일 (Fashion & Style)'}
+                desc={'추천 | 감각적인 에디터와 개발자들이 트렌디한 패션 뉴스와 빅데이터, AI 기술을 활용해 유익한 패션 정보를 제공합니다.'}
                 image={''}
             />
 

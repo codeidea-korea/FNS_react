@@ -38,7 +38,8 @@ const Header = ({title, gnbHide, isContainGnb}) => {
                 const pathname = window.location.pathname;
                 const pathSplitSlash = pathname.split('/');
                 const key1 = pathSplitSlash[pathSplitSlash.length - 2];
-                const key2 = decodeURIComponent(pathSplitSlash[pathSplitSlash.length - 1]);
+                let key2 = decodeURIComponent(pathSplitSlash[pathSplitSlash.length - 1]);
+                key2 = key2.replaceAll('-',' ');
 
                 if (pathSplitSlash.length === 5 && key1?.length > 1 && key2?.length > 1) {
                     const newSlide = {
@@ -82,8 +83,9 @@ const Header = ({title, gnbHide, isContainGnb}) => {
     // 메뉴에 적용시킬 active class
     const getMenuClassName = (gnbVwId, gnbParamValue, gnbName) => {
         const linkUrl = getMenuLink(gnbVwId, gnbParamValue, gnbName);
+        const replaceUrl = url.replaceAll('-',' ');
 
-        if (linkUrl === url) {
+        if (linkUrl === replaceUrl) {
             return 'active';
 
         } else {
@@ -94,8 +96,9 @@ const Header = ({title, gnbHide, isContainGnb}) => {
     // 메뉴에 적용시킬 underline i tag
     const getUnderLine = (gnbVwId, gnbParamValue, gnbName) => {
         const linkUrl = getMenuLink(gnbVwId, gnbParamValue, gnbName);
+        const replaceUrl = url.replaceAll('-',' ');
 
-        if (linkUrl === url) {
+        if (linkUrl === replaceUrl) {
             return <i className="underline" style={{width: `${lineWidth}px`, left: `${lineLeft}px`}}></i>;
 
         } else {
@@ -125,7 +128,7 @@ const Header = ({title, gnbHide, isContainGnb}) => {
         setLineWidth(e.currentTarget.clientWidth - 32);
     }
 
-    // gnb 클릭시 위치 이동 
+    // gnb 클릭시 위치 이동
     const categoryPosition = (target) => {
         const swiper = document.querySelector('.gnb_swiper')
         const swiperWrap = document.querySelector(".gnb_swiper .swiper-wrapper");

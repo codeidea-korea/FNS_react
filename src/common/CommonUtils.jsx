@@ -163,3 +163,18 @@ export const clearMetaText = (text) => {
 
     return text;
 }
+
+/* meta url 정보를 구함 */
+export const getMetaUrl = () => {
+    let metaUrl = decodeURIComponent(window.location.href);
+    // metaUrl = metaUrl.replaceAll('-', ' ');
+    return metaUrl
+}
+
+/* meta url 정보를 구함 */
+export const getOriginKey = () => {
+    const pathSplitSlash = window.location.pathname.split('/');
+    let originKey = decodeURIComponent(pathSplitSlash[pathSplitSlash.length - 1]);
+    // originKey = originKey.replaceAll('-', ' ');
+    return originKey;
+}

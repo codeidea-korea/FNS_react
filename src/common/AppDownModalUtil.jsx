@@ -57,13 +57,107 @@ const GlobalAppDownModal = () => {
     }
 };
 
-export const openAppDownModal = () => {
+/*function preventDefault(e) {
+    e.preventDefault();
+}
+
+let globalTarget = '';
+let pageY = 0;
+
+export const openAppDownModal = (target) => {
+    pageY = window.scrollY;
+    window.scrollTo(0, pageY);
+    globalTarget = target;
+    globalTarget.classList.add('asdf');
     document.body.style.overflow = 'hidden';
+    document.addEventListener('touchmove', preventDefault, { passive: false });
+    setModalOpen(true);
+
+    const {body} = document;
+
+    if (!globalTarget) {
+        // pageY = window.scrollY;
+        // body.setAttribute('scrollY', pageY.toString());
+
+        // body.style.overflow = 'hidden';
+        // body.style.position = 'fixed';
+        // document.body.style.touchAction = 'none';
+        // body.style.top = `-${pageY}px`;
+        // body.style.left = '0px';
+        // body.style.right = '0px';
+        // body.style.bottom = '0px';
+
+        // document.body.classList.add('no-scroll');
+        // window.addEventListener('touchmove', asdfasdf, { passive: false });
+        // window.addEventListener('wheel', disableScroll, { passive: false });
+
+        // globalTarget = target;
+        // globalTarget.classList.add('asdf');
+
+        // document.body.style.removeProperty('touchAction');
+    }
+};
+
+export const closeAppDownModal = () => {
+    window.scrollTo(0, pageY);
+    document.body.style.removeProperty('overflow');
+    globalTarget.classList.remove('asdf');
+    globalTarget = '';
+    document.removeEventListener('touchmove', preventDefault);
+    setModalOpen(false);
+
+    // const {body} = document;
+
+    if (globalTarget) {
+        // body.style.removeProperty('overflow');
+        // body.style.removeProperty('position');
+        // body.style.removeProperty('top');
+        // body.style.removeProperty('left');
+        // body.style.removeProperty('right');
+        // body.style.removeProperty('bottom');
+
+        // window.scrollTo(0, Number(body.getAttribute('scrollY')));
+        // body.removeAttribute('scrollY');
+
+        // document.body.classList.remove('no-scroll');
+        // window.removeEventListener('touchmove', disableScroll, { passive: false });
+        // window.removeEventListener('wheel', disableScroll, { passive: false });
+
+        // globalTarget.classList.remove('asdf');
+        // globalTarget = '';
+    }
+};*/
+
+const preventScroll = (e) => {
+    if (e.type === 'touchmove' || e.type === 'scroll') {
+        e.preventDefault();
+    }
+};
+
+export const openAppDownModal = () => {
+    window.scrollTo(0, window.scrollY);
+    window.document.body.style.overflow = 'hidden';
+    window.document.documentElement.style.overflow = 'hidden';
+
+    // 스크롤 막기
+    window.addEventListener('touchmove', preventScroll, { passive: false });
+    window.addEventListener('touchstart', preventScroll, { passive: false });
+    window.addEventListener('touchend', preventScroll, { passive: false });
+    window.addEventListener('scroll', preventScroll);
+
     setModalOpen(true);
 };
 
 export const closeAppDownModal = () => {
-    document.body.style.overflow = '';
+    window.document.body.style.overflow = '';
+    window.document.documentElement.style.overflow = '';
+
+    // 스크롤 허용
+    window.removeEventListener('touchmove', preventScroll);
+    window.removeEventListener('touchstart', preventScroll);
+    window.removeEventListener('touchend', preventScroll);
+    window.removeEventListener('scroll', preventScroll);
+
     setModalOpen(false);
 };
 
