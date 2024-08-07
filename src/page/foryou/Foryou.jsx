@@ -1,5 +1,5 @@
-import React, {useEffect, useState} from "react";
-import {openAppDownModal} from '../../common/AppDownModalUtil';
+import React, {useEffect, useRef, useState} from "react";
+import {closeAppDownModal, openAppDownModal} from '../../common/AppDownModalUtil';
 import AxiosInstance from "../../common/AxiosInstance";
 import Metatag from "../../components/Metatag";
 import Post from "../../components/common/Post";
@@ -25,45 +25,27 @@ const Foryou = () => {
     const [isAlertShown, setIsAlertShown] = useState(false);
 
     useEffect(() => {
-        const handleScroll = () => {
+        const handleScroll = (event) => {
             const restrictedElement = document.querySelector('section.topic_list.same_type.type02');
-            /*const sectionBottom = restrictedElement.getBoundingClientRect().bottom + window.scrollY + 200;
-            const currentScroll = window.scrollY + window.innerHeight;
 
-            if (currentScroll > sectionBottom) {
-                if (!isAlertShown) {
-                    restrictedElement.classList.add('asdf');
-                    openAppDownModal(restrictedElement);
+            if (restrictedElement) {
+                const sectionBottom = restrictedElement.getBoundingClientRect().bottom + window.scrollY + 110;
+                const currentScroll = window.scrollY + window.innerHeight - (window.visualViewport ? window.visualViewport.height - window.innerHeight : 0);
+
+                if (currentScroll > sectionBottom + 50) {
+                    event.preventDefault();
+                    window.scrollTo(0, sectionBottom - window.innerHeight);
+
+                    openAppDownModal();
                     setIsAlertShown(true);
                 }
-
-            }else {
-                restrictedElement.classList.remove('asdf');
-                setIsAlertShown(false);
-            }*/
-
-            const sectionBottom = restrictedElement.getBoundingClientRect().bottom + window.scrollY + 120;
-            const currentScroll = window.scrollY + window.innerHeight;
-
-            if (currentScroll > sectionBottom) {
-                window.scrollTo(0, sectionBottom - window.innerHeight);
-
-                if (!isAlertShown) {
-                    openAppDownModal(restrictedElement);
-                    setIsAlertShown(true);
-                }
-
-            } else {
-                setIsAlertShown(false);
             }
         };
 
-        window.addEventListener('scroll', handleScroll);
-        window.addEventListener('touchmove', handleScroll);
+        window.addEventListener('scroll', handleScroll, { passive: false });
 
         return () => {
             window.removeEventListener('scroll', handleScroll);
-            window.removeEventListener('touchmove', handleScroll);
         };
     }, [isAlertShown]);
 

@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useCallback, useState} from 'react';
 import ReactDOM from 'react-dom';
 import {clickUseApp} from "../common/CommonUtils";
 
@@ -57,78 +57,53 @@ const GlobalAppDownModal = () => {
     }
 };
 
-/*function preventDefault(e) {
-    e.preventDefault();
-}
+const preventScroll = (e) => {
+    if (e.type === 'touchmove' || e.type === 'scroll') {
+        e.preventDefault();
+    }
+};
 
-let globalTarget = '';
-let pageY = 0;
 
-export const openAppDownModal = (target) => {
-    pageY = window.scrollY;
-    window.scrollTo(0, pageY);
-    globalTarget = target;
-    globalTarget.classList.add('asdf');
-    document.body.style.overflow = 'hidden';
-    document.addEventListener('touchmove', preventDefault, { passive: false });
-    setModalOpen(true);
-
+export const openAppDownModal = () => {
     const {body} = document;
 
-    if (!globalTarget) {
-        // pageY = window.scrollY;
-        // body.setAttribute('scrollY', pageY.toString());
+    if (!body.getAttribute('scrollY')) {
+        const pageY = window.scrollY;
+        window.scrollTo(0, pageY + 1);
 
-        // body.style.overflow = 'hidden';
-        // body.style.position = 'fixed';
-        // document.body.style.touchAction = 'none';
-        // body.style.top = `-${pageY}px`;
-        // body.style.left = '0px';
-        // body.style.right = '0px';
-        // body.style.bottom = '0px';
+        setTimeout(() => {
+            body.setAttribute('scrollY', pageY.toString());
+            body.style.overflow = 'hidden';
+            body.style.position = 'fixed';
+            body.style.top = `-${pageY}px`;
+            body.style.left = '0px';
+            body.style.right = '0px';
+            body.style.bottom = '0px';
 
-        // document.body.classList.add('no-scroll');
-        // window.addEventListener('touchmove', asdfasdf, { passive: false });
-        // window.addEventListener('wheel', disableScroll, { passive: false });
-
-        // globalTarget = target;
-        // globalTarget.classList.add('asdf');
-
-        // document.body.style.removeProperty('touchAction');
+            setModalOpen(true);
+        }, 10);
     }
 };
 
 export const closeAppDownModal = () => {
-    window.scrollTo(0, pageY);
-    document.body.style.removeProperty('overflow');
-    globalTarget.classList.remove('asdf');
-    globalTarget = '';
-    document.removeEventListener('touchmove', preventDefault);
-    setModalOpen(false);
+    const {body} = document;
+    if (body.getAttribute('scrollY')) {
+        body.style.removeProperty('overflow');
+        body.style.removeProperty('position');
+        body.style.removeProperty('top');
+        body.style.removeProperty('left');
+        body.style.removeProperty('right');
+        body.style.removeProperty('bottom');
 
-    // const {body} = document;
+        window.scrollTo(0, Number(body.getAttribute('scrollY')) + 2);
 
-    if (globalTarget) {
-        // body.style.removeProperty('overflow');
-        // body.style.removeProperty('position');
-        // body.style.removeProperty('top');
-        // body.style.removeProperty('left');
-        // body.style.removeProperty('right');
-        // body.style.removeProperty('bottom');
+        body.removeAttribute('scrollY');
 
-        // window.scrollTo(0, Number(body.getAttribute('scrollY')));
-        // body.removeAttribute('scrollY');
-
-        // document.body.classList.remove('no-scroll');
-        // window.removeEventListener('touchmove', disableScroll, { passive: false });
-        // window.removeEventListener('wheel', disableScroll, { passive: false });
-
-        // globalTarget.classList.remove('asdf');
-        // globalTarget = '';
+        setModalOpen(false);
     }
-};*/
+};
 
-const preventScroll = (e) => {
+/*const preventScroll = (e) => {
     if (e.type === 'touchmove' || e.type === 'scroll') {
         e.preventDefault();
     }
@@ -159,7 +134,7 @@ export const closeAppDownModal = () => {
     window.removeEventListener('scroll', preventScroll);
 
     setModalOpen(false);
-};
+};*/
 
 export const isMobileFn = () => {
     const userAgent = navigator.userAgent || navigator.vendor || window.opera;

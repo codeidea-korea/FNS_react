@@ -106,23 +106,22 @@ const PostDetail = () => {
     useEffect(() => {
         const handleScroll = () => {
             const restrictedElement = document.querySelector('.main.section_box .post_frame');
-            const sectionBottom = restrictedElement.getBoundingClientRect().bottom + window.scrollY + 120;
-            const currentScroll = window.scrollY + window.innerHeight;
 
-            if (currentScroll > sectionBottom) {
-                window.scrollTo(0, sectionBottom - window.innerHeight);
+            if (restrictedElement) {
+                const sectionBottom = restrictedElement.getBoundingClientRect().bottom + window.scrollY + 110;
+                const currentScroll = window.scrollY + window.innerHeight - (window.visualViewport ? window.visualViewport.height - window.innerHeight : 0);
 
-                if (!isAlertShown) {
+                if (currentScroll > sectionBottom + 50) {
+                    event.preventDefault();
+                    window.scrollTo(0, sectionBottom - window.innerHeight);
+
                     openAppDownModal();
                     setIsAlertShown(true);
                 }
-
-            } else {
-                setIsAlertShown(false);
             }
         };
 
-        window.addEventListener('scroll', handleScroll);
+        window.addEventListener('scroll', handleScroll, { passive: false });
 
         return () => {
             window.removeEventListener('scroll', handleScroll);
