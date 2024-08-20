@@ -10,6 +10,11 @@ import TagDetail from "../page/etc/TagDetail"
 import PostDetail from "../page/etc/PostDetail"
 import CategoryDetail from "../page/etc/CategoryDetail"
 import Test from "../page/etc/Test"
+import LandingLayout from "../layout/LandingLayout"
+import Landing from "../page/landing/Landing"
+import Service from "../page/landing/service"
+import Privacy from "../page/landing/privacy"
+import Protection from "../page/landing/Protection"
 
 function Router() {
     return useRoutes(
@@ -111,13 +116,29 @@ function Router() {
                     }
                 ]
             },
-            { // 페이지 임의로 추가
+            { // 기존 F&S 페이지 추가
                 path: "/",
-                element: <BaseLayout gnbHide={false}/>,
+                element: <LandingLayout/>,
                 children: [
+                    // 랜딩 미완료
+                    // {
+                    //     path: "/landing",
+                    //     element: <Landing/>
+                    // },
                     {
-                        path: "/detail",
-                        element: <Detail/>
+                        // 이용약관
+                        path: "/service",
+                        element: <Service/>
+                    },
+                    {
+                        // 개인정보처리방침
+                        path: "/privacy",
+                        element: <Privacy/>
+                    },
+                    {
+                        // 청소년 보호정책
+                        path: "/protection",
+                        element: <Protection/>
                     }
                 ]
             },
