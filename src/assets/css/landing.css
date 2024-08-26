@@ -76,6 +76,7 @@ body.noscroll {
 
 @media all and (max-width:991px){
     #landing header {
+        display:none;
         padding:10px 0 6px;
     }
     #landing header .right_box {
@@ -290,6 +291,9 @@ body.noscroll {
 }
 
 @media all and (max-width:991px){
+    #landing footer {
+        display:none;
+    }
     #landing footer .fnb {
         display:block;
     }
@@ -1564,7 +1568,7 @@ body.noscroll {
 
 @media all and (max-width:991px){
     #landing .policy_box {
-        padding:100px 0;
+        padding:50px 0;
     }
     #landing .policy_box h4 {
         font-size:40px;
