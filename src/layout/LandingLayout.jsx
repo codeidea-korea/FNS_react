@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import {Link, Outlet} from 'react-router-dom';
+import {Link, Outlet, useLocation} from 'react-router-dom';
 
 import GlobalAppDownModal from "../common/AppDownModalUtil";
 import {openAppDownModal,isMobileFn} from '../common/AppDownModalUtil';
@@ -8,6 +8,7 @@ import {clickUseApp} from "../common/CommonUtils";
 import "../assets/css/landing.css"
 
 const LandingLayout = ()=>{
+    const url = useLocation().pathname;
     const [scT,setScT] = useState(window.scrollY);
 
     useEffect(() => {
@@ -115,7 +116,7 @@ const LandingLayout = ()=>{
     return (
         <>
             <div id="wrap">
-                <div id="landing">
+                <div id="landing" className={url=="/aboutus" ? "about":""}>
                     <header>
                         <div className="inner">
                             <h1><a href="/"><img src="./img/landing/logo.svg" alt="logo" /></a></h1>

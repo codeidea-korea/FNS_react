@@ -15,6 +15,7 @@ import Landing from "../page/landing/Landing"
 import Service from "../page/landing/service"
 import Privacy from "../page/landing/privacy"
 import Protection from "../page/landing/Protection"
+import About from "../page/landing/About"
 
 function Router() {
     return useRoutes(
@@ -125,6 +126,11 @@ function Router() {
                     //     path: "/landing",
                     //     element: <Landing/>
                     // },
+                    {
+                        // 회사소개
+                        path: "/aboutus",
+                        element: <About />
+                    },
                     {
                         // 이용약관
                         path: "/service",
