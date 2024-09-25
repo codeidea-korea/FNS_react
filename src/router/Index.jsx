@@ -122,10 +122,10 @@ function Router() {
                 element: <LandingLayout/>,
                 children: [
                     // 랜딩 미완료
-                    // {
-                    //     path: "/landing",
-                    //     element: <Landing/>
-                    // },
+                    {
+                        path: "/landing",
+                        element: <Landing/>
+                    },
                     {
                         // 회사소개
                         path: "/aboutus",

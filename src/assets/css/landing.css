@@ -593,7 +593,7 @@ body.noscroll {
     width:30%; height:100%;
     background-image: linear-gradient(90deg, transparent 20% 0, #FFF 80% 100%);
 }
-#landing .main_con03 .back_slide li {
+#landing .main_con03 .back_slide .swiper-slide {
     overflow:hidden;
     height:347px;
     border:1px solid #E7E7E7;
@@ -977,7 +977,7 @@ body.noscroll {
     width:30%; height:100%;
     background-image: linear-gradient(90deg, transparent 20% 0, #FFF 80% 100%);
 }
-#landing .main_con06 .back_slide li {
+#landing .main_con06 .back_slide .swiper-slide {
     overflow:hidden;
     height:347px;
     border:1px solid #E7E7E7;
@@ -1609,7 +1609,7 @@ body.noscroll {
 											황팀 추가
 ─────────────────────────────────────────────────*/
 #landing .video_box{font-size:0;overflow:hidden;}
-#landing .video_box video{position:relative;top:3px;}
+#landing .video_box video{position:relative;top:3px; max-width:100%; }
 
 #landing .main_con03 .pagerContainer{overflow:hidden;}
 #landing .main_con03 .pager{transition:all 0.3s cubic-bezier(0.5,0,0,1);}

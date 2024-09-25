@@ -189,7 +189,7 @@ const About = ()=> {
                     <div className="channel_box">
                         <div className="tit_area">
                             <h4>페이스북</h4>
-                            <a href="https://www.facebook.com/fashionstylepage" target="_blank">fashionstylepage</a>
+                            <a href="https://www.facebook.com/fashionstylepage" target="_blank">fashionandstyle.official</a>
                         </div>
                         <div className="img_box" data-aos="fade-up" data-aos-anchor-placement="center-bottom">
                             <img className="pc_ver" src="./img/landing/about_channel02.png" alt="" />
@@ -200,8 +200,8 @@ const About = ()=> {
                     <div className="channel_box">
                         <div className="tit_area">
                             <h4>카카오</h4>
-                            <a href="http://pf.kakao.com/_vfdPl" target="_blank">카카오채널 (패션앤스타일)</a>
-                            <a href="https://story.kakao.com/ch/fashionstyle" target="_blank">카카오스토리 (fashionnstyle)</a>
+                            <a href="http://pf.kakao.com/_vfdPl" target="_blank">카카오채널</a>
+                            <a href="https://story.kakao.com/ch/fashionstyle" target="_blank">카카오스토리</a>
                         </div>
                         <div className="img_box" data-aos="fade-up" data-aos-anchor-placement="center-bottom">
                             <img className="pc_ver" src="./img/landing/about_channel03.png" alt="" />

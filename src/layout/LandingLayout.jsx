@@ -116,7 +116,7 @@ const LandingLayout = ()=>{
     return (
         <>
             <div id="wrap">
-                <div id="landing" className={url=="/aboutus" ? "about":""}>
+                <div id="landing" className={url=="/aboutus" || url=="/landing" ? "about":""}>
                     <header>
                         <div className="inner">
                             <h1><a href="/"><img src="./img/landing/logo.svg" alt="logo" /></a></h1>
