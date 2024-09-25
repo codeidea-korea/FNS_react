@@ -191,6 +191,8 @@ const LandingLayout = ()=>{
                                     </div>
                                 </div>
                                 <div className="right_link">
+                                    <Link to="/aboutus">회사소개</Link>
+                                    <Link to="/landing">서비스및채널소개</Link>
                                     <Link to="/service">이용약관</Link>
                                     <Link to="/privacy">개인정보처리방침</Link>
                                     <Link to="/protection">청소년 보호정책(책임자: 윤정원)</Link>
