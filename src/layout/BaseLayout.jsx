@@ -6,6 +6,7 @@ import Quickmenu from '../page/common/Quickmenu';
 import {useLocation} from 'react-router-dom';
 import {useGlobalContext} from './GlobalContext';
 import GlobalAppDownModal from "../common/AppDownModalUtil";
+import Footer from '../page/common/Footer';
 
 const BaseLayout = ({title, gnbHide}) => {
     const {gnb} = useGlobalContext();
@@ -78,6 +79,7 @@ const BaseLayout = ({title, gnbHide}) => {
             <Header title={title} gnbHide={usGnbHide} isContainGnb={usIsContainGnb} /> {/* 헤더 */}
             <Outlet/>
             <Quickmenu/> {/* 퀵메뉴 */}
+            <Footer />
         </>
     )
 }
